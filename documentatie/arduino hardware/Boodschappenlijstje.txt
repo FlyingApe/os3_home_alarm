@@ -1,0 +1,16 @@
+PIR bewegingssensor
+https://www.kiwi-electronics.nl/pir-bewegingssensor?search=pir&description=true
+of
+https://www.conrad.nl/p/iduino-pir-bewegingssensormodule-1-stuks-se062-5-vdc-1485335
+
+Microfoon:
+https://www.conrad.nl/p/iduino-st1146-microfoon-sensormodule-1-stuks-5-vdc-l-x-b-x-h-44-x-15-x-10-mm-1485297
+
+
+IR afstandssensor:
+https://www.conrad.nl/p/sharp-gp2y0a02yk-afstandssensor-1-stuks-5-vdc-bereik-max-in-het-vrije-veld-150-cm-185364
+of
+https://www.kiwi-electronics.nl/ir-afstandssensor-20cm-150cm-GP2Y0A02YK
+
+Zoemer
+https://www.conrad.nl/p/ems-06l-miniatuurzoemer-geluidsontwikkeling-80-db-spanning-12-v-continu-1-stuks-751898

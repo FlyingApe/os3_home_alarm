@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlarmService } from '../alarm.service';
-import { Alarm } from '../../models/alarm';
+import { Alarm, AlarmStatus } from '../../models/alarm';
 import { Location } from '@angular/common';
 
 @Component({
@@ -10,13 +10,16 @@ import { Location } from '@angular/common';
 })
 export class AlarmAddComponent implements OnInit {
   alarm: Alarm = new Alarm();
+  alarmStatus = AlarmStatus;
 
   constructor(
       private alarmService: AlarmService,
       private location: Location
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
+    this.alarm.status = this.alarmStatus.Disconnected;
   }
 
   add(): void {
@@ -25,6 +28,7 @@ export class AlarmAddComponent implements OnInit {
 
   clear(): void {
     this.alarm = new Alarm();
+    this.alarm.status = this.alarmStatus.Disconnected;
   }
 
   goBack(): void {

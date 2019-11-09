@@ -2,7 +2,8 @@ import DateTimeFormat = Intl.DateTimeFormat;
 
 export class Alarm {
   public id: number;
-  public alarmStatus: AlarmStatus;
+  public name: string;
+  public status: AlarmStatus;
   public events: Event[];
   public sensors: Sensor[];
   public socket: WebSocket;

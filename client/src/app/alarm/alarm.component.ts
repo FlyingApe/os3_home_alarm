@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Alarm } from '../models/alarm';
+import { Alarm, AlarmStatus } from '../models/alarm';
 import { AlarmService } from './alarm.service';
 
 @Component({
@@ -10,6 +10,9 @@ import { AlarmService } from './alarm.service';
 export class AlarmComponent implements OnInit {
   alarms: Alarm[];
   isLoadingResults = true;
+  alarmStatus = AlarmStatus;
+
+  headElements: string[] = ['id', 'name', 'status'];
 
   constructor(private alarmService: AlarmService) { }
 
@@ -21,6 +24,7 @@ export class AlarmComponent implements OnInit {
         });
   }
 
+  /// TODO: Implement delete function.
   delete(alarm: Alarm): void {
     this.alarms = this.alarms.filter(i => i !== alarm);
     this.alarmService.deleteAlarm(alarm).subscribe();

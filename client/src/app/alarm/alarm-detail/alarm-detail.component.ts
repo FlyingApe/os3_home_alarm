@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { AlarmService } from '../alarm.service';
-import { Alarm } from '../../models/alarm';
+import { Alarm, AlarmStatus } from '../../models/alarm';
 
 @Component({
   selector: 'app-alarm-detail',
@@ -12,6 +12,7 @@ import { Alarm } from '../../models/alarm';
 export class AlarmDetailComponent implements OnInit {
   /// TODO: Check parent inheritance.
   @Input() alarm: Alarm;
+  alarmStatus = AlarmStatus;
 
   constructor(
       private alarmService: AlarmService,

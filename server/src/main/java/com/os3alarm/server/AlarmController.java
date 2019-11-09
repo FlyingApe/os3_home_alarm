@@ -39,6 +39,7 @@ public class AlarmController {
         return alarmService.findById(id)
         .map(oldAlarm -> {
             oldAlarm.setAlarmStatus(newAlarm.getAlarmStatus());
+            oldAlarm.setName(newAlarm.getName());
             alarmService.save(oldAlarm);
             return "";
         })

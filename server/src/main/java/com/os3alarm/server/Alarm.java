@@ -23,6 +23,7 @@ public class Alarm {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     private status alarmStatus;
+    private String name;
     //private List<Event> eventLog;
 
     public Alarm() {} //Allows REST POST
@@ -33,6 +34,14 @@ public class Alarm {
 
     public void setAlarmStatus(status alarmStatus) {
         this.alarmStatus = alarmStatus;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public long getId() {

@@ -1,0 +1,21 @@
+<mat-tab-group dynamicHeight>
+  <mat-tab label="Alarms">
+    <table mat-table [dataSource]="alarms" class="mat-elevation-z8">
+      <ng-container matColumnDef="customerName">
+        <th mat-header-cell *matHeaderCellDef> ID</th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status</th>
+        <td mat-cell *matCellDef="let element"> {{alarmStatus[element.status]}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="headElements"></tr>
+      <tr mat-row *matRowDef="let row; columns: headElements;"></tr>
+    </table>
+  </mat-tab>
+  <mat-tab label="Alarm toevoegen">
+    <app-alarm-add></app-alarm-add>
+  </mat-tab>
+</mat-tab-group>

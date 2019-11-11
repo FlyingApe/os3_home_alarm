@@ -4,13 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.net.Socket;
 
-enum status {
+enum AlarmStatus {
     Active,
     Inactive,
     Inoperable,
-    Inalarm,
+    InAlarm,
     Disconnected
         }
 
@@ -22,18 +21,18 @@ public class Alarm {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
-    private status alarmStatus;
+    private AlarmStatus status;
     private String name;
     //private List<Event> eventLog;
 
     public Alarm() {} //Allows REST POST
 
-    public status getAlarmStatus() {
-        return alarmStatus;
+    public AlarmStatus getStatus() {
+        return status;
     }
 
-    public void setAlarmStatus(status alarmStatus) {
-        this.alarmStatus = alarmStatus;
+    public void setStatus(AlarmStatus status) {
+        this.status = status;
     }
 
     public String getName() {

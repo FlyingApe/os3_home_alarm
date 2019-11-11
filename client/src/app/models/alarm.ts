@@ -13,7 +13,7 @@ export enum AlarmStatus {
   Active,
   Inactive,
   Inoperable,
-  'In-Alarm',
+  InAlarm,
   Disconnected
 }
 

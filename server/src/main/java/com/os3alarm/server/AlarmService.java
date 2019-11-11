@@ -4,6 +4,7 @@ package com.os3alarm.server;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Convert;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,8 +23,9 @@ public class AlarmService {
     }
 
     @Async
-    public Optional<Alarm> findById(Long id) {
-        return alarmRepository.findById(id);
+    public Optional<Alarm> findById(int id) {
+        Long _id = (long)id;
+        return alarmRepository.findById(_id);
     }
 
     @Async
@@ -32,8 +34,8 @@ public class AlarmService {
     }
 
     @Async
-    public void deleteById(Long id) {
-        alarmRepository.deleteById(id);
+    public void deleteById(int id) {
+        alarmRepository.deleteById((long)id);
     }
 
 

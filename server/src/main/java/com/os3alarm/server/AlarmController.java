@@ -1,15 +1,16 @@
 package com.os3alarm.server;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/alarms")
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RequestMapping("/api/alarm")
 public class AlarmController {
 
     AlarmService alarmService;
@@ -18,27 +19,38 @@ public class AlarmController {
     public AlarmController(AlarmService alarmService) {this.alarmService = alarmService;}
 
     @Async
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public List<Alarm> getAll() {return alarmService.findAll();}
 
     @Async
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    public Alarm get(@PathVariable int id) {
+        Optional<Alarm> alarm = alarmService.findById(id);
+        if (alarm.isPresent()) {
+            return alarm.get();
+        } else {
+            throw new ResourceNotFoundException();
+        }
+    }
+
+    @Async
+    @RequestMapping(method = RequestMethod.POST)
     public void create(@RequestBody Alarm alarm) {
         alarmService.save(alarm);
     }
 
     @Async
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-    public void remove(@PathVariable long id) {
+    @RequestMapping(method = RequestMethod.DELETE)
+    public void remove(@PathVariable int id) {
         alarmService.deleteById(id);
     }
 
     @Async
-    @PutMapping(value = "/put/{id}")
-    public String update(@RequestBody Alarm newAlarm, @PathVariable long id) {
+    @PutMapping(value = "/{id}")
+    public String update(@RequestBody Alarm newAlarm, @PathVariable int id) {
         return alarmService.findById(id)
         .map(oldAlarm -> {
-            oldAlarm.setAlarmStatus(newAlarm.getAlarmStatus());
+            oldAlarm.setStatus(newAlarm.getStatus());
             oldAlarm.setName(newAlarm.getName());
             alarmService.save(oldAlarm);
             return "";

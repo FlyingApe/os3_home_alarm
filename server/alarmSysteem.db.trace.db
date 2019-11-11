@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2019-11-11 19:15:54 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-199]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:617)
@@ -270,6 +271,10 @@ Caused by: java.nio.channels.OverlappingFileLockException
 	... 29 more
 2019-11-11 19:20:07 database: flush
 org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:C:/os3_home_alarm/server/alarmSysteem.db.mv.db [1.4.199/7]" [50000-199]
+=======
+2019-11-11 18:16:11 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/00.HBO-ICT/Semester3/00.ProjectOVP3/Code/os3_home_alarm/server/alarmSysteem.db.mv.db [1.4.199/7]" [50000-199]
+>>>>>>> master
 	at org.h2.message.DbException.get(DbException.java:194)
 	at org.h2.message.DbException.convert(DbException.java:347)
 	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:90)
@@ -299,6 +304,7 @@ org.h2.message.DbException: General error: "java.lang.IllegalStateException: The
 	at com.zaxxer.hikari.pool.HikariPool.access$100(HikariPool.java:71)
 	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:727)
 	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:713)
+<<<<<<< HEAD
 	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
 	at java.util.concurrent.FutureTask.run(FutureTask.java)
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
@@ -427,3 +433,26 @@ Caused by: java.nio.channels.OverlappingFileLockException
 	at java.nio.channels.FileChannel.tryLock(FileChannel.java:1155)
 	at org.h2.mvstore.FileStore.open(FileStore.java:163)
 	... 29 more
+=======
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/00.HBO-ICT/Semester3/00.ProjectOVP3/Code/os3_home_alarm/server/alarmSysteem.db.mv.db [1.4.199/7]" [50000-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	... 33 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/00.HBO-ICT/Semester3/00.ProjectOVP3/Code/os3_home_alarm/server/alarmSysteem.db.mv.db [1.4.199/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:883)
+	at org.h2.mvstore.FileStore.open(FileStore.java:166)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:390)
+	... 27 more
+Caused by: java.nio.channels.OverlappingFileLockException
+	at java.base/sun.nio.ch.FileLockTable.checkList(FileLockTable.java:229)
+	at java.base/sun.nio.ch.FileLockTable.add(FileLockTable.java:123)
+	at java.base/sun.nio.ch.FileChannelImpl.tryLock(FileChannelImpl.java:1154)
+	at org.h2.store.fs.FileNio.tryLock(FilePathNio.java:121)
+	at java.base/java.nio.channels.FileChannel.tryLock(FileChannel.java:1165)
+	at org.h2.mvstore.FileStore.open(FileStore.java:163)
+	... 28 more
+>>>>>>> master

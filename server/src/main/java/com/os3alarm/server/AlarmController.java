@@ -19,21 +19,21 @@ public class AlarmController {
     public AlarmController(AlarmService alarmService) {this.alarmService = alarmService;}
 
     @Async
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @GetMapping(value = "/all")
     public List<Alarm> getAll() {return alarmService.findAll();}
 
     @Async
-    @RequestMapping(value = "/alarmbyid/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/alarmbyid/{id}")
     public Optional<Alarm> alarmById(@PathVariable long id) { return alarmService.findById(id); }
 
     @Async
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @PostMapping(value = "/create")
     public void create(@RequestBody Alarm alarm) {
         alarmService.save(alarm);
     }
 
     @Async
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/delete/{id}")
     public void remove(@PathVariable long id) {
         alarmService.deleteById(id);
     }

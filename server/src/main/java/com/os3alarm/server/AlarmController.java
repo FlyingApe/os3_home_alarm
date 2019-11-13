@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/alarms")
@@ -20,6 +21,10 @@ public class AlarmController {
     @Async
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<Alarm> getAll() {return alarmService.findAll();}
+
+    @Async
+    @RequestMapping(value = "/alarmbyid/{id}", method = RequestMethod.GET)
+    public Optional<Alarm> alarmById(@PathVariable long id) { return alarmService.findById(id); }
 
     @Async
     @RequestMapping(value = "/create", method = RequestMethod.POST)

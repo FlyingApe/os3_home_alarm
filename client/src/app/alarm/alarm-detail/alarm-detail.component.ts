@@ -27,12 +27,17 @@ export class AlarmDetailComponent implements OnInit {
   getAlarm(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.alarmService.getAlarm(id)
-        .subscribe(a => this.alarm = a);
+      .subscribe(a => this.alarm = a);
   }
 
   updateAlarm(): void {
     this.alarmService.updateAlarm(this.alarm)
-        .subscribe(() => this.goBack());
+      .subscribe(() => this.goBack());
+  }
+
+  delete(alarm: Alarm): void {
+    this.alarmService.deleteAlarm(alarm)
+      .subscribe(() => this.goBack());
   }
 
   goBack(): void {

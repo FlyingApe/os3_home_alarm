@@ -23,10 +23,4 @@ export class AlarmComponent implements OnInit {
           this.isLoadingResults = false;
         });
   }
-
-  /// TODO: Implement delete function.
-  delete(alarm: Alarm): void {
-    this.alarms = this.alarms.filter(i => i !== alarm);
-    this.alarmService.deleteAlarm(alarm).subscribe();
-  }
 }

@@ -13,7 +13,7 @@ import java.util.Optional;
 @RequestMapping("/api/alarm")
 public class AlarmController {
 
-    AlarmService alarmService;
+    private AlarmService alarmService;
 
     @Autowired
     public AlarmController(AlarmService alarmService) {this.alarmService = alarmService;}
@@ -24,6 +24,7 @@ public class AlarmController {
 
     @Async
     @GetMapping(value = "{id}")
+    /// TODO: Implement future-like return type.
     public Alarm get(@PathVariable int id) {
         Optional<Alarm> alarm = alarmService.findById(id);
         if (alarm.isPresent()) {
@@ -47,6 +48,7 @@ public class AlarmController {
 
     @Async
     @PutMapping(value = "/{id}")
+    /// TODO: Implement future-like return type.
     public String update(@RequestBody Alarm newAlarm, @PathVariable int id) {
         return alarmService.findById(id)
         .map(oldAlarm -> {

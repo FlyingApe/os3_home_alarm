@@ -6,11 +6,12 @@
       <mat-form-field>
         <mat-select [(ngModel)]="alarm.status" placeholder="{{alarmStatus[alarm.status]}}">
           <!-- TODO: Generate options -->
-          <mat-option value="{{alarmStatus.Active}}">RedConnect 50Mb</mat-option>
-          <mat-option value="{{alarmStatus.Inactive}}">RedConnect 100Mb</mat-option>
+          <mat-option value="{{alarmStatus.Active}}">Actief</mat-option>
+          <mat-option value="{{alarmStatus.Inactive}}">Inactief</mat-option>
         </mat-select>
       </mat-form-field>
       <button mat-button (click)="updateAlarm()">Alarmstatus aanpassen</button>
+      <button mat-button (click)="updateAlarm()">Alarm verwijderen</button>
     </mat-card-content>
   </mat-card>
 </div>

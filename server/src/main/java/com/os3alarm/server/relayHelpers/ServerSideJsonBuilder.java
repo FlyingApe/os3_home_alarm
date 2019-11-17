@@ -1,7 +1,7 @@
-package nl.bastiaansierd.mockServer.helpers;
+package com.os3alarm.server.relayHelpers;
 
-import com.github.cliftonlabs.json_simple.JsonObject;
-import com.github.cliftonlabs.json_simple.Jsoner;
+//import com.github.cliftonlabs.json_simple.JsonObject;
+//import com.github.cliftonlabs.json_simple.Jsoner;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -44,9 +44,9 @@ public class ServerSideJsonBuilder {
 
     private boolean isJson(String checkable){
         try{
-            JsonObject jsonTestObject = (JsonObject) Jsoner.deserialize(checkable);
+            //JsonObject jsonTestObject = (JsonObject) Jsoner.deserialize(checkable);
             //System.out.println("JSON: " + checkable);
-            jsonTestObject.clear();
+            //jsonTestObject.clear();
             return true;
         } catch (Exception e){
             e.printStackTrace();

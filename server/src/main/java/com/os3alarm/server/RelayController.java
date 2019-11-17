@@ -1,23 +1,22 @@
-package nl.bastiaansierd.mockServer;
-/*
-import nl.bastiaansierd.interfaces.DataStream;
-import nl.bastiaansierd.mockServer.Streams.RelayStream;
-import nl.bastiaansierd.mockServer.helpers.ServerSideJsonBuilder;
+package com.os3alarm.server;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-*/
 
-public class MockServer {
- /*   public static void main(String[] args) throws IOException {
+import com.os3alarm.server.relayHelpers.RelayStream;
+import com.os3alarm.server.relayHelpers.ServerSideJsonBuilder;
+
+public class RelayController {
+    public void runRelayConnection() throws IOException {
         final int SBAP_PORT = 3000;
         ServerSocket server = new ServerSocket(SBAP_PORT);
         System.out.println("Waiting for clients to connect...");
         while(true) {
             Socket s = server.accept();
             System.out.println("Client connected.");
-            DataStream stream = new RelayStream(s);
+            RelayStream stream = new RelayStream(s);
             TestService testService = new TestService(stream);
             Thread t = new Thread(testService);
             t.start();
@@ -25,9 +24,9 @@ public class MockServer {
     }
 
     public static class TestService implements Runnable{
-        private DataStream relayStream;
+        private RelayStream relayStream;
 
-        public TestService(DataStream s) {
+        public TestService(RelayStream s) {
             relayStream = s;
         }
 
@@ -58,6 +57,5 @@ public class MockServer {
             writer.print(reply);
             writer.flush();
         }
-    }*/
+    }
 }
-

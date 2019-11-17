@@ -1,11 +1,11 @@
-package nl.bastiaansierd.mockServer.Streams;
+package com.os3alarm.server.relayHelpers;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-public class RelayStream implements nl.bastiaansierd.interfaces.DataStream {
+public class RelayStream {
     Socket relaySocket = null;
     private InputStream in = null;
     private OutputStream out = null;
@@ -15,7 +15,6 @@ public class RelayStream implements nl.bastiaansierd.interfaces.DataStream {
         connect();
     }
 
-    @Override
     public void connect() {
         try {
             in = relaySocket.getInputStream();
@@ -25,7 +24,6 @@ public class RelayStream implements nl.bastiaansierd.interfaces.DataStream {
         }
     }
 
-    @Override
     public boolean isConnected() {
         if (in != null){
             return true;
@@ -34,12 +32,10 @@ public class RelayStream implements nl.bastiaansierd.interfaces.DataStream {
         }
     }
 
-    @Override
     public InputStream getInputStream() {
         return in;
     }
 
-    @Override
     public OutputStream getOutputStream() {
         return out;
     }

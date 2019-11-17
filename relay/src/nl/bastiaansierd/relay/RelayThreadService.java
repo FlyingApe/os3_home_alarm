@@ -20,8 +20,8 @@ public class RelayThreadService implements Runnable
     public RelayThreadService() {
         serverStream = MockServerStream.getInstance();
 
-        //arduinoStream = ArduinoStream.getInstance();
-        arduinoStream = MockArduinoStream.getInstance();
+        arduinoStream = ArduinoStream.getInstance();
+        //arduinoStream = MockArduinoStream.getInstance();
 
         //activate superUglyMockArduinoHack
         if (arduinoStream.getClass().getName().endsWith("MockArduinoStream")){

@@ -19,7 +19,7 @@ public class AlarmController {
     public AlarmController(AlarmService alarmService) {this.alarmService = alarmService;}
 
     @Async
-    @GetMapping
+    @GetMapping(value = "all")
     public List<Alarm> getAll() {return alarmService.findAll();}
 
     @Async
@@ -35,13 +35,13 @@ public class AlarmController {
     }
 
     @Async
-    @PostMapping
+    @PostMapping(value="post")
     public void create(@RequestBody Alarm alarm) {
         alarmService.save(alarm);
     }
 
     @Async
-    @DeleteMapping
+    @DeleteMapping(value="delete/{id}")
     public void remove(@PathVariable int id) {
         alarmService.deleteById(id);
     }

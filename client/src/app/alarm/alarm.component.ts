@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Alarm, AlarmStatus } from '../models/alarm';
 import { AlarmService } from './alarm.service';
+import { LoginService } from '../login/login.service';
 
 @Component({
   selector: 'app-alarm',
@@ -14,7 +15,7 @@ export class AlarmComponent implements OnInit {
 
   headElements: string[] = ['id', 'name', 'status'];
 
-  constructor(private alarmService: AlarmService) { }
+  constructor(private alarmService: AlarmService, private loginService: LoginService) { }
 
   ngOnInit() {
     this.alarmService.getAlarms()
@@ -23,4 +24,6 @@ export class AlarmComponent implements OnInit {
           this.isLoadingResults = false;
         });
   }
+
+  authenticated() { return this.loginService.authenticated; }
 }

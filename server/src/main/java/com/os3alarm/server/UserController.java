@@ -7,6 +7,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +15,7 @@ import java.security.Principal;
 
 @SpringBootApplication
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
     @RequestMapping("/user")
     public Principal user(Principal user) {
@@ -32,7 +34,8 @@ public class UserController {
                     .antMatchers("/index.html", "/", "/home", "/login").permitAll()
                     .anyRequest().authenticated()
                     .and().csrf()
-                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                    .and().cors();
         }
     }
 }

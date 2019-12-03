@@ -1,4 +1,4 @@
-package com.os3alarm.server;
+package com.os3alarm.server.services;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,7 +8,7 @@ import java.net.Socket;
 import com.os3alarm.server.relayHelpers.RelayStream;
 import com.os3alarm.server.relayHelpers.ServerSideJsonBuilder;
 
-public class RelayController {
+public class RelayService {
     public void runRelayConnection() throws IOException {
         final int SBAP_PORT = 3000;
         ServerSocket server = new ServerSocket(SBAP_PORT);

@@ -1,7 +1,11 @@
-package com.os3alarm.server;
+package com.os3alarm.server.controllers;
 
+import com.os3alarm.server.models.Alarm;
+import com.os3alarm.server.services.AlarmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
@@ -62,7 +66,6 @@ public class AlarmController {
         });
     }
 
-
-
-
+    @MessageMapping("/sensordata")
+    public Sensor
 }

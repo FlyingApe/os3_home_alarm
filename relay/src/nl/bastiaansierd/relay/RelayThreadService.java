@@ -5,6 +5,7 @@ import nl.bastiaansierd.relay.streams.ArduinoStream;
 import nl.bastiaansierd.relay.streams.MockArduinoStream;
 import nl.bastiaansierd.relay.streams.MockServerStream;
 import nl.bastiaansierd.interfaces.DataStream;
+import nl.bastiaansierd.relay.streams.ServerStream;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -18,10 +19,14 @@ public class RelayThreadService implements Runnable
     private boolean jsonBuilderHackForMockArduino = false;
 
     public RelayThreadService() {
-        serverStream = MockServerStream.getInstance();
-
-        arduinoStream = ArduinoStream.getInstance();
+        /* TODO: naar method */
+        /*Mock componenten*/
+        //serverStream = MockServerStream.getInstance();
         //arduinoStream = MockArduinoStream.getInstance();
+
+        /*Fysieke componenten*/
+        serverStream = ServerStream.getInstance();
+        arduinoStream = ArduinoStream.getInstance();
 
         //activate superUglyMockArduinoHack
         if (arduinoStream.getClass().getName().endsWith("MockArduinoStream")){
@@ -30,6 +35,7 @@ public class RelayThreadService implements Runnable
         }
     }
 
+    //TODO: 2 streams, Arduino -> Server, Server -> Arduino, scheiden naar 2 verschillende threads
     public void run ()
     {
         //JsonBuilder builds jsonStrings from te Arduino inputstream
@@ -79,6 +85,7 @@ public class RelayThreadService implements Runnable
         }
     }
 
+    //TODO: reader meegeven aan methode, uit globale scope halen
     private String readServer() throws IOException {
         String serverString = "";
 

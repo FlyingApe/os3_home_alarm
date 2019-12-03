@@ -38,8 +38,4 @@ public class AlarmService {
     public void deleteById(int id) {
         alarmRepository.deleteById((long)id);
     }
-
-
-
-
 }

@@ -8,47 +8,20 @@ import java.net.Socket;
 import com.os3alarm.server.relayHelpers.RelayStream;
 import com.os3alarm.server.relayHelpers.ServerSideJsonBuilder;
 
-//TODO: refactor naar meerdere klassen?
 public class RelayService {
-    public void runRelayConnection() {
-        Thread t = new Thread(new RelayConnector());
-        t.start();
-    }
-
-    public static class RelayConnector implements Runnable{
+    public void runRelayConnection() throws IOException {
         final int SBAP_PORT = 3000;
-        ServerSocket server = null;
-
-        public RelayConnector(){
-            try {
-                server = new ServerSocket(SBAP_PORT);
-            } catch (IOException e) {
-                //e.printStackTrace();
-            }
-        }
-
-        public void run(){
-            //TODO: conditie loop aanpassen. -. Socketlistener
-            //TODO: checken of meerdere alarmen kunnen connecten
-
-            System.out.println("Waiting for clients to connect...");
-            Socket s = null;
-            while(true) {
-                try {
-                    if (((s = server.accept()) == null)) break;
-                } catch (IOException e) {
-                    System.out.println("server.accept() -->> throws IOExceptions");
-                    //e.printStackTrace();
-                }
-                System.out.println("Client connected.");
-                RelayStream stream = new RelayStream(s);
-                TestService testService = new TestService(stream);
-                Thread t = new Thread(testService);
-                t.start();
-            }
+        ServerSocket server = new ServerSocket(SBAP_PORT);
+        System.out.println("Waiting for clients to connect...");
+        while(true) {
+            Socket s = server.accept();
+            System.out.println("Client connected.");
+            RelayStream stream = new RelayStream(s);
+            TestService testService = new TestService(stream);
+            Thread t = new Thread(testService);
+            t.start();
         }
     }
-
 
     public static class TestService implements Runnable{
         private RelayStream relayStream;
@@ -59,11 +32,12 @@ public class RelayService {
 
         public void run() {
             ServerSideJsonBuilder jsonBuilder = new ServerSideJsonBuilder(relayStream.getInputStream());
-            String audioOn = "0";
+            String audioOn = "1";
 
-            //TODO: Conditie om de loop te breken als de verbinding verbreekt |||| of proberen om de verbinding te herstellen
-            while (relayStream.isConnected()) {
-                //let the jsonbuilder build strings with relayInput
+            while (true) {
+                //System.out.println("looping");
+
+                //let the jasonbuilder build strings with relayInput
                 jsonBuilder.build();
                 String json = jsonBuilder.getJson();
 

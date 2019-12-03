@@ -25,7 +25,7 @@ public class RelayStream {
     }
 
     public boolean isConnected() {
-        if (in != null){
+        if (in != null && relaySocket.isConnected()){
             return true;
         } else {
             return false;

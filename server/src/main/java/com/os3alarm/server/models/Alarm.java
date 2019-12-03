@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.net.Socket;
-import java.util.List;
 
 enum AlarmStatus {
     Active,
@@ -23,17 +22,19 @@ public class Alarm {
     private long id;
     private String name;
     private AlarmStatus status;
-    private List<Event> events;
-    private List<Sensor> sensors;
+    // private List<Event> events;
+    // private List<Sensor> sensors;
     private Socket socket;
     //private List<Event> eventLog;
 
-    public Alarm(long id, String name, AlarmStatus status, List<Event> events, List<Sensor> sensors, Socket socket) {
+    public Alarm(long id, String name, AlarmStatus status, /* List<Event> events, List<Sensor> sensors */ Socket socket) {
         this.id = id;
         this.name = name;
         this.status = status;
+        /*
         this.events = events;
         this.sensors = sensors;
+        */
         this.socket = socket;
     }
 
@@ -59,6 +60,7 @@ public class Alarm {
         return id;
     }
 
+    /*
     public List<Sensor> getSensors() {
         return sensors;
     }
@@ -74,6 +76,7 @@ public class Alarm {
     public void setEvents(List<Event> events) {
         this.events = events;
     }
+     */
 
     public Socket getSocket() {
         return socket;

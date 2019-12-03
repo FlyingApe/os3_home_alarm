@@ -65,7 +65,4 @@ public class AlarmController {
             return "";
         });
     }
-
-    @MessageMapping("/sensordata")
-    public Sensor
 }

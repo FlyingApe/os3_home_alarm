@@ -69,14 +69,4 @@ public class AlarmController {
     }
 
 
-
-    //@MessageMapping("/hello")
-    //@SendTo("topic/greetings")
-    //public Alarm sendAlarmToClient(Alarm alarm) throws Exception {
-    //    return alarm;
-    //}
-
-
-
-
 }

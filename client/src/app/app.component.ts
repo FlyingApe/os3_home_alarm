@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { WebSocketAPI } from './WebSocketAPI';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,27 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Home Alarm 3000';
+
+  webSocketAPI: WebSocketAPI;
+  greeting: any;
+  name: string;
+  ngOnInit() {
+    this.webSocketAPI = new WebSocketAPI(new AppComponent());
+  }
+
+  connect(){
+    this.webSocketAPI._connect();
+  }
+
+  disconnect(){
+    this.webSocketAPI._disconnect();
+  }
+
+  sendMessage(){
+    this.webSocketAPI._send(this.name);
+  }
+
+  handleMessage(message){
+    this.greeting = message;
+  }
 }

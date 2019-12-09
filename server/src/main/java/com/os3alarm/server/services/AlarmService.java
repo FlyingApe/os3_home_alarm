@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @Service
 public class AlarmService {
-
     private final AlarmRepository alarmRepository;
 
     public AlarmService(AlarmRepository alarmRepository) {
@@ -38,8 +37,4 @@ public class AlarmService {
     public void deleteById(int id) {
         alarmRepository.deleteById((long)id);
     }
-
-
-
-
 }

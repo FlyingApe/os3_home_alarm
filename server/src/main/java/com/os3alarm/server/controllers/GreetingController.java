@@ -1,12 +1,12 @@
-package com.os3alarm.server.controller;
+package com.os3alarm.server.controllers;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.util.HtmlUtils;
 
-import com.os3alarm.server.model.Greeting;
-import com.os3alarm.server.model.HelloMessage;
+import com.os3alarm.server.models.Greeting;
+import com.os3alarm.server.models.HelloMessage;
 
 @Controller
 public class GreetingController {

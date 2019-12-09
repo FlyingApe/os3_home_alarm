@@ -1,5 +1,7 @@
-package com.os3alarm.server;
+package com.os3alarm.server.controllers;
 
+import com.os3alarm.server.services.AlarmService;
+import com.os3alarm.server.models.Alarm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.scheduling.annotation.Async;

@@ -1,10 +1,11 @@
-package com.os3alarm.server;
+package com.os3alarm.server.services;
 
 
+import com.os3alarm.server.models.Alarm;
+import com.os3alarm.server.repositories.AlarmRepository;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Convert;
 import java.util.List;
 import java.util.Optional;
 

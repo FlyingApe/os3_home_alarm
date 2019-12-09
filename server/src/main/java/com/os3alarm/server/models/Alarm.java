@@ -1,4 +1,4 @@
-package com.os3alarm.server;
+package com.os3alarm.server.models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,4 +1,4 @@
-package com.os3alarm.server.model;
+package com.os3alarm.server.models;
 
 public class HelloMessage {
 

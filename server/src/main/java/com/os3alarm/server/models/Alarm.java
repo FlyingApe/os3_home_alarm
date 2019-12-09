@@ -23,6 +23,7 @@ public class Alarm {
     private long id;
     private AlarmStatus status;
     private String name;
+    private String token;
     //private List<Event> eventLog;
 
     public Alarm() {} //Allows REST POST
@@ -50,6 +51,10 @@ public class Alarm {
     public void setId(long id) {
         this.id = id;
     }
+
+    public String getToken() { return token; }
+
+    public void setToken(String token) { this.token = token; }
 
     /*
     public List<Event> getEventLog() {

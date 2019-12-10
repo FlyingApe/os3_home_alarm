@@ -1,34 +1,40 @@
-import { Component } from '@angular/core';
-import { WebSocketAPI } from './WebSocketAPI';
+import { Component, OnInit } from '@angular/core';
+import { WebSocketService } from './WebSocketService';
+import { StyleCompiler } from '@angular/compiler';
+
+/// TODO: Limit import to required static types only;
+// import * as Stomp from 'stompjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Home Alarm 3000';
 
-  webSocketAPI: WebSocketAPI;
-  greeting: any;
-  name: string;
+  webSocketAPI: WebSocketService;
+  sensorData: string;
+  command: string;
+
   ngOnInit() {
-    this.webSocketAPI = new WebSocketAPI(new AppComponent());
+    this.webSocketAPI = new WebSocketService(new AppComponent());
   }
 
   connect(){
-    this.webSocketAPI._connect();
+    this.webSocketAPI.connect();
   }
 
   disconnect(){
-    this.webSocketAPI._disconnect();
+    this.webSocketAPI.disconnect();
   }
 
-  sendMessage(){
-    this.webSocketAPI._send(this.name);
+  sendCommand(){
+    this.webSocketAPI.sendCommand(this.command);
   }
 
+  /// TODO: Validate input model;
   handleMessage(message){
-    this.greeting = message;
+    this.sensorData = message;
   }
 }

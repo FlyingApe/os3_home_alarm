@@ -13,24 +13,29 @@ import { StyleCompiler } from '@angular/compiler';
 export class AppComponent implements OnInit {
   title = 'Home Alarm 3000';
 
-  webSocketAPI: WebSocketService;
+  webSocketService: WebSocketService;
   sensorData: string;
   command: string;
+  isConnected = false;
 
   ngOnInit() {
-    this.webSocketAPI = new WebSocketService(new AppComponent());
+    this.webSocketService = new WebSocketService(new AppComponent());
   }
 
   connect(){
-    this.webSocketAPI.connect();
+    this.webSocketService.connect();
+    /// TODO: Check WebSocket connection state before returning state;
+    this.isConnected = true;
   }
 
   disconnect(){
-    this.webSocketAPI.disconnect();
+    this.webSocketService.disconnect();
+    /// TODO: Check WebSocket connection state before returning state;
+    this.isConnected = false;
   }
 
   sendCommand(){
-    this.webSocketAPI.sendCommand(this.command);
+    this.webSocketService.sendCommand(this.command);
   }
 
   /// TODO: Validate input model;

@@ -8,8 +8,8 @@
           <form class="form-inline">
               <div class="form-group">
                   <label for="connect">WebSocket connection:</label>
-                  <button (click)="connect()" class="btn btn-default" type="submit">Connect</button>
-                  <button (click)="disconnect()" class="btn btn-default" type="submit" disabled="disabled">Disconnect
+                  <button (click)="connect()" class="btn btn-default" type="submit" [disabled]="isConnected" >Connect</button>
+                  <button (click)="disconnect()" class="btn btn-default" type="submit" [disabled]="!isConnected">Disconnect
                   </button>
               </div>
           </form>

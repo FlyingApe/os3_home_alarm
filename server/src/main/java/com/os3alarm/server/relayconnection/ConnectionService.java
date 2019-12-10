@@ -1,6 +1,6 @@
 package com.os3alarm.server.relayconnection;
 
-import com.github.cliftonlabs.json_simple.Jsoner;
+import com.os3alarm.server.models.RelayDataObserver;
 import com.os3alarm.server.relayconnection.pojo.AlarmPool;
 import com.os3alarm.server.relayconnection.pojo.RelayAlarm;
 import com.os3alarm.server.relayconnection.pojo.RelayStream;
@@ -13,8 +13,8 @@ public class ConnectionService implements Runnable {
     private AlarmPool pool;
     private JsonParser parser;
 
-    public ConnectionService(RelayStream s) {
-        relayStream = s;
+    public ConnectionService(RelayStream stream) {
+        relayStream = stream;
         pool = AlarmPool.getInstance();
 
         parser = new JsonParser(relayStream.getInputStream());
@@ -27,7 +27,7 @@ public class ConnectionService implements Runnable {
             String token = updateAlarm();
 
             if(token != null){
-                System.out.println("JSON: " + pool.getAlarmByToken(token).getRecievedJsonString());
+                System.out.println("JSON: " + pool.getAlarmByToken(token).getReceivedJsonString());
             }
 
             /*
@@ -56,10 +56,12 @@ public class ConnectionService implements Runnable {
             System.out.println("update loop");
             String token = parser.getToken();
             if(pool.getAlarmByToken(parser.getToken()) == null ) {
-                pool.addAlarm(new RelayAlarm(token));
+                RelayAlarm alarm = new RelayAlarm(token);
+                alarm.addPropertyChangeListener(new RelayDataObserver());
+                pool.addAlarm(alarm);
             }
             RelayAlarm alarm = pool.getAlarmByToken(token);
-            alarm.setRecievedJsonString(json);
+            alarm.setReceivedJsonString(json);
 
             System.out.println(token);
 

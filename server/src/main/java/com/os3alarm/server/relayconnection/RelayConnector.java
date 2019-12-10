@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-//TODO: singleton van maken
 class RelayConnector {
     private AlarmPool pool;
     private static RelayConnector instance = null;

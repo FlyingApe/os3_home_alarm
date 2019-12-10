@@ -1,5 +1,7 @@
 package com.os3alarm.server.relayconnection.pojo;
 
+import com.os3alarm.server.models.RelayDataObservable;
+import com.os3alarm.server.models.RelayDataObserver;
 import com.os3alarm.server.relayconnection.pojo.RelayAlarm;
 
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
 //shared resource voor alle relay's om data in te pushen
 public class AlarmPool {
     private List<RelayAlarm> pool;
+    private List<RelayDataObserver> observers;
     private static AlarmPool instance = null;
     private Lock poolLock;
 
@@ -19,7 +22,7 @@ public class AlarmPool {
     }
 
     public static AlarmPool getInstance(){
-        /* singelton initialisatie*/
+        /* singleton initialisatie */
         if(instance == null){
             instance = new AlarmPool();
         }
@@ -33,7 +36,6 @@ public class AlarmPool {
         } finally {
             poolLock.unlock();
         }
-
     }
     
     public RelayAlarm getAlarmByToken(String token){

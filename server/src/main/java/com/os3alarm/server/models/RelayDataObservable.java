@@ -3,8 +3,8 @@ package com.os3alarm.server.models;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class RelayDataObservable {
-    private String received;
+public class RelayDataObservable implements IRelayDataObservable {
+    private String receivedJsonString;
     private PropertyChangeSupport support;
 
     public RelayDataObservable() {
@@ -19,7 +19,8 @@ public class RelayDataObservable {
         support.removePropertyChangeListener(pcl);
     }
 
-    public void setReceived(String value) {
-        support.firePropertyChange("received", this.received, value);
+    public void setReceivedJsonString(String value) {
+        support.firePropertyChange("received", this.receivedJsonString, value);
     }
 }
+

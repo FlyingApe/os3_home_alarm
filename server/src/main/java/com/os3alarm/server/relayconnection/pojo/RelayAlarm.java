@@ -1,27 +1,38 @@
 package com.os3alarm.server.relayconnection.pojo;
 
+import com.os3alarm.server.models.IRelayDataObservable;
+import com.os3alarm.server.models.RelayDataObservable;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class RelayAlarm {
+public class RelayAlarm implements IRelayDataObservable {
     private String token;
-    private String recievedJsonString;
+    private String receivedJsonString;
     private String sendableString;
     private Lock sendableLock;
-    private Lock recievableLock;
+    private Lock receivableLock;
+
+    private PropertyChangeSupport support;
 
     public RelayAlarm(String token) {
         this.token = token;
         sendableLock = new ReentrantLock();
-        recievableLock = new ReentrantLock();
+        receivableLock = new ReentrantLock();
+
+        support = new PropertyChangeSupport(this);
     }
 
-    public void setRecievedJsonString(String recievedJsonString) {
-        recievableLock.lock();
+    @Override
+    public void setReceivedJsonString(String value) {
+        receivableLock.lock();
         try{
-            this.recievedJsonString = recievedJsonString;
+            this.receivedJsonString = value;
+            support.firePropertyChange("received", this.receivedJsonString, value);
         } finally {
-            recievableLock.unlock();
+            receivableLock.unlock();
         }
     }
 
@@ -34,12 +45,12 @@ public class RelayAlarm {
         }
     }
 
-    public String getRecievedJsonString() {
-        recievableLock.lock();
+    public String getReceivedJsonString() {
+        receivableLock.lock();
         try{
-            return recievedJsonString;
+            return receivedJsonString;
         } finally {
-            recievableLock.unlock();
+            receivableLock.unlock();
         }
     }
 
@@ -54,5 +65,15 @@ public class RelayAlarm {
 
     public String getToken() {
         return token;
+    }
+
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+        support.addPropertyChangeListener(pcl);
+    }
+
+    @Override
+    public void removePropertyChangeListener(PropertyChangeListener pcl) {
+        support.removePropertyChangeListener(pcl);
     }
 }

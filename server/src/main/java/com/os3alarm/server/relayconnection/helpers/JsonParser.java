@@ -17,7 +17,7 @@ public class JsonParser {
         src=new BufferedReader(new InputStreamReader(in));
     }
 
-
+    /// TODO: Fix while condition;
     public void build(){
         String line = null;
         try {

@@ -1,7 +1,7 @@
 package com.os3alarm.server.relayconnection;
 
+import com.os3alarm.server.models.RelayDataObservable;
 import com.os3alarm.server.relayconnection.pojo.AlarmPool;
-import com.os3alarm.server.relayconnection.pojo.RelayAlarm;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Async;
@@ -18,16 +18,6 @@ public class SpringIntegrater {
         pool = AlarmPool.getInstance();
     }
 
-    @Async
-    public String getJsonString(String token) {
-        return pool.getAlarmByToken(token).getRecievedJsonString();
-    }
-
-    /*public RelayAlarm getAlarm(String token){
-        return pool.getAlarmByToken(token);
-    }*/
-
-    @Async
     public void setSendableString(String s, String token){
         pool.getAlarmByToken(token).setSendableString(s);
     }

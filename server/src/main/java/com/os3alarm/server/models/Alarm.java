@@ -19,7 +19,9 @@ enum AlarmStatus {
 public class Alarm {
 
     @Id
+    /// TODO: Implement static id by input validation.
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    // id == token
     private long id;
     private AlarmStatus status;
     private String name;
@@ -51,16 +53,4 @@ public class Alarm {
     public void setId(long id) {
         this.id = id;
     }
-
-    public String getToken() { return token; }
-
-    public void setToken(String token) { this.token = token; }
-
-    /*
-    public List<Event> getEventLog() {
-        return eventLog;
-    }
-    */
-
-
 }

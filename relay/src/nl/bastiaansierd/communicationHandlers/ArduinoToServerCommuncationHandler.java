@@ -2,6 +2,7 @@ package nl.bastiaansierd.communicationHandlers;
 
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
+import nl.bastiaansierd.interfaces.DataStream;
 import nl.bastiaansierd.streams.ArduinoStream;
 import nl.bastiaansierd.streams.ServerStream;
 
@@ -13,23 +14,23 @@ import java.nio.charset.StandardCharsets;
 
 public class ArduinoToServerCommuncationHandler implements Runnable
 {
-    private ServerStream serverStream;
-    private ArduinoStream arduinoStream;
+    private DataStream serverStream;
+    private DataStream arduinoStream;
 
-    public ArduinoToServerCommuncationHandler(ArduinoStream arduinoStream, ServerStream serverStream) {
+    public ArduinoToServerCommuncationHandler(DataStream arduinoStream, DataStream serverStream) {
         this.arduinoStream = arduinoStream;
         this.serverStream = serverStream;
     }
 
-    public void run ()
+    public void run()
     {
         BufferedReader reader = null;
 
         while (true) {
-            if(!serverStream.isConnected()){
-                serverStream.connect();
+            if(!arduinoStream.isConnected()){
+                arduinoStream.connect();
                 try{
-                    reader = new BufferedReader(new InputStreamReader(serverStream.getInputStream(), StandardCharsets.US_ASCII));
+                    reader = new BufferedReader(new InputStreamReader(arduinoStream.getInputStream(), StandardCharsets.US_ASCII));
                 } catch (Exception e){
                     System.out.println("No Connection.");
                 }
@@ -46,12 +47,13 @@ public class ArduinoToServerCommuncationHandler implements Runnable
                         }
                     }
                 }
-
+                break;
             } catch (IOException e) {
-                //e.printStackTrace();
+                e.printStackTrace();
             }
         }
     }
+
     private boolean isJson(String checkable){
         try{
             JsonObject jsonTestObject = (JsonObject) Jsoner.deserialize(checkable);
@@ -61,10 +63,11 @@ public class ArduinoToServerCommuncationHandler implements Runnable
         } catch (Exception e){
             String message = "";
             System.out.println("JSON test failed. " + message);
-            //e.printStackTrace();
+            e.printStackTrace();
             return false;
         }
     }
+
     private void writeToServer(String writeable){
         PrintWriter writer = new PrintWriter(serverStream.getOutputStream());
         writer.println(writeable);

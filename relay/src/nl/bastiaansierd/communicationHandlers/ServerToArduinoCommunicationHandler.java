@@ -13,7 +13,7 @@ public class ServerToArduinoCommunicationHandler implements Runnable
     private DataStream serverStream;
     private BufferedReader reader = null;
 
-    public ServerToArduinoCommunicationHandler(ArduinoStream arduinoStream, ServerStream serverStream) {
+    public ServerToArduinoCommunicationHandler(DataStream arduinoStream, DataStream serverStream) {
         this.arduinoStream = arduinoStream;
         this.serverStream = serverStream;
     }

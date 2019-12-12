@@ -32,7 +32,7 @@ public class RelayThreadService implements Runnable
 
     public void run ()
     {
-        //JsonBuilder builds jsonStrings from te Arduino inputstream
+        //InputStreamReader builds jsonStrings from te Arduino inputstream
         JsonBuilder jsonBuilder = JsonBuilder.getInstance(arduinoStream.getInputStream());
 
         while (true) {

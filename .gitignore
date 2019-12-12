@@ -1,3 +1,11 @@
 ~$*
 
 *.db
+
+relay/.idea/workspace.xml
+
+arduinoSketch/Alarm/Alarm.ino
+
+relay/out/production/Relay/META-INF/relay.kotlin_module
+
+relay/out/production/Relay/nl/bastiaansierd/ArduinoTester/ArduinoStream.class

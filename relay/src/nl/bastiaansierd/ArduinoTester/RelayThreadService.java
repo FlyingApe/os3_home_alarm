@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 public class RelayThreadService implements Runnable
 {
-    private DataStream arduinoStream;
+    private ArduinoStream arduinoStream;
     private BufferedReader reader = null;
 
     public RelayThreadService() {
@@ -19,15 +19,16 @@ public class RelayThreadService implements Runnable
     public void run ()
     {
         //InputStreamReader builds jsonStrings from te Arduino inputstream
-        InputStreamReader inputStreamReader = InputStreamReader.getInstance(arduinoStream.getInputStream());
+        //InputStreamReader inputStreamReader = InputStreamReader.getInstance(arduinoStream.getInputStream());
 
         Integer i = 0;
         while (true) {
             //System.out.println("looping");
 
+            ArduinoStream.read();
 
             //let inputStreamReader read the arduino's inputstream and build a jsonString
-            inputStreamReader.build();
+            //inputStreamReader.build();
 
 
             //send serverReply to the arduino
@@ -45,10 +46,7 @@ public class RelayThreadService implements Runnable
 
     private void writeToArduino(String serverInput){
         try{
-            for(Character c : serverInput.toCharArray()){
-                arduinoStream.getOutputStream().write(c);
-                //System.out.println(c);
-            }
+            arduinoStream.getOutputStream().write(serverInput+"\r");
             arduinoStream.getOutputStream().flush();
         } catch (Exception e){
 

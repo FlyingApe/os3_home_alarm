@@ -5,20 +5,26 @@ import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 import nl.bastiaansierd.interfaces.DataStream;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 
-public class ArduinoStream implements DataStream {
+public class ArduinoStream {
     private final String comPort = "COM6";
     private static ArduinoStream instance = null;
+    private static BufferedWriter destination = null;
+    private static BufferedReader source=null;
     private SerialPort arduinoSerialPort = null;
 
      public static ArduinoStream getInstance(){
         /* singelton initialisatie*/
+         try {
         if(instance == null){
             instance = new ArduinoStream();
-        }
+            source=new BufferedReader(new InputStreamReader(instance.arduinoSerialPort.getInputStream()));
+            destination=new BufferedWriter(new OutputStreamWriter(instance.arduinoSerialPort.getOutputStream()));
+        }}
+         catch (IOException ex) {
+
+         }
         return instance;
     }
 
@@ -57,7 +63,6 @@ public class ArduinoStream implements DataStream {
         }
     }
 
-    @Override
     public boolean isConnected() {
         if(arduinoSerialPort != null){
             return true;
@@ -67,25 +72,22 @@ public class ArduinoStream implements DataStream {
         }
     }
 
-    public InputStream getInputStream() {
-        InputStream in = null;
-        try {
-            in = arduinoSerialPort.getInputStream();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return in;
+    public BufferedReader getInputStream() {
+        return source;
     }
 
-    public OutputStream getOutputStream() {
-        OutputStream out = null;
-        try {
-            out = arduinoSerialPort.getOutputStream();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public BufferedWriter getOutputStream() {
+        return destination;
+    }
 
-        return out;
+    public static void read() {
+        try {
+            String line;
+            while ((line = source.readLine()) != null){
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            //e.printStackTrace();
+        }
     }
 }

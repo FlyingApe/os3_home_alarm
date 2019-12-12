@@ -1,5 +1,7 @@
 package nl.bastiaansierd.ArduinoTester.helpers;
 
+import nl.bastiaansierd.ArduinoTester.ArduinoStream;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,26 +18,7 @@ public class InputStreamReader {
         return instance;
     }
 
-    public static InputStreamReader getInstance(InputStream in){
-        if(instance == null){
-            instance = new InputStreamReader();
-            //inputStream = in;
-            src=new BufferedReader(new java.io.InputStreamReader(in));
-        }
-        return instance;
-    }
 
 
-    public void build(){
-        String line;
-        try {
-            while ((line = src.readLine()) != null){
-                System.out.println(line);
-            }
-
-        } catch (IOException e) {
-            //e.printStackTrace();
-        }
-    }
 
 }

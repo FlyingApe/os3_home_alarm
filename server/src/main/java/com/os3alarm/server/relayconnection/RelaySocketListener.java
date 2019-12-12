@@ -7,18 +7,18 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-class RelayConnector {
+class RelaySocketListener {
     private AlarmPool pool;
-    private static RelayConnector instance = null;
+    private static RelaySocketListener instance = null;
 
-    static RelayConnector getInstance(){
+    static RelaySocketListener getInstance(){
         if(instance == null){
-            instance = new RelayConnector();
+            instance = new RelaySocketListener();
         }
         return instance;
     }
 
-    private RelayConnector() {
+    private RelaySocketListener() {
         Thread t = new Thread(new Connector());
         t.start();
     }
@@ -39,7 +39,7 @@ class RelayConnector {
             //TODO: conditie loop aanpassen. -. Socketlistener
             //TODO: checken of meerdere alarmen kunnen connecten
 
-            System.out.println("Waiting for clients to connect...");
+            //System.out.println("Waiting for clients to connect...");
             Socket s = null;
             while(true) {
                 try {
@@ -48,9 +48,9 @@ class RelayConnector {
                     System.out.println("server.accept() -->> throws IOExceptions");
                     //e.printStackTrace();
                 }
-                System.out.println("Client connected.");
+                //System.out.println("Client connected.");
                 RelayStream stream = new RelayStream(s);
-                ConnectionService connection = new ConnectionService(stream);
+                RelayConnectionHandler connection = new RelayConnectionHandler(stream);
                 Thread t = new Thread(connection);
                 t.start();
             }

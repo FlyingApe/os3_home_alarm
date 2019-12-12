@@ -1,4 +1,4 @@
-package nl.bastiaansierd.relay.streams;
+package nl.bastiaansierd.streams;
 
 import gnu.io.CommPort;
 import gnu.io.CommPortIdentifier;

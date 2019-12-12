@@ -1,4 +1,4 @@
-package nl.bastiaansierd.relay.streams;
+package nl.bastiaansierd.streams;
 
 import nl.bastiaansierd.interfaces.DataStream;
 
@@ -7,8 +7,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-public class MockServerStream implements DataStream {
-    private static MockServerStream instance = null;
+public class ServerStream implements DataStream {
+    private static ServerStream instance = null;
     private final String HOST = "localhost";
     private final int PORT = 3000;
 
@@ -16,25 +16,25 @@ public class MockServerStream implements DataStream {
     private InputStream serverIn = null;
     private OutputStream serverOut = null;
 
-    public static MockServerStream getInstance() {
+    public static ServerStream getInstance() {
         /* singelton initialisatie*/
         if(instance == null){
-            instance = new MockServerStream();
+            instance = new ServerStream();
         }
         return instance;
     }
 
 
-    public MockServerStream(){
+    public ServerStream(){
     }
 
     public void connect(){
         try {
-            System.out.println("Connecting to MockServer, HOST: " + HOST + ", PORT: " + PORT + "......");
+            System.out.println("Connecting to Server, HOST: " + HOST + ", PORT: " + PORT + "......");
             s = new Socket(HOST, PORT);
             serverOut = s.getOutputStream();
             serverIn = s.getInputStream();
-            System.out.println("Succes, connected to MockServer.");
+            System.out.println("Succes, connected to server.");
         } catch (IOException e) {
             System.out.println("Could not connect.");
             //e.printStackTrace();

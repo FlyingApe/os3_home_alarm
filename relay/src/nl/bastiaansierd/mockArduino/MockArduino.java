@@ -15,7 +15,7 @@ public class MockArduino {
         System.out.println("Waiting for relay to connect...");
         while(true) {
             Socket s = server.accept();
-            System.out.println("RelayThreadService connected.");
+            System.out.println("ServerToArduinoCommunicationHandler connected.");
             DataStream stream = new RelayStream(s);
             TestService testService = new TestService(stream);
             Thread t = new Thread(testService);

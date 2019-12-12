@@ -1,4 +1,4 @@
-package nl.bastiaansierd.relay.streams;
+package nl.bastiaansierd.mockArduino.Streams;
 
 import nl.bastiaansierd.interfaces.DataStream;
 

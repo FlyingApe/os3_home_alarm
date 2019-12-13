@@ -7,7 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="rxtx-2" level="project" />
     <orderEntry type="library" name="com.github.cliftonlabs:json-simple:3.1.0" level="project" />
+    <orderEntry type="library" name="de.root1:rxtx-rebundled:2.1-7r2-6" level="project" />
   </component>
 </module>

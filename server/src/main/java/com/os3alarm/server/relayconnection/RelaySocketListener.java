@@ -48,7 +48,7 @@ class RelaySocketListener {
                     System.out.println("server.accept() -->> throws IOExceptions");
                     //e.printStackTrace();
                 }
-                //System.out.println("Client connected.");
+                System.out.println("Client connected.");
                 RelayStream stream = new RelayStream(s);
                 RelayConnectionHandler connection = new RelayConnectionHandler(stream);
                 Thread t = new Thread(connection);

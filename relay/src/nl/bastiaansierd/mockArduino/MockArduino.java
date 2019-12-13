@@ -1,61 +1,79 @@
 package nl.bastiaansierd.mockArduino;
 
-import nl.bastiaansierd.interfaces.DataStream;
-import nl.bastiaansierd.mockArduino.Streams.RelayStream;
+import nl.bastiaansierd.interfaces.BufferedReadWriter;
+import nl.bastiaansierd.mockArduino.Streams.RelayConnection;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class MockArduino {
-    public static void main(String[] args) throws IOException {
-        final int SBAP_PORT = 5000;
-        ServerSocket server = new ServerSocket(SBAP_PORT);
-        System.out.println("Waiting for relay to connect...");
-        while(true) {
-            Socket s = server.accept();
-            System.out.println("RelayThreadService connected.");
-            DataStream stream = new RelayStream(s);
-            TestService testService = new TestService(stream);
-            Thread t = new Thread(testService);
-            t.start();
+public class MockArduino implements Runnable{
+
+    public void run() {
+        try{
+            final int SBAP_PORT = 5000;
+            ServerSocket server = new ServerSocket(SBAP_PORT);
+            System.out.println("Waiting for relay to connect...");
+            while(true) {
+                Socket socket = server.accept();
+                System.out.println("ServerToArduinoCommunicationHandler connected.");
+                BufferedReadWriter stream = new RelayConnection(socket);
+                TestService testService = new TestService(stream);
+                Thread t = new Thread(testService);
+                t.start();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     public static class TestService implements Runnable{
-        private DataStream relayStream;
+        private RelayConnection relayConnection;
+        private String token;
         private int alarmAudioOn = 0;
 
-        public TestService(DataStream s) {
-            relayStream = s;
-            while(!relayStream.isConnected()){
-                relayStream.connect();
+        public TestService(BufferedReadWriter s) {
+            this.relayConnection = (RelayConnection) s;
+            token = getRandomHexString(16);
+            while(!relayConnection.isConnected()){
+                relayConnection.connect();
+            }
+        }
+
+        private String getRandomHexString(int numchars){
+            Random r = new Random();
+            StringBuffer sb = new StringBuffer();
+            while(sb.length() < numchars){
+                sb.append(Integer.toHexString(r.nextInt()));
             }
 
+            return sb.toString().substring(0, numchars);
         }
 
         public void run() {
-
-
             int x = 0;
             while (true) {
                 x++;
-                System.out.println("loopCount: " + (x+1));
-                BufferedReader mockSerial = new BufferedReader(new InputStreamReader(relayStream.getInputStream()));
+                //System.out.println("loopCount: " + (x+1));
+                BufferedReader mockSerial = relayConnection.getReader();
                 try {
                     if(mockSerial.ready()){
                         alarmAudioOn = mockSerial.read();
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 }
 
-                Writer mockSerialWriter = new OutputStreamWriter(relayStream.getOutputStream());
+                BufferedWriter mockSerialWriter = relayConnection.getWriter();
 
                 try {
                     mockSerialWriter.write("{\n");
-                    mockSerialWriter.write("\t\"microphone\":\"");
+                    mockSerialWriter.write("\"token\":\"");
+                    mockSerialWriter.write(token);
+                    mockSerialWriter.write("\",");
+                    mockSerialWriter.write("\"microphone\":\"");
                     mockSerialWriter.write(String.valueOf(x));
                     mockSerialWriter.write("\",");
                     mockSerialWriter.write("\"distance\":\"");

@@ -1,28 +1,32 @@
 package nl.bastiaansierd.mockArduino.Streams;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import nl.bastiaansierd.interfaces.BufferedReadWriter;
+
+import java.io.*;
 import java.net.Socket;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class RelayStream implements nl.bastiaansierd.interfaces.DataStream {
-    Socket relaySocket;
+public class RelayConnection implements BufferedReadWriter {
+    Socket relaySocket = null;
+    private BufferedWriter destination = null;
+    private BufferedReader source = null;
     private InputStream in = null;
     private OutputStream out = null;
     private Lock streamLock;
 
-    public RelayStream(Socket s) {
+    public RelayConnection(Socket s) {
         relaySocket = s;
         streamLock = new ReentrantLock();
     }
 
-    @Override
     public void connect() {
         try {
-            in = relaySocket.getInputStream();
-            out = relaySocket.getOutputStream();
+            destination = new BufferedWriter(new OutputStreamWriter(relaySocket.getOutputStream()));
+            source = new BufferedReader(new InputStreamReader(relaySocket.getInputStream()));
+
+            //in = relaySocket.getInputStream();
+            //out = relaySocket.getOutputStream();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -31,7 +35,7 @@ public class RelayStream implements nl.bastiaansierd.interfaces.DataStream {
 
     @Override
     public boolean isConnected() {
-        if (relaySocket.isConnected() && in != null){
+        if (destination != null){
             return true;
         } else {
             return false;
@@ -39,6 +43,15 @@ public class RelayStream implements nl.bastiaansierd.interfaces.DataStream {
     }
 
     @Override
+    public BufferedReader getReader() {
+        return source;
+    }
+
+    @Override
+    public BufferedWriter getWriter() {
+        return destination;
+    }
+/*
     public InputStream getInputStream() {
         streamLock.lock();
         try {
@@ -48,7 +61,6 @@ public class RelayStream implements nl.bastiaansierd.interfaces.DataStream {
         }
     }
 
-    @Override
     public OutputStream getOutputStream() {
         streamLock.lock();
         try {
@@ -57,4 +69,5 @@ public class RelayStream implements nl.bastiaansierd.interfaces.DataStream {
             streamLock.unlock();
         }
     }
+    */
 }

@@ -3,11 +3,40 @@
   <component name="ChangeListManager">
     <list default="true" id="ea94e1eb-5501-43e2-8ce5-13a037b39624" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Relay/nl/bastiaansierd/ArduinoTester/RelayThreadService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Relay/nl/bastiaansierd/ArduinoTester/RelayThreadService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Relay/nl/bastiaansierd/ArduinoTester/helpers/InputStreamReader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Relay/nl/bastiaansierd/ArduinoTester/helpers/InputStreamReader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/ArduinoStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/ArduinoStream.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/RelayThreadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/RelayThreadService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/helpers/InputStreamReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/helpers/InputStreamReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Relay/nl/bastiaansierd/ArduinoTester/ArduinoTester.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Relay/nl/bastiaansierd/ArduinoTester/RelayThreadService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Relay/nl/bastiaansierd/ArduinoTester/helpers/InputStreamReader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Relay/nl/bastiaansierd/interfaces/DataStream.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Relay/nl/bastiaansierd/mockArduino/MockArduino$TestService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Relay/nl/bastiaansierd/mockArduino/MockArduino$TestService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Relay/nl/bastiaansierd/mockArduino/MockArduino.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Relay/nl/bastiaansierd/mockArduino/MockArduino.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Relay/nl/bastiaansierd/mockArduino/Streams/RelayStream.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Relay/nl/bastiaansierd/mockServer/MockServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Relay/nl/bastiaansierd/mockServer/Streams/ServerSideJsonBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Relay/nl/bastiaansierd/mockServer/helpers/RelayStream.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Relay/nl/bastiaansierd/relay/Relay.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Relay/nl/bastiaansierd/relay/RelayThreadService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Relay/nl/bastiaansierd/relay/helpers/JsonBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Relay/nl/bastiaansierd/relay/streams/ArduinoStream.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Relay/nl/bastiaansierd/relay/streams/MockArduinoStream.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Relay/nl/bastiaansierd/relay/streams/MockServerStream.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/ArduinoStream.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/ArduinoTester.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/RelayThreadService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/helpers/InputStreamReader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/bastiaansierd/interfaces/DataStream.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/bastiaansierd/mockArduino/MockArduino.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/bastiaansierd/mockArduino/MockArduino.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/bastiaansierd/mockArduino/Streams/RelayStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/bastiaansierd/mockArduino/Streams/RelayConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/bastiaansierd/mockServer/MockServer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/bastiaansierd/mockServer/Streams/ServerSideJsonBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/bastiaansierd/mockServer/helpers/RelayStream.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/bastiaansierd/relay/Relay.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/bastiaansierd/relay/RelayThreadService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/bastiaansierd/relay/helpers/JsonBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/bastiaansierd/relay/streams/ArduinoStream.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/bastiaansierd/relay/streams/MockArduinoStream.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/bastiaansierd/relay/streams/MockServerStream.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/src/main/java/com/os3alarm/server/relayconnection/RelayInputStreamParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/main/java/com/os3alarm/server/relayconnection/RelayInputStreamParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/src/main/java/com/os3alarm/server/relayconnection/RelaySocketListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/main/java/com/os3alarm/server/relayconnection/RelaySocketListener.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,10 +51,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/relay/RelayThreadService.java">
+        <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/Relay.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-510">
-              <caret line="23" column="10" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="10" />
+            <state relative-caret-position="195">
+              <caret line="25" column="10" selection-start-line="25" selection-start-column="10" selection-end-line="25" selection-end-column="10" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -34,72 +63,54 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/relay/Relay.java">
+        <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/interfaces/BufferedReadWriter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
+            <state relative-caret-position="60">
+              <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/streams/ArduinoConnection.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret line="36" column="9" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/communicationHandlers/StreamToStreamPassthroughAgent.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/mockArduino/MockArduino.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="541">
+              <caret line="61" selection-start-line="61" selection-end-line="61" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/RelayThreadService.java">
+        <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/mockArduino/Streams/RelayConnection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="705">
-              <caret line="50" column="30" lean-forward="true" selection-start-line="50" selection-start-column="30" selection-end-line="50" selection-end-column="30" />
+            <state relative-caret-position="480">
+              <caret line="37" column="23" selection-start-line="37" selection-start-column="23" selection-end-line="37" selection-end-column="23" />
               <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/ArduinoStream.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="475">
-              <caret line="83" selection-start-line="83" selection-end-line="83" />
-              <folding>
-                <element signature="e#2299#2300#0" expanded="true" />
-                <element signature="e#2328#2329#0" expanded="true" />
-                <element signature="e#2366#2367#0" expanded="true" />
-                <element signature="e#2392#2393#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/interfaces/DataStream.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/helpers/InputStreamReader.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" selection-start-line="21" selection-end-line="21" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/relay/streams/MockServerStream.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="44" column="24" selection-start-line="44" selection-start-column="24" selection-end-line="44" selection-end-column="24" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#1004#1005#0" expanded="true" />
+                <element signature="e#1031#1032#0" expanded="true" />
+                <element signature="e#1086#1087#0" expanded="true" />
+                <element signature="e#1113#1114#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -148,9 +159,7 @@
         <option value="$PROJECT_DIR$/src/nl/bastiaansierd/relay/streams/MockServerStream.java" />
         <option value="$PROJECT_DIR$/src/nl/bastiaansierd/mockServer/helpers/ServerSideJsonBuilder.java" />
         <option value="$PROJECT_DIR$/src/nl/bastiaansierd/relay/streams/MockArduinoStream.java" />
-        <option value="$PROJECT_DIR$/src/nl/bastiaansierd/mockArduino/Streams/RelayStream.java" />
         <option value="$PROJECT_DIR$/src/nl/bastiaansierd/mockServer/MockServer.java" />
-        <option value="$PROJECT_DIR$/src/nl/bastiaansierd/mockArduino/MockArduino.java" />
         <option value="$PROJECT_DIR$/src/nl/bastiaansierd/relay/RelayThreadService.java" />
         <option value="$PROJECT_DIR$/src/nl/bastiaansierd/relay/helpers/JsonBuilder.java" />
         <option value="$PROJECT_DIR$/src/nl/bastiaansierd/relay/Relay.java" />
@@ -159,6 +168,12 @@
         <option value="$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/helpers/InputStreamReader.java" />
         <option value="$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/ArduinoStream.java" />
         <option value="$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/RelayThreadService.java" />
+        <option value="$PROJECT_DIR$/src/nl/bastiaansierd/streams/ArduinoStream.java" />
+        <option value="$PROJECT_DIR$/src/nl/bastiaansierd/Relay.java" />
+        <option value="$PROJECT_DIR$/src/nl/bastiaansierd/mockArduino/Streams/RelayStream.java" />
+        <option value="$PROJECT_DIR$/src/nl/bastiaansierd/communicationHandlers/StreamToStreamPassthroughAgent.java" />
+        <option value="$PROJECT_DIR$/src/nl/bastiaansierd/mockArduino/MockArduino.java" />
+        <option value="$PROJECT_DIR$/src/nl/bastiaansierd/mockArduino/Streams/RelayConnection.java" />
       </list>
     </option>
   </component>
@@ -170,11 +185,10 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="240" />
-    <option name="y" value="130" />
-    <option name="width" value="1440" />
-    <option name="height" value="780" />
+  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+    <option name="x" value="-1920" />
+    <option name="width" value="1920" />
+    <option name="height" value="1080" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -197,24 +211,6 @@
             <path>
               <item name="relay" type="b2602c69:ProjectViewProjectNode" />
               <item name="relay" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="relay" type="b2602c69:ProjectViewProjectNode" />
-              <item name="relay" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-              <item name="production" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="relay" type="b2602c69:ProjectViewProjectNode" />
-              <item name="relay" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-              <item name="production" type="462c0819:PsiDirectoryNode" />
-              <item name="Relay" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="relay" type="b2602c69:ProjectViewProjectNode" />
-              <item name="relay" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -228,15 +224,7 @@
               <item name="relay" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="bastiaansierd" type="462c0819:PsiDirectoryNode" />
-              <item name="ArduinoTester" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="relay" type="b2602c69:ProjectViewProjectNode" />
-              <item name="relay" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="bastiaansierd" type="462c0819:PsiDirectoryNode" />
-              <item name="ArduinoTester" type="462c0819:PsiDirectoryNode" />
-              <item name="helpers" type="462c0819:PsiDirectoryNode" />
+              <item name="communicationHandlers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="relay" type="b2602c69:ProjectViewProjectNode" />
@@ -250,7 +238,22 @@
               <item name="relay" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="bastiaansierd" type="462c0819:PsiDirectoryNode" />
-              <item name="mockServer" type="462c0819:PsiDirectoryNode" />
+              <item name="mockArduino" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="relay" type="b2602c69:ProjectViewProjectNode" />
+              <item name="relay" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="bastiaansierd" type="462c0819:PsiDirectoryNode" />
+              <item name="mockArduino" type="462c0819:PsiDirectoryNode" />
+              <item name="Streams" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="relay" type="b2602c69:ProjectViewProjectNode" />
+              <item name="relay" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="bastiaansierd" type="462c0819:PsiDirectoryNode" />
+              <item name="streams" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="relay" type="b2602c69:ProjectViewProjectNode" />
@@ -260,8 +263,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -302,13 +305,14 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.ArduinoTester">
-    <configuration name="ArduinoTester" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="nl.bastiaansierd.ArduinoTester.ArduinoTester" />
+  <component name="RunManager" selected="Application.Relay">
+    <configuration name="Relay MockArduino" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="nl.bastiaansierd.Relay" />
       <module name="relay" />
+      <option name="PROGRAM_PARAMETERS" value="mock" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="nl.bastiaansierd.ArduinoTester.*" />
+          <option name="PATTERN" value="nl.bastiaansierd.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -316,25 +320,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MockArduino" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="nl.bastiaansierd.mockArduino.MockArduino" />
+    <configuration name="Relay TrueArduino" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="nl.bastiaansierd.Relay" />
       <module name="relay" />
+      <option name="PROGRAM_PARAMETERS" value="real COM6" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="nl.bastiaansierd.mockArduino.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MockServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="nl.bastiaansierd.mockServer.MockServer" />
-      <module name="relay" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="nl.bastiaansierd.mockServer.*" />
+          <option name="PATTERN" value="nl.bastiaansierd.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -343,11 +335,11 @@
       </method>
     </configuration>
     <configuration name="Relay" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="nl.bastiaansierd.relay.Relay" />
+      <option name="MAIN_CLASS_NAME" value="nl.bastiaansierd.Relay" />
       <module name="relay" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="nl.bastiaansierd.relay.*" />
+          <option name="PATTERN" value="nl.bastiaansierd.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -355,12 +347,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Relay MockArduino" />
+      <item itemvalue="Application.Relay TrueArduino" />
+      <item itemvalue="Application.Relay" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ArduinoTester" />
         <item itemvalue="Application.Relay" />
-        <item itemvalue="Application.MockServer" />
-        <item itemvalue="Application.MockArduino" />
       </list>
     </recent_temporary>
   </component>
@@ -424,7 +418,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="136461000" />
+    <option name="totallyTimeSpent" value="140474000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -436,10 +430,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-1920" y="0" width="1920" height="1080" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.31769723" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17910448" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -448,7 +442,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49946696" weight="0.3293348" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49733475" visible="true" weight="0.45801526" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49733475" visible="true" weight="0.27145708" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4989339" weight="0.39694658" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -459,6 +453,7 @@
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5026652" side_tool="true" weight="0.18865867" />
       <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.4989339" weight="0.16575791" />
+      <window_info anchor="right" id="Coverage" side_tool="true" weight="0.32995737" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -526,6 +521,11 @@
       </breakpoints>
     </breakpoint-manager>
   </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/relay$Relay.ic" NAME="Relay Coverage Results" MODIFIED="1576273939752" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>nl.bastiaansierd.*</FILTER>
+    </SUITE>
+  </component>
   <component name="editorHistoryManager">
     <entry file="jar://C:/Libraries/Java/java-se-8u40-ri/jre/lib/ext/nashorn.jar!/jdk/nashorn/internal/runtime/ECMAErrors.class">
       <provider selected="true" editor-type-id="text-editor">
@@ -585,23 +585,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/mockArduino/Streams/RelayStream.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="48" column="5" selection-start-line="48" selection-start-column="5" selection-end-line="48" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/mockArduino/MockArduino.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="43" column="16" selection-start-line="43" selection-start-column="16" selection-end-line="43" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/relay/streams/ArduinoStream.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="945">
@@ -637,27 +620,10 @@
     <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/TestArduino.java" />
     <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/MockServerStream.java" />
     <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/MockArduinoStream.java" />
-    <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/ArduinoTester.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/relay/RelayThreadService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-510">
           <caret line="23" column="10" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="10" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/interfaces/DataStream.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -671,35 +637,94 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/helpers/InputStreamReader.java">
+    <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/interfaces/BufferedReadWriter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="60">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/ArduinoStream.java">
+    <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/streams/ArduinoConnection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="83" selection-start-line="83" selection-end-line="83" />
-          <folding>
-            <element signature="e#2299#2300#0" expanded="true" />
-            <element signature="e#2328#2329#0" expanded="true" />
-            <element signature="e#2366#2367#0" expanded="true" />
-            <element signature="e#2392#2393#0" expanded="true" />
-          </folding>
+        <state>
+          <caret line="36" column="9" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/ArduinoTester.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/RelayThreadService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="705">
+        <state relative-caret-position="528">
           <caret line="50" column="30" lean-forward="true" selection-start-line="50" selection-start-column="30" selection-end-line="50" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/ArduinoStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="671">
+          <caret line="50" column="36" selection-start-line="50" selection-start-column="36" selection-end-line="50" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/ArduinoTester/helpers/InputStreamReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/interfaces/DataStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/Relay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="25" column="10" selection-start-line="25" selection-start-column="10" selection-end-line="25" selection-end-column="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/communicationHandlers/StreamToStreamPassthroughAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/mockArduino/MockArduino.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="541">
+          <caret line="61" selection-start-line="61" selection-end-line="61" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/bastiaansierd/mockArduino/Streams/RelayConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="37" column="23" selection-start-line="37" selection-start-column="23" selection-end-line="37" selection-end-column="23" />
+          <folding>
+            <element signature="e#1004#1005#0" expanded="true" />
+            <element signature="e#1031#1032#0" expanded="true" />
+            <element signature="e#1086#1087#0" expanded="true" />
+            <element signature="e#1113#1114#0" expanded="true" />
           </folding>
         </state>
       </provider>

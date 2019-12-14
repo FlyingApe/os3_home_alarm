@@ -49,6 +49,12 @@ class RelaySocketListener {
                     //e.printStackTrace();
                 }
                 System.out.println("Client connected.");
+
+                /* TODO: replace single thread with dual threads -> one reading from relay, one writing to relay
+                could either be build here or inside RelayConnectionHandler.
+                In the last case, threads should not be build here, but inside RelayConnectionHandler
+                */
+
                 RelayStream stream = new RelayStream(s);
                 RelayConnectionHandler connection = new RelayConnectionHandler(stream);
                 Thread t = new Thread(connection);

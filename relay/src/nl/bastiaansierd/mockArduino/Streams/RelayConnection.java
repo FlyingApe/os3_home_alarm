@@ -4,31 +4,36 @@ import nl.bastiaansierd.interfaces.BufferedReadWriter;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class RelayConnection implements BufferedReadWriter {
-    Socket relaySocket = null;
+    private Socket relaySocket;
     private BufferedWriter destination = null;
     private BufferedReader source = null;
-    private InputStream in = null;
-    private OutputStream out = null;
-    private Lock streamLock;
+    //
+    // private Lock streamLock;
 
     public RelayConnection(Socket s) {
         relaySocket = s;
-        streamLock = new ReentrantLock();
+        //streamLock = new ReentrantLock();
     }
 
     public void connect() {
-        try {
-            destination = new BufferedWriter(new OutputStreamWriter(relaySocket.getOutputStream()));
-            source = new BufferedReader(new InputStreamReader(relaySocket.getInputStream()));
-
-            //in = relaySocket.getInputStream();
-            //out = relaySocket.getOutputStream();
-        } catch (IOException e) {
-            e.printStackTrace();
+        int timeOut = 3;
+        while(!isConnected()){
+            try {
+                destination = new BufferedWriter(new OutputStreamWriter(relaySocket.getOutputStream()));
+                source = new BufferedReader(new InputStreamReader(relaySocket.getInputStream()));
+            } catch (IOException e) {
+                try {
+                    System.out.println("MockArduino could not connect to relay.\n "+e.getMessage()+"\nWill try again in " + timeOut + " seconds.");
+                    TimeUnit.SECONDS.sleep(timeOut);
+                } catch (InterruptedException ex) {
+                    //ex.printStackTrace();
+                }
+            }
         }
 
     }
@@ -51,23 +56,4 @@ public class RelayConnection implements BufferedReadWriter {
     public BufferedWriter getWriter() {
         return destination;
     }
-/*
-    public InputStream getInputStream() {
-        streamLock.lock();
-        try {
-            return in;
-        } finally {
-            streamLock.unlock();
-        }
-    }
-
-    public OutputStream getOutputStream() {
-        streamLock.lock();
-        try {
-            return out;
-        } finally {
-            streamLock.unlock();
-        }
-    }
-    */
 }

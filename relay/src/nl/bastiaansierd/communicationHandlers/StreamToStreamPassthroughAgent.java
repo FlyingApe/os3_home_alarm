@@ -19,32 +19,40 @@ public class StreamToStreamPassthroughAgent implements Runnable
     public void run()
     {
         // check if source is ready to be read. If not, wait and check again
-        try {
+        /*try {
             while (!source.ready()){
                 TimeUnit.MILLISECONDS.sleep(50);
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
         // keep reading the source
         while(true){
             String line;
             String jsonBuilder = new String();
             try {
-                while ((line = source.readLine()) != null){
-                    jsonBuilder+=line;
-                    if(isJson(jsonBuilder)){
-                        writeToDestination(jsonBuilder);
-                        jsonBuilder="";
-                    }
+                if(source.ready()){
+                    while ((line = source.readLine()) != null){
+                        jsonBuilder+=line;
+                        if(isJson(jsonBuilder)){
+                            writeToDestination(jsonBuilder);
+                            jsonBuilder="";
+                        }
 
-                    if (line.trim().equals("}")) {
-                        jsonBuilder="";
+                        if (line.trim().equals("}")) {
+                            jsonBuilder="";
+                        }
                     }
                 }
             } catch (IOException e) {
                 //e.printStackTrace();
+            }
+
+            try {
+                TimeUnit.MILLISECONDS.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
 
         }

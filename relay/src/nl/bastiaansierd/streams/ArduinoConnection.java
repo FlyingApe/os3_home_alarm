@@ -57,6 +57,8 @@ public class ArduinoConnection implements BufferedReadWriter {
                     source = new BufferedReader(new InputStreamReader(arduinoSerialPort.getInputStream()));
                     destination = new BufferedWriter(new OutputStreamWriter(arduinoSerialPort.getOutputStream()));
 
+                    //make sure the connection gets time to setup and intitialize
+                    TimeUnit.SECONDS.sleep(2);
                 }
             } catch (Exception e) {
                 try {

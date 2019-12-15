@@ -40,13 +40,16 @@ public class StreamToStreamPassthroughAgent implements Runnable
                     }
                 }
             } catch (IOException e) {
-                //No working connection with source
-                System.out.println("Connection with source " + source.getName() + " broken.");
-                //Reset connection
-                source.clearReader();
-                //Reconnect
-                source.connect();
-                reader = source.getReader();
+                //TODO: serialConnection works different than sockets. Find a way to check if the Arduino is still working/connected
+                if(source.getName() != "Arduino"){
+                    //No working connection with source
+                    System.out.println("Connection with source " + source.getName() + " broken.");
+                    //Reset connection
+                    source.clearReader();
+                    //Reconnect
+                    source.connect();
+                    reader = source.getReader();
+                }
             }
 
             try {
@@ -61,7 +64,7 @@ public class StreamToStreamPassthroughAgent implements Runnable
     private boolean isJson(String checkable){
         try{
             JsonObject jsonTestObject = (JsonObject) Jsoner.deserialize(checkable);
-            System.out.println("JSON test passed: " + checkable);
+            //2System.out.println("JSON test passed: " + checkable);
             jsonTestObject.clear();
             return true;
         } catch (Exception e){
@@ -77,6 +80,8 @@ public class StreamToStreamPassthroughAgent implements Runnable
             writer.write("\n\r");
             writer.flush();
         } catch (IOException e) {
+            System.out.println(e.getMessage());
+
             //Connection broken
             //System.out.println("Connection with destination " + destination.getName() + " broken.");
             //Reset connection

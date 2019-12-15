@@ -11,5 +11,4 @@ public interface BufferedReadWriter {
     BufferedWriter getWriter();
     void clearReader();
     void clearWriter();
-
 }

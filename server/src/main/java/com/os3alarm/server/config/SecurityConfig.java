@@ -26,6 +26,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .httpBasic();
+
+        /* Note:
+            In case we want to make certain views inaccessible to certain roles we can refactor .anyRequest()
+                into ->
+                        [1]  .antMatches("index.html").authenticated()
+                        [2]  .antMatches("index.html").permitAll()
+                        [3]  .antMatches("index.html").hasRole("ADMIN") or any other role
+
+         */
     }
 
     @Bean

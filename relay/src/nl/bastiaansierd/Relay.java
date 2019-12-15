@@ -62,8 +62,8 @@ public class Relay {
         BufferedReadWriter serverComs = ServerConnection.getInstance();
 
 
-        Thread serverToArduinoCom = new Thread(new StreamToStreamPassthroughAgent(serverComs.getReader(), arduinoComs.getWriter()));
-        Thread arduinoToServerCom = new Thread(new StreamToStreamPassthroughAgent(arduinoComs.getReader(), serverComs.getWriter()));
+        Thread serverToArduinoCom = new Thread(new StreamToStreamPassthroughAgent(serverComs, arduinoComs));
+        Thread arduinoToServerCom = new Thread(new StreamToStreamPassthroughAgent(arduinoComs, serverComs));
 
         serverToArduinoCom.start();
         arduinoToServerCom.start();

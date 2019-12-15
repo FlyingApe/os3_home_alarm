@@ -29,7 +29,7 @@ public class MockArduinoConnection implements BufferedReadWriter {
         connect();
     }
 
-    private void connect() {
+    public synchronized void connect() {
         int timeOut = 3;
         while(!isConnected()) {
             try {
@@ -51,8 +51,8 @@ public class MockArduinoConnection implements BufferedReadWriter {
     }
 
     @Override
-    public boolean isConnected() {
-        if(socket != null){// Not the best way to test the connection
+    public synchronized boolean isConnected() {
+        if(source != null && destination != null){// Not the best way to test the connection
             return true;
         } else {
            return false;
@@ -60,12 +60,27 @@ public class MockArduinoConnection implements BufferedReadWriter {
     }
 
     @Override
-    public BufferedReader getReader(){
+    public String getName() {
+        return "MockArduino";
+    }
+
+    @Override
+    public synchronized BufferedReader getReader(){
         return source;
     }
 
     @Override
-    public BufferedWriter getWriter(){
+    public synchronized BufferedWriter getWriter(){
         return destination;
+    }
+
+    @Override
+    public synchronized void clearReader() {
+        source = null;
+    }
+
+    @Override
+    public synchronized void clearWriter() {
+        destination = null;
     }
 }

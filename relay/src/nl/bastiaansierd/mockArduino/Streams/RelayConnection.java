@@ -40,11 +40,16 @@ public class RelayConnection implements BufferedReadWriter {
 
     @Override
     public boolean isConnected() {
-        if (destination != null){
+        if (source != null && destination != null){
             return true;
         } else {
             return false;
         }
+    }
+
+    @Override
+    public String getName() {
+        return "Relay";
     }
 
     @Override
@@ -55,5 +60,15 @@ public class RelayConnection implements BufferedReadWriter {
     @Override
     public BufferedWriter getWriter() {
         return destination;
+    }
+
+    @Override
+    public void clearReader() {
+        source = null;
+    }
+
+    @Override
+    public void clearWriter() {
+        destination = null;
     }
 }

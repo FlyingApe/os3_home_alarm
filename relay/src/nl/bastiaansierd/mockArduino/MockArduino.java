@@ -107,7 +107,7 @@ public class MockArduino implements Runnable{
                 }
 
                 try {
-                    TimeUnit.MILLISECONDS.sleep(500);
+                    TimeUnit.MILLISECONDS.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -129,7 +129,7 @@ public class MockArduino implements Runnable{
         private boolean json(String checkable){
             try{
                 JsonObject jsonTestObject = (JsonObject) Jsoner.deserialize(checkable);
-                System.out.println("JSON test passed: " + checkable);
+                //System.out.println("JSON test passed: " + checkable);
                 receivedJsonObject = jsonTestObject;
                 return true;
             } catch (Exception e){

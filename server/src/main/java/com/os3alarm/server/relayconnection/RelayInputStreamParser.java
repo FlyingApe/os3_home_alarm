@@ -43,6 +43,7 @@ public class RelayInputStreamParser implements Runnable {
                         RelayAlarm alarm = pool.getAlarmByToken(token);
                         alarm.setReceivedJsonString(jsonBuilder);
                         System.out.println("token: "+ token + " && JSON_recieved: " + jsonBuilder);
+                        //System.out.println(stream.toString());
                         jsonBuilder="";
                     }
                 }

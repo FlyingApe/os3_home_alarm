@@ -2,38 +2,32 @@ package nl.bastiaansierd.communicationHandlers;
 
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
+import nl.bastiaansierd.interfaces.BufferedReadWriter;
 
 import java.io.*;
 import java.util.concurrent.TimeUnit;
 
 public class StreamToStreamPassthroughAgent implements Runnable
 {
-    private BufferedReader source;
-    private BufferedWriter destination;
+    private BufferedReadWriter source;
+    private BufferedReadWriter destination;
 
-    public StreamToStreamPassthroughAgent(BufferedReader source, BufferedWriter destination) {
+    public StreamToStreamPassthroughAgent(BufferedReadWriter source, BufferedReadWriter destination) {
         this.source = source;
         this.destination = destination;
     }
 
     public void run()
     {
-        // check if source is ready to be read. If not, wait and check again
-        /*try {
-            while (!source.ready()){
-                TimeUnit.MILLISECONDS.sleep(50);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
+        BufferedReader reader = source.getReader();
 
         // keep reading the source
         while(true){
             String line;
             String jsonBuilder = new String();
             try {
-                if(source.ready()){
-                    while ((line = source.readLine()) != null){
+                if(reader.ready()){
+                    while ((line = reader.readLine()) != null){
                         jsonBuilder+=line;
                         if(isJson(jsonBuilder)){
                             writeToDestination(jsonBuilder);
@@ -46,7 +40,13 @@ public class StreamToStreamPassthroughAgent implements Runnable
                     }
                 }
             } catch (IOException e) {
-                //e.printStackTrace();
+                //No working connection with source
+                System.out.println("Connection with source " + source.getName() + " broken.");
+                //Reset connection
+                source.clearReader();
+                //Reconnect
+                source.connect();
+                reader = source.getReader();
             }
 
             try {
@@ -71,12 +71,18 @@ public class StreamToStreamPassthroughAgent implements Runnable
     }
 
     private void writeToDestination(String writeable){
+        BufferedWriter writer = destination.getWriter();
         try {
-            destination.write(writeable);
-            destination.write("\n\r");
-            destination.flush();
+            writer.write(writeable);
+            writer.write("\n\r");
+            writer.flush();
         } catch (IOException e) {
-            e.printStackTrace();
+            //Connection broken
+            //System.out.println("Connection with destination " + destination.getName() + " broken.");
+            //Reset connection
+            //destination.clearWriter();
+            //Reconnect
+            //destination.connect();
         }
     }
 }

@@ -40,6 +40,7 @@ public class RelayConnectionHandler implements Runnable {
             String jsonCommand = "{\"command\":\""+Commands.values()[x]+"\"}\n";
 
             System.out.println("Pushed: " + jsonCommand);
+            //System.out.println(relayStream.toString());
             pushToAlarm(jsonCommand);
 
 

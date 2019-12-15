@@ -5,6 +5,7 @@ import nl.bastiaansierd.interfaces.BufferedReadWriter;
 import java.io.*;
 import java.net.Socket;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class ServerConnection implements BufferedReadWriter {
     private final String HOST = "localhost";
@@ -29,7 +30,7 @@ public class ServerConnection implements BufferedReadWriter {
         connect();
     }
 
-    private void connect(){
+    public synchronized void connect(){
         int timeOut = 3;
         while(!isConnected()) {
             try {
@@ -49,12 +50,17 @@ public class ServerConnection implements BufferedReadWriter {
         }
     }
 
-    public boolean isConnected(){
-        if(socket != null){// not a great way of testing the connection
+    public synchronized boolean isConnected(){
+        if(source != null && destination != null){// not a great way of testing the connection
             return true;
         } else {
             return false;
         }
+    }
+
+    @Override
+    public String getName() {
+        return "Server";
     }
 
     @Override
@@ -65,5 +71,15 @@ public class ServerConnection implements BufferedReadWriter {
     @Override
     public BufferedWriter getWriter() {
         return destination;
+    }
+
+    @Override
+    public synchronized void clearReader() {
+        source = null;
+    }
+
+    @Override
+    public synchronized void clearWriter() {
+        destination = null;
     }
 }

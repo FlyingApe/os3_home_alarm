@@ -41,7 +41,7 @@ public class ArduinoConnection implements BufferedReadWriter {
     private ArduinoConnection(){
     }
 
-    public void connect()
+    public synchronized void connect()
     {
         int timeOut = 3;
         while(!isConnected()) {
@@ -71,8 +71,8 @@ public class ArduinoConnection implements BufferedReadWriter {
     }
 
     @Override
-    public boolean isConnected() {
-        if(arduinoSerialPort != null){
+    public synchronized boolean isConnected() {
+        if(source != null && destination != null){
             return true;
         }
         else {
@@ -81,12 +81,27 @@ public class ArduinoConnection implements BufferedReadWriter {
     }
 
     @Override
-    public BufferedReader getReader() {
+    public String getName() {
+        return "Arduino";
+    }
+
+    @Override
+    public synchronized BufferedReader getReader() {
         return source;
     }
 
     @Override
-    public BufferedWriter getWriter() {
+    public synchronized BufferedWriter getWriter() {
         return destination;
+    }
+
+    @Override
+    public synchronized void clearReader() {
+        source = null;
+    }
+
+    @Override
+    public synchronized void clearWriter() {
+        destination = null;
     }
 }

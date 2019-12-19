@@ -5,16 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-enum AlarmStatus {
-    Active,
-    Inactive,
-    Inoperable,
-    InAlarm,
-    Disconnected
-        }
-
-
-
 @Entity
 public class Alarm {
 

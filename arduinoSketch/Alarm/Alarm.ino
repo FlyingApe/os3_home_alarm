@@ -58,17 +58,7 @@ void loop() {
   sendabledoc["token"] = token;
   getMicSample();
   getDistanceSample();
-
-  if(digitalRead(movementPin) == 1){
-    sendabledoc["movement"] = "true";
-    if(alarmStatus != "InActive"){
-      alarmStatus = "InAlarm";
-    }
-  } else if (digitalRead(movementPin) == 0){
-    sendabledoc["movement"] = "false";
-  }
-   
-  buzz();
+  checkMovementSensor();
 
   sendabledoc["status"] = alarmStatus;
   
@@ -78,6 +68,8 @@ void loop() {
     sendabledoc["alarmAudioOn"] = "false";
   }
 
+  buzz();
+  
   String out;
   serializeJsonPretty(sendabledoc, out); 
   Serial.print(out);
@@ -100,9 +92,11 @@ void processCommand(String command){
 //methode to buzz the buzzer
 void buzz(){
   if(alarmStatus == "InAlarm" && alarmAudioOn){
+    /*
     digitalWrite(buzzerPin, HIGH);
     delay(500);
     digitalWrite(buzzerPin, LOW);
+    */
   }
 }
 
@@ -139,4 +133,15 @@ void getDistanceSample(){
   if(averageDistanceValue > distanceTriggerValue && alarmStatus != "InActive"){
     alarmStatus = "InAlarm";
   }
+}
+
+void checkMovementSensor(){
+  if(digitalRead(movementPin) == 1){
+    sendabledoc["movement"] = "true";
+    if(alarmStatus != "InActive"){
+      alarmStatus = "InAlarm";
+    }
+  } else if (digitalRead(movementPin) == 0){
+    sendabledoc["movement"] = "false";
+  }  
 }

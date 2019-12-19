@@ -7,8 +7,6 @@ public class RelayStream {
     private Socket socket = null;
     private BufferedReader source = null;
     private BufferedWriter destination = null;
-    //private InputStream in = null;
-    //private OutputStream out = null;
 
     public RelayStream(Socket s) {
         this.socket = s;
@@ -20,8 +18,6 @@ public class RelayStream {
             try {
                 source = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 destination = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-                //in = socket.getInputStream();
-                //out = socket.getOutputStream();
             } catch (IOException e) {
                 e.printStackTrace();
             }

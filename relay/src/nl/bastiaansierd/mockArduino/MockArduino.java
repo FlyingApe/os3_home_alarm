@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 enum AlarmStatus {
     Active,
-    Inactive,
+    InActive,
     Inoperable,
     InAlarm,
     Disconnected
@@ -44,7 +44,6 @@ public class MockArduino implements Runnable{
         private RelayConnection relayConnection;
         private String token;
         private JsonObject receivedJsonObject = null;
-        private JsonObject sendableJsonObject;
         private AlarmStatus status;
         private boolean alarmAudioOn;
 
@@ -86,12 +85,13 @@ public class MockArduino implements Runnable{
                 }
 
                 // create a jsonObject to be send to the relay
-                sendableJsonObject = new JsonObject();
+
+                JsonObject sendableJsonObject = new JsonObject();
                 sendableJsonObject.put("token", token);
                 sendableJsonObject.put("microphone", String.valueOf(x));
                 sendableJsonObject.put("distance", String.valueOf(x));
                 sendableJsonObject.put("movement", String.valueOf(x));
-                sendableJsonObject.put("audioOn", String.valueOf(alarmAudioOn));
+                sendableJsonObject.put("alarmAudioOn", String.valueOf(alarmAudioOn));
                 sendableJsonObject.put("status", status.toString());
 
 
@@ -146,7 +146,7 @@ public class MockArduino implements Runnable{
                         status = AlarmStatus.Active;
                         break;
                     case "setStatusInactive":
-                        status = AlarmStatus.Inactive;
+                        status = AlarmStatus.InActive;
                         break;
                     case "setAudioOn":
                         alarmAudioOn = true;

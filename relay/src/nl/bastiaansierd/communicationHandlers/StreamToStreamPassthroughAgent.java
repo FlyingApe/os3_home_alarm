@@ -41,7 +41,7 @@ public class StreamToStreamPassthroughAgent implements Runnable
                 }
             } catch (IOException e) {
                 //TODO: serialConnection works different than sockets. Find a way to check if the Arduino is still working/connected
-                if(source.getName() != "Arduino"){
+                if(!source.getName().equals("Arduino")){
                     //No working connection with source
                     System.out.println("Connection with source " + source.getName() + " broken.");
                     //Reset connection
@@ -80,7 +80,7 @@ public class StreamToStreamPassthroughAgent implements Runnable
             writer.write("\n\r");
             writer.flush();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
 
             //Connection broken
             //System.out.println("Connection with destination " + destination.getName() + " broken.");

@@ -2,6 +2,7 @@ package com.os3alarm.server.relayconnection;
 
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
+import com.os3alarm.server.models.AlarmStatus;
 import com.os3alarm.server.models.RelayDataObserver;
 import com.os3alarm.server.relayconnection.pojo.AlarmPool;
 import com.os3alarm.server.relayconnection.pojo.RelayAlarm;
@@ -9,69 +10,88 @@ import com.os3alarm.server.relayconnection.pojo.RelayStream;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 public class RelayInputStreamParser implements Runnable {
-    private BufferedReader source;
+    private BufferedReader relayReader;
     private RelayStream stream;
     private JsonObject json = null;
     private AlarmPool pool;
+    private String token = null;
 
     public RelayInputStreamParser(RelayStream stream){
         this.stream = stream;
-        this.source = stream.getReader();
+        this.relayReader = stream.getReader();
         this.pool = AlarmPool.getInstance();
     }
 
     /// TODO: Fix while condition;
     public void run(){
-        String line;
         try {
+                String line;
                 String jsonBuilder = "";
-                while (((line = source.readLine()) != null)){
+                while (((line = relayReader.readLine()) != null)){
                     jsonBuilder+=line;
 
-                    if(isJson(jsonBuilder)){
-                        String token = getToken();
+                    if(json(jsonBuilder)){
                         if(pool.getAlarmByToken(token) == null ) {
-                            /// TODO: create factory, replace with interface
-                            RelayAlarm alarm = new RelayAlarm(token);
-                            alarm.addPropertyChangeListener(new RelayDataObserver());
-                            pool.addAlarm(alarm);
+                            createAlarm(token);
                         }
-                        RelayAlarm alarm = pool.getAlarmByToken(token);
-                        alarm.setReceivedJsonString(jsonBuilder);
-                        System.out.println("token: "+ token + " && JSON_recieved: " + jsonBuilder);
-                        //System.out.println(stream.toString());
+
+                        updateAlarm();
+
+
+                        //System.out.println("token: "+ token + " && JSON_recieved: " + jsonBuilder);
                         jsonBuilder="";
                     }
                 }
         } catch (IOException e) {
             //Read failed, set connection to disconnected
             System.out.println("Read failed, connection set to disconnected");
+
+            pool.getAlarmByToken(token).clearWriter();
             stream.clearReader();
         }
 
     }
 
-    private boolean isJson(String checkable){
+    private boolean json(String checkable){
         try{
             json = (JsonObject) Jsoner.deserialize(checkable);
+            if(token == null){
+                token = json.getString(Jsoner.mintJsonKey("token", new String()));
+            }
             return true;
         } catch (Exception e){
-            //e.printStackTrace();
             return false;
         }
     }
 
-    public String getToken(){
-        try{
-            String token = json.getString(Jsoner.mintJsonKey("token", new String()));
-            return token;
-        } catch (Exception e){
-            e.printStackTrace();
+    private void createAlarm(String token){
+        /// TODO: create factory, replace with interface
+        RelayAlarm alarm = new RelayAlarm(token);
+        alarm.addPropertyChangeListener(new RelayDataObserver());
+        pool.addAlarm(alarm);
+    }
+
+    private void updateAlarm(){
+        JsonObject sensors = new JsonObject();
+        sensors.put("microphone", json.getString(Jsoner.mintJsonKey("microphone", new String())));
+        sensors.put("distance", json.getString(Jsoner.mintJsonKey("distance", new String())));
+        sensors.put("movement", json.getString(Jsoner.mintJsonKey("movement", new String())));
+
+        RelayAlarm  alarm = pool.getAlarmByToken(token);
+
+        alarm.setJsonSensors(sensors.toJson());
+        alarm.setStatus(AlarmStatus.valueOf(json.getString(Jsoner.mintJsonKey("status", new String()))));
+        alarm.setAudioOn(json.getBoolean(Jsoner.mintJsonKey("alarmAudioOn", new String())));
+
+        if(alarm.getWriter() == null && token != null){
+            alarm.setWriter(stream.getWriter());
         }
-        return null;
+
+        System.out.println("token:  " + token);
+        System.out.println("JsonSensors: " +alarm.getJsonSensors());
+        System.out.println("status: " + alarm.getStatus().toString());
+        System.out.println("audioOn: " + alarm.isAudioOn() + "\n");
     }
 }

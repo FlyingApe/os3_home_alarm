@@ -19,7 +19,7 @@ public class RelayDataObservable implements IRelayDataObservable {
         support.removePropertyChangeListener(pcl);
     }
 
-    public void setReceivedJsonString(String value) {
+    public void setJsonSensors(String value) {
         support.firePropertyChange("received", this.receivedJsonString, value);
     }
 }

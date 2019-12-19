@@ -17,6 +17,7 @@ public class AlarmPool {
     private Lock poolLock;
 
     private AlarmPool() {
+        //TODO: research if lock is necsesarry here
         this.poolLock = new ReentrantLock();
         this.pool = new ArrayList<>();
     }
@@ -41,8 +42,9 @@ public class AlarmPool {
     public RelayAlarm getAlarmByToken(String token){
         poolLock.lock();
         try{
+            //TODO: probably quite slow for a large AlarmPool, something to think about
             for (RelayAlarm alarm: pool) {
-                if(alarm.getToken() == token){
+                if(alarm.getToken().equals(token)){
                     return alarm;
                 }
             }

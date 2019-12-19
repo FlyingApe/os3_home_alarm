@@ -6,27 +6,17 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-enum Commands {
-    setStatusInactive,
-    setStatusActive,
-    setAudioOff,
-    setAudioOn,
-}
+/*
+Depricated class, can be used for testpurposes
+functionality moved to SpringIntegrator.pushCommand(alarmToken, command)
+to us as a test, uncomment initialization in RelaySocketListener
+ */
 
-public class RelayConnectionHandler implements Runnable {
+public class RelayCommandPusherTest implements Runnable {
     private RelayStream relayStream;
-    //private AlarmPool pool;
 
-    public RelayConnectionHandler(RelayStream stream) {
+    public RelayCommandPusherTest(RelayStream stream) {
         relayStream = stream;
-        //pool = AlarmPool.getInstance();
-
-        /// TODO: create factory, replace with interface
-        RelayInputStreamParser inputStreamParser = new RelayInputStreamParser(relayStream);
-        Thread inputStreamThread = new Thread(inputStreamParser);
-        inputStreamThread.start();
-
-        // TODO: add thread for pushing data to the alarm that has an observer to eventhandle
     }
 
     public void run() {
@@ -39,8 +29,6 @@ public class RelayConnectionHandler implements Runnable {
 
             String jsonCommand = "{\"command\":\""+Commands.values()[x]+"\"}\n";
 
-            System.out.println("Pushed: " + jsonCommand);
-            //System.out.println(relayStream.toString());
             pushToAlarm(jsonCommand);
 
 
@@ -60,6 +48,7 @@ public class RelayConnectionHandler implements Runnable {
         try {
             writer.write(pushMessage);
             writer.flush();
+            System.out.println("Pushed: " + pushMessage);
         } catch (IOException e) {
             //connection has failed
             System.out.println("Write failed, connection set to disconnected");

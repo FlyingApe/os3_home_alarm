@@ -1,5 +1,5 @@
 package com.os3alarm.server.relay.models;
 
-public interface AlarmSensorObserver {
+public interface IAlarmSensorObserver {
     void update(String jsonSensorData);
 }

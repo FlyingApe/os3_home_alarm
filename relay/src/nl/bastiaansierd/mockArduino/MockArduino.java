@@ -87,7 +87,7 @@ public class MockArduino implements Runnable{
                 // create a jsonObject to be send to the relay
 
                 JsonObject sendableJsonObject = new JsonObject();
-                sendableJsonObject.put("token", token);
+                sendableJsonObject.put("token", "9afd446971a6b61b");
                 sendableJsonObject.put("microphone", String.valueOf(x));
                 sendableJsonObject.put("distance", String.valueOf(x));
                 sendableJsonObject.put("movement", String.valueOf(x));

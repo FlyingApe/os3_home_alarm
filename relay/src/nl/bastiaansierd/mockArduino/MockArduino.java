@@ -49,7 +49,9 @@ public class MockArduino implements Runnable{
 
         public TestService(BufferedReadWriter s) {
             this.relayConnection = (RelayConnection) s;
-            this.token = getRandomHexString(16);
+            //this.token = getRandomHexString(16);
+            this.token = "9afd446971a6b61b";
+            System.out.println("Alarm token: " + this.token);
             while(!relayConnection.isConnected()){
                 relayConnection.connect();
             }
@@ -87,7 +89,7 @@ public class MockArduino implements Runnable{
                 // create a jsonObject to be send to the relay
 
                 JsonObject sendableJsonObject = new JsonObject();
-                sendableJsonObject.put("token", "9afd446971a6b61b");
+                sendableJsonObject.put("token", token);
                 sendableJsonObject.put("microphone", String.valueOf(x));
                 sendableJsonObject.put("distance", String.valueOf(x));
                 sendableJsonObject.put("movement", String.valueOf(x));

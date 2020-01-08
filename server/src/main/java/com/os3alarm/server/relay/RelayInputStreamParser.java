@@ -1,12 +1,12 @@
-package com.os3alarm.server.relayconnection;
+package com.os3alarm.server.relay;
 
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
 import com.os3alarm.server.models.AlarmStatus;
 import com.os3alarm.server.models.RelayDataObserver;
-import com.os3alarm.server.relayconnection.pojo.AlarmPool;
-import com.os3alarm.server.relayconnection.pojo.RelayAlarm;
-import com.os3alarm.server.relayconnection.pojo.RelayStream;
+import com.os3alarm.server.relay.models.AlarmPool;
+import com.os3alarm.server.relay.models.LiveAlarm;
+import com.os3alarm.server.relay.models.RelayStream;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -48,7 +48,7 @@ public class RelayInputStreamParser implements Runnable {
             //Read failed, set connection to disconnected
             System.out.println("Read failed, connection set to disconnected");
 
-            pool.getAlarmByToken(token).clearWriter();
+            pool.getAlarmByToken(token).setWriter(null);
             stream.clearReader();
         }
 
@@ -68,8 +68,7 @@ public class RelayInputStreamParser implements Runnable {
 
     private void createAlarm(String token){
         /// TODO: create factory, replace with interface
-        RelayAlarm alarm = new RelayAlarm(token);
-        alarm.addPropertyChangeListener(new RelayDataObserver());
+        LiveAlarm alarm = new LiveAlarm(token);
         pool.addAlarm(alarm);
     }
 
@@ -79,7 +78,7 @@ public class RelayInputStreamParser implements Runnable {
         sensors.put("distance", json.getString(Jsoner.mintJsonKey("distance", new String())));
         sensors.put("movement", json.getString(Jsoner.mintJsonKey("movement", new String())));
 
-        RelayAlarm  alarm = pool.getAlarmByToken(token);
+        LiveAlarm alarm = pool.getAlarmByToken(token);
 
         alarm.setJsonSensors(sensors.toJson());
         alarm.setStatus(AlarmStatus.valueOf(json.getString(Jsoner.mintJsonKey("status", new String()))));

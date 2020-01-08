@@ -4,6 +4,7 @@ package com.os3alarm.server.services;
 import com.os3alarm.server.models.Alarm;
 import com.os3alarm.server.repositories.AlarmRepository;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

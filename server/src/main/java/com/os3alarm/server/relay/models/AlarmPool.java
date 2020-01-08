@@ -1,8 +1,6 @@
-package com.os3alarm.server.relayconnection.pojo;
+package com.os3alarm.server.relay.models;
 
-import com.os3alarm.server.models.RelayDataObservable;
 import com.os3alarm.server.models.RelayDataObserver;
-import com.os3alarm.server.relayconnection.pojo.RelayAlarm;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +9,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 //shared resource voor alle relay's om data in te pushen
 public class AlarmPool {
-    private List<RelayAlarm> pool;
+    private List<LiveAlarm> pool;
     private List<RelayDataObserver> observers;
     private static AlarmPool instance = null;
     private Lock poolLock;
@@ -30,7 +28,7 @@ public class AlarmPool {
         return instance;
     }
 
-    public void addAlarm(RelayAlarm alarm) {
+    public void addAlarm(LiveAlarm alarm) {
         poolLock.lock();
         try{
             pool.add(alarm);
@@ -39,11 +37,11 @@ public class AlarmPool {
         }
     }
     
-    public RelayAlarm getAlarmByToken(String token){
+    public LiveAlarm getAlarmByToken(String token){
         poolLock.lock();
         try{
             //TODO: probably quite slow for a large AlarmPool, something to think about
-            for (RelayAlarm alarm: pool) {
+            for (LiveAlarm alarm: pool) {
                 if(alarm.getToken().equals(token)){
                     return alarm;
                 }

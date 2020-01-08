@@ -13,12 +13,15 @@ public class Alarm {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     // id == token
     private long id;
-    private AlarmStatus status;
-    private String name;
+    //private AlarmStatus status;
+    //private String name;
     private String token;
+    private String user;
     //private List<Event> eventLog;
 
     public Alarm() {} //Allows REST POST
+
+    /*
 
     public AlarmStatus getStatus() {
         return status;
@@ -35,6 +38,7 @@ public class Alarm {
     public void setName(String name) {
         this.name = name;
     }
+    */
 
     public long getId() {
         return id;
@@ -42,5 +46,21 @@ public class Alarm {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 }

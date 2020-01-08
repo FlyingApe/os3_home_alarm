@@ -1,4 +1,4 @@
-package com.os3alarm.server.relayconnection.pojo;
+package com.os3alarm.server.relay.models;
 
 import java.io.*;
 import java.net.Socket;

@@ -1,17 +1,17 @@
-package com.os3alarm.server.relayconnection;
+package com.os3alarm.server.relay;
 
-import com.os3alarm.server.relayconnection.pojo.AlarmPool;
-import com.os3alarm.server.relayconnection.pojo.RelayStream;
+import com.os3alarm.server.relay.models.AlarmPool;
+import com.os3alarm.server.relay.models.RelayStream;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-class RelaySocketListener {
+public class RelaySocketListener {
     private AlarmPool pool;
     private static RelaySocketListener instance = null;
 
-    static RelaySocketListener getInstance(){
+    public static RelaySocketListener getInstance(){
         if(instance == null){
             instance = new RelaySocketListener();
         }
@@ -23,7 +23,7 @@ class RelaySocketListener {
         t.start();
     }
 
-    public static class Connector implements Runnable {
+    private static class Connector implements Runnable {
         final int SBAP_PORT = 3000;
         ServerSocket server = null;
 
@@ -56,15 +56,6 @@ class RelaySocketListener {
                 RelayInputStreamParser inputStreamParser = new RelayInputStreamParser(stream);
                 Thread inputStreamThread = new Thread(inputStreamParser);
                 inputStreamThread.start();
-
-
-                //RelayCommandPusherTest can be used to test the relay's functionality
-
-                /*
-                RelayCommandPusherTest connection = new RelayCommandPusherTest(stream);
-                Thread t = new Thread(connection);
-                t.start();
-                */
             }
         }
     }

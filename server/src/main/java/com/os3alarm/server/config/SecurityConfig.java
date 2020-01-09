@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
-                .httpBasic();
+                .httpBasic().and().csrf().disable();
 
         /* Note:
             In case we want to make certain views inaccessible to certain roles we can refactor .anyRequest()

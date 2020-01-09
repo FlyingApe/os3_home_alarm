@@ -48,19 +48,13 @@ public class AlarmController {
         }
     }
 
+
     @Async
-    @PostMapping(value="/post")
+    @PostMapping(value="post")
     public void create(@RequestBody Alarm alarm) {
-        /// TODO: make sure alarm has not been added to an other user before
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String user = authentication.getName();
-
-        alarm.setUser(user);
-
-
-
         alarmService.save(alarm);
     }
+
 
     @Async
     @DeleteMapping(value="/delete/{id}")
@@ -91,11 +85,55 @@ public class AlarmController {
     }
 
     @Async
-    @GetMapping(value = "/{token}/{command}")
-    public void command(@PathVariable String token, @PathVariable String command){
-        //relayService.pushCommand(token, Commands.valueOf(command));
+    @PostMapping(value = "/sendcommand/{token}")
+    public void command(@RequestBody String command, @PathVariable String token){
+        //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        //String user = authentication.getName();
+
+        relayService.pushCommand(token, Commands.valueOf(command));
     }
 
+    @Async
+    @GetMapping(value = "/status/{token}")
+    public String status(@PathVariable String token){
+        //relayService
+        return "";
+    }
+
+
+    @Async
+    @GetMapping(value = "/registerAlarmByToken/{token}")
+    public void registerAlarmByToken(@PathVariable String token){
+        Alarm alarm = alarmService.getAlarmByToken(token).get();
+
+        /// TODO: user uit eigen service halen
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String user = authentication.getName();
+
+        alarm.setUser(user);
+
+        alarmService.save(alarm);
+    }
+
+
+    @Async
+    @PostMapping(value="/registerArduino")
+    public void arduinoRegister(@RequestBody Alarm alarm) {
+        if(!alarmService.getAlarmByToken(alarm.getToken()).isPresent()){
+            alarmService.save(alarm);
+        }
+    }
+
+    /*
+    @Async
+    @GetMapping(value = "/getbytoken/{token}")
+    public Alarm getAlarmByToken(@PathVariable String token){
+        Alarm alarm = alarmService.getAlarmByToken(token).get();
+        return alarm;
+    }
+     */
+
+    /*
     @Async
     @MessageMapping(value = "/sensorDataTest/{token}")
     //@SendTo(value = "/sensorDataTest/{token}")
@@ -105,6 +143,8 @@ public class AlarmController {
 
         return observer.getSensorData();
     }
+
+     */
 
 
   /*

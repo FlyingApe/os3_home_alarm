@@ -5,6 +5,8 @@ import com.os3alarm.server.models.RelayDataObserver;
 import com.os3alarm.server.relay.RelaySocketListener;
 import com.os3alarm.server.relay.models.AlarmPool;
 import com.os3alarm.server.relay.models.AlarmSensorObserver;
+import com.os3alarm.server.relay.models.LiveAlarm;
+import datalogger.SimpleLogger;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Async;
@@ -21,6 +23,7 @@ public class RelayService {
     public RelayService() {
         connector = RelaySocketListener.getInstance();
         pool = AlarmPool.getInstance();
+        SimpleLogger.createLog("AlarmEventChanges.txt");
     }
 
     @Async
@@ -39,9 +42,16 @@ public class RelayService {
     }
 
     @Async
+    public LiveAlarm getAlarmByToken(){
+        return null;
+    }
+
+   /*@Async
     public void subscribeToJsonSensorDataByToken(String token, RelayDataObserver relayObserver){
         AlarmSensorObserver observer = new AlarmSensorObserver();
         pool.getAlarmByToken(token).addObserver(observer);
         observer.addPropertyChangeListener(relayObserver);
     }
+
+    */
 }

@@ -7,9 +7,17 @@ import com.os3alarm.server.models.RelayDataObserver;
 import com.os3alarm.server.relay.models.AlarmPool;
 import com.os3alarm.server.relay.models.LiveAlarm;
 import com.os3alarm.server.relay.models.RelayStream;
+import com.os3alarm.server.services.AlarmService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Base64;
 
 public class RelayInputStreamParser implements Runnable {
     private RelayStream stream;
@@ -68,6 +76,49 @@ public class RelayInputStreamParser implements Runnable {
         /// TODO: create factory, replace with interface
         LiveAlarm alarm = new LiveAlarm(token);
         pool.addAlarm(alarm);
+
+        URL url = null;
+        HttpURLConnection con = null;
+        try {
+            url = new URL("http://localhost:8080/api/alarm/registerArduino");
+            con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+
+            //String userCredentials = "admin:123";
+            String basicAuth = "Basic YWRtaW46MTIz";
+            con.setRequestProperty ("Authorization", basicAuth);
+
+            con.setRequestProperty("Content-Type", "application/json; utf-8");
+            con.setRequestProperty("Accept", "application/json");
+            con.setDoOutput(true);
+
+            String jsonInputString = "{\"token\": \"" + token + "\"}";
+
+            try(OutputStream os = con.getOutputStream()) {
+                byte[] input = jsonInputString.getBytes("utf-8");
+                os.write(input, 0, input.length);
+                //os.flush();
+            } catch (Exception e){
+                //System.out.println(e.getMessage());
+            }
+
+            try(BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+                StringBuilder response = new StringBuilder();
+                String responseLine = null;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+                System.out.println(response.toString());
+            } catch (Exception e){
+                //System.out.println(e.getMessage());
+            }
+
+            System.out.println("tryed to create alarm");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     private void updateAlarm(){

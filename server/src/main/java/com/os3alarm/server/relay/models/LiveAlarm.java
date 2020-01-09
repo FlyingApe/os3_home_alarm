@@ -1,6 +1,7 @@
 package com.os3alarm.server.relay.models;
 
 import com.os3alarm.server.models.AlarmStatus;
+import datalogger.SimpleLogger;
 
 import java.io.BufferedWriter;
 import java.util.ArrayList;
@@ -61,6 +62,9 @@ public class LiveAlarm{
     public void setStatus(AlarmStatus status) {
         statusLock.lock();
         try{
+            if(!status.equals(this.status)){
+                SimpleLogger.write(token, "Status changed to: ".concat(status.toString()));
+            }
             this.status = status;
         } finally {
             statusLock.unlock();

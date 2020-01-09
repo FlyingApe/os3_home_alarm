@@ -8,7 +8,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class RelaySocketListener {
-    private AlarmPool pool;
+    //private AlarmPool pool;
     private static RelaySocketListener instance = null;
 
     public static RelaySocketListener getInstance(){

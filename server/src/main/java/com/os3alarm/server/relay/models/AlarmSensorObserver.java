@@ -14,7 +14,7 @@ public class AlarmSensorObserver implements IAlarmSensorObserver {
 
     @Override
     public void update(String value) {
-        support.firePropertyChange("sensoren", this.jsonSensorData, value);
+        support.firePropertyChange("sensorData", this.jsonSensorData, value);
         this.jsonSensorData = value;
         //support.firePropertyChange("sensoren_".concat(token), this.JsonSensors, value);
     }

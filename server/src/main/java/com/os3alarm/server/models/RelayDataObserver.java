@@ -1,21 +1,33 @@
 package com.os3alarm.server.models;
 
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
+//import org.springframework.messaging.handler.annotation.MessageMapping;
+//import org.springframework.messaging.handler.annotation.SendTo;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class RelayDataObserver implements PropertyChangeListener {
+    private String sensorData = "test";
+
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        this.pushToSocket((String) (evt.getNewValue()));
+        this.sensorData = (String) (evt.getNewValue());
+        System.out.println(this.sensorData);
     }
 
-    @MessageMapping("/alarm")
-    @SendTo("/alarm/sensordata")
+    public String getSensorData(){
+        return sensorData;
+    }
+
+
+    /*
+    //@MessageMapping("/alarm")
+    //@SendTo("/alarm/sensordata")
     private String pushToSocket(String message) {
         return message;
     }
+     */
+
+
 }

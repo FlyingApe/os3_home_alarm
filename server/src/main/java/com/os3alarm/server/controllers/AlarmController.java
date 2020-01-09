@@ -1,11 +1,13 @@
 package com.os3alarm.server.controllers;
 
 import com.os3alarm.server.models.Commands;
+import com.os3alarm.server.models.RelayDataObserver;
 import com.os3alarm.server.services.RelayService;
 import com.os3alarm.server.services.AlarmService;
 import com.os3alarm.server.models.Alarm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.scheduling.annotation.Async;
@@ -91,15 +93,21 @@ public class AlarmController {
     @Async
     @GetMapping(value = "/{token}/{command}")
     public void command(@PathVariable String token, @PathVariable String command){
-        relayService.pushCommand(token, Commands.valueOf(command));
+        //relayService.pushCommand(token, Commands.valueOf(command));
     }
+
+    @Async
+    @MessageMapping(value = "/sensorDataTest/{token}")
+    //@SendTo(value = "/sensorDataTest/{token}")
+    public String TestSensorData(@PathVariable String token){
+        RelayDataObserver observer = new RelayDataObserver();
+        relayService.subscribeToJsonSensorDataByToken(token, observer);
+
+        return observer.getSensorData();
+    }
+
 
   /*
-    @Async
-    @GetMapping(value = "/")
-    public String TestSensorData(){
-
-    }
     @Async
     @SendTo(value = "/")
 */

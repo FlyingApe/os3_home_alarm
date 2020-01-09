@@ -12,10 +12,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 public class RelayInputStreamParser implements Runnable {
-    private BufferedReader relayReader;
     private RelayStream stream;
-    private JsonObject json = null;
+    private BufferedReader relayReader;
     private AlarmPool pool;
+
+    private JsonObject json = null;
     private String token = null;
 
     public RelayInputStreamParser(RelayStream stream){
@@ -24,26 +25,23 @@ public class RelayInputStreamParser implements Runnable {
         this.pool = AlarmPool.getInstance();
     }
 
-    /// TODO: Fix while condition;
     public void run(){
         try {
-                String line;
-                String jsonBuilder = "";
-                while (((line = relayReader.readLine()) != null)){
-                    jsonBuilder+=line;
+            String line;
+            String jsonBuilder = "";
+            /// TODO: Fix while condition;
+            while (((line = relayReader.readLine()) != null)){
+                jsonBuilder+=line;
 
-                    if(json(jsonBuilder)){
-                        if(pool.getAlarmByToken(token) == null ) {
-                            createAlarm(token);
-                        }
-
-                        updateAlarm();
-
-
-                        //System.out.println("token: "+ token + " && JSON_recieved: " + jsonBuilder);
-                        jsonBuilder="";
+                if(json(jsonBuilder)){
+                    if(pool.getAlarmByToken(token) == null ) {
+                        createAlarm(token);
                     }
+
+                    updateAlarm();
+                    jsonBuilder="";
                 }
+            }
         } catch (IOException e) {
             //Read failed, set connection to disconnected
             System.out.println("Read failed, connection set to disconnected");

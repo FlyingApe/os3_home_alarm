@@ -1,6 +1,5 @@
 package com.os3alarm.server.models;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
 
 import javax.persistence.*;
 

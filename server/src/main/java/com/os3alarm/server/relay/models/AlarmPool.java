@@ -1,6 +1,5 @@
 package com.os3alarm.server.relay.models;
 
-import com.os3alarm.server.models.RelayDataObserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +9,6 @@ import java.util.concurrent.locks.ReentrantLock;
 //shared resource voor alle relay's om data in te pushen
 public class AlarmPool {
     private List<LiveAlarm> pool;
-    private List<RelayDataObserver> observers;
     private static AlarmPool instance = null;
     private Lock poolLock;
 

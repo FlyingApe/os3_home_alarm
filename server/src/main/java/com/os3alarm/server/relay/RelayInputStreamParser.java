@@ -3,6 +3,7 @@ package com.os3alarm.server.relay;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
 import com.os3alarm.server.models.Alarm;
+import com.os3alarm.server.models.AlarmStatus;
 import com.os3alarm.server.relay.models.AlarmPool;
 import com.os3alarm.server.relay.models.LiveAlarm;
 import com.os3alarm.server.relay.models.RelayStream;
@@ -117,32 +118,32 @@ public class RelayInputStreamParser implements Runnable {
     }
 
     private void updateAlarm(){
-        Alarm alarm = new Alarm();
+        Alarm alarm = new Alarm(token, json.getInteger(Jsoner.mintJsonKey("distance", new String())), json.getInteger(Jsoner.mintJsonKey("movement", new String())), json.getInteger(Jsoner.mintJsonKey("microphone", new String())), AlarmStatus.valueOf(json.getString(Jsoner.mintJsonKey("status", new String()))), json.getBoolean(Jsoner.mintJsonKey("alarmAudioOn", new String())));
 
 
+        /// TODO: depricated, only the writer is used
+        LiveAlarm liveAlarm = pool.getAlarmByToken(token);
+        JsonObject sensors = new JsonObject();
 
-        /*
         sensors.put("microphone", json.getString(Jsoner.mintJsonKey("microphone", new String())));
         sensors.put("distance", json.getString(Jsoner.mintJsonKey("distance", new String())));
         sensors.put("movement", json.getString(Jsoner.mintJsonKey("movement", new String())));
 
 
-        alarm.setJsonSensors(sensors.toJson());
-        alarm.setStatus(AlarmStatus.valueOf(json.getString(Jsoner.mintJsonKey("status", new String()))));
-        alarm.setAudioOn(json.getBoolean(Jsoner.mintJsonKey("alarmAudioOn", new String())));
+        liveAlarm.setJsonSensors(sensors.toJson());
+        liveAlarm.setStatus(AlarmStatus.valueOf(json.getString(Jsoner.mintJsonKey("status", new String()))));
+        liveAlarm.setAudioOn(json.getBoolean(Jsoner.mintJsonKey("alarmAudioOn", new String())));
 
-        if(alarm.getWriter() == null && token != null){
-            alarm.setWriter(stream.getWriter());
+        if(liveAlarm.getWriter() == null && token != null){
+            liveAlarm.setWriter(stream.getWriter());
         }
 
 
         System.out.println("token:  " + token);
-        System.out.println("JsonSensors: " +alarm.getJsonSensors());
-        System.out.println("status: " + alarm.getStatus().toString());
-        System.out.println("audioOn: " + alarm.isAudioOn() + "\n");
-        */
+        System.out.println("JsonSensors: " +liveAlarm.getJsonSensors());
+        System.out.println("status: " + liveAlarm.getStatus().toString());
+        System.out.println("audioOn: " + liveAlarm.isAudioOn() + "\n");
 
-        //depricated
-        //LiveAlarm alarm = pool.getAlarmByToken(token);
+
     }
 }

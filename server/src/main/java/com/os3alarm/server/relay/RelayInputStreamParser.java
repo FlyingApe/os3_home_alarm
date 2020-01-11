@@ -7,6 +7,8 @@ import com.os3alarm.server.models.AlarmStatus;
 import com.os3alarm.server.relay.models.AlarmPool;
 import com.os3alarm.server.relay.models.LiveAlarm;
 import com.os3alarm.server.relay.models.RelayStream;
+import com.os3alarm.server.services.MessagingService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,10 +25,14 @@ public class RelayInputStreamParser implements Runnable {
     private JsonObject json = null;
     private String token = null;
 
-    public RelayInputStreamParser(RelayStream stream){
+    private MessagingService _messagingService;
+
+
+    public RelayInputStreamParser(RelayStream stream, MessagingService messagingService){
         this.stream = stream;
         this.relayReader = stream.getReader();
         this.pool = AlarmPool.getInstance();
+        _messagingService = messagingService;
     }
 
     public void run(){
@@ -119,7 +125,7 @@ public class RelayInputStreamParser implements Runnable {
 
     private void updateAlarm(){
         Alarm alarm = new Alarm(token, json.getInteger(Jsoner.mintJsonKey("distance", new String())), json.getInteger(Jsoner.mintJsonKey("movement", new String())), json.getInteger(Jsoner.mintJsonKey("microphone", new String())), AlarmStatus.valueOf(json.getString(Jsoner.mintJsonKey("status", new String()))), json.getBoolean(Jsoner.mintJsonKey("alarmAudioOn", new String())));
-
+        _messagingService.sendToSpecificUser(alarm);
 
         /// TODO: depricated, only the writer is used
         LiveAlarm liveAlarm = pool.getAlarmByToken(token);

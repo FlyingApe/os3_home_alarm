@@ -20,7 +20,9 @@ public class RelayService {
     private RelaySocketListener connector;
 
     @Autowired
-    public RelayService() {
+    public RelayService(MessagingService messagingService) {
+        RelaySocketListener.initRelaySocketListener(messagingService);
+
         connector = RelaySocketListener.getInstance();
         pool = AlarmPool.getInstance();
         SimpleLogger.createLog("AlarmEventChanges.txt");

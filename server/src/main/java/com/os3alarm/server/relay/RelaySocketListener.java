@@ -17,10 +17,15 @@ public class RelaySocketListener {
 
     public static RelaySocketListener getInstance(){
         if(instance == null){
-            instance = new RelaySocketListener();
+            System.out.println("RelaySocketListener should be initiated through initRelaySocketListener(MessagingService messagingService)");
         }
         return instance;
     }
+
+    public static void initRelaySocketListener(MessagingService messagingService){
+        instance = new RelaySocketListener(messagingService);
+    }
+
     private RelaySocketListener(MessagingService messagingService) {
         _messagingService = messagingService;
         Thread t = new Thread(new Connector(_messagingService));
@@ -30,9 +35,8 @@ public class RelaySocketListener {
     private static class Connector implements Runnable {
         final int SBAP_PORT = 3000;
         ServerSocket server = null;
-
         private MessagingService _messagingService;
-        @Autowired
+
         Connector(MessagingService messagingService){
             _messagingService = messagingService;
             try {

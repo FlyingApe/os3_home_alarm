@@ -1,0 +1,10 @@
+14:16 11-01-2020 :: Logfile created
+14:16 11-01-2020 :: 9afd446971a6b61b :: Status changed to: Active
+14:16 11-01-2020 :: 9afd446971a6b61b :: Status changed to: Active
+14:17 11-01-2020 :: 9afd446971a6b61b :: Status changed to: Disconnected
+14:17 11-01-2020 :: 9afd446971a6b61b :: Status changed to: Active
+14:17 11-01-2020 :: 9afd446971a6b61b :: Status changed to: InActive
+14:17 11-01-2020 :: 9afd446971a6b61b :: Status changed to: InActive
+14:17 11-01-2020 :: 9afd446971a6b61b :: Status changed to: Disconnected
+14:18 11-01-2020 :: 9afd446971a6b61b :: Status changed to: Active
+14:20 11-01-2020 :: 9afd446971a6b61b :: Active

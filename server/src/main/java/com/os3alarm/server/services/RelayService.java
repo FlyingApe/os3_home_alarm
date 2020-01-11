@@ -4,7 +4,7 @@ import com.os3alarm.server.models.Commands;
 import com.os3alarm.server.relay.RelaySocketListener;
 import com.os3alarm.server.relay.models.AlarmPool;
 import com.os3alarm.server.relay.models.LiveAlarm;
-import datalogger.SimpleLogger;
+import com.os3alarm.datalogger.SimpleLogger;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Async;

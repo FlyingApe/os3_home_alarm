@@ -2,22 +2,17 @@ package com.os3alarm.server.relay;
 
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
-import com.os3alarm.server.models.AlarmStatus;
-import com.os3alarm.server.models.RelayDataObserver;
+import com.os3alarm.server.models.Alarm;
 import com.os3alarm.server.relay.models.AlarmPool;
 import com.os3alarm.server.relay.models.LiveAlarm;
 import com.os3alarm.server.relay.models.RelayStream;
-import com.os3alarm.server.services.AlarmService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Base64;
 
 public class RelayInputStreamParser implements Runnable {
     private RelayStream stream;
@@ -122,12 +117,15 @@ public class RelayInputStreamParser implements Runnable {
     }
 
     private void updateAlarm(){
-        JsonObject sensors = new JsonObject();
+        Alarm alarm = new Alarm();
+
+
+
+        /*
         sensors.put("microphone", json.getString(Jsoner.mintJsonKey("microphone", new String())));
         sensors.put("distance", json.getString(Jsoner.mintJsonKey("distance", new String())));
         sensors.put("movement", json.getString(Jsoner.mintJsonKey("movement", new String())));
 
-        LiveAlarm alarm = pool.getAlarmByToken(token);
 
         alarm.setJsonSensors(sensors.toJson());
         alarm.setStatus(AlarmStatus.valueOf(json.getString(Jsoner.mintJsonKey("status", new String()))));
@@ -137,9 +135,14 @@ public class RelayInputStreamParser implements Runnable {
             alarm.setWriter(stream.getWriter());
         }
 
+
         System.out.println("token:  " + token);
         System.out.println("JsonSensors: " +alarm.getJsonSensors());
         System.out.println("status: " + alarm.getStatus().toString());
         System.out.println("audioOn: " + alarm.isAudioOn() + "\n");
+        */
+
+        //depricated
+        //LiveAlarm alarm = pool.getAlarmByToken(token);
     }
 }

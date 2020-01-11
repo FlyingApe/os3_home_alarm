@@ -1,9 +1,8 @@
 package com.os3alarm.server.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jdk.nashorn.internal.ir.annotations.Ignore;
+
+import javax.persistence.*;
 
 @Entity
 public class Alarm {
@@ -11,34 +10,54 @@ public class Alarm {
     @Id
     /// TODO: Implement static id by input validation.
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    // id == token
     private long id;
-    //private AlarmStatus status;
-    //private String name;
+
     private String token;
     private String user;
-    //private List<Event> eventLog;
+
+    @Transient
+    private int distance;
+    @Transient
+    private int movement;
+    @Transient
+    private int microphone;
+    @Transient
+    private AlarmStatus status;
+    @Transient
+    private boolean audioOn;
+
+
 
     public Alarm() {} //Allows REST POST
 
-    /*
+    public Alarm(String token, int distance, int movement, int microphone, AlarmStatus status, boolean audioON){
+        this.token = token;
+        this.distance = distance;
+        this.movement = movement;
+        this.microphone = microphone;
+        this.status = status;
+        this.audioOn = audioON;
+    }
 
     public AlarmStatus getStatus() {
         return status;
     }
 
-    public void setStatus(AlarmStatus status) {
-        this.status = status;
+    public int getDistance() {
+        return distance;
     }
 
-    public String getName() {
-        return name;
+    public int getMovement() {
+        return movement;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public int getMicrophone() {
+        return microphone;
     }
-    */
+
+    public boolean isAudioOn() {
+        return audioOn;
+    }
 
     public long getId() {
         return id;

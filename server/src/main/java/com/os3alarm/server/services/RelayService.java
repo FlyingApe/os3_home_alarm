@@ -1,10 +1,8 @@
 package com.os3alarm.server.services;
 
 import com.os3alarm.server.models.Commands;
-import com.os3alarm.server.models.RelayDataObserver;
 import com.os3alarm.server.relay.RelaySocketListener;
 import com.os3alarm.server.relay.models.AlarmPool;
-import com.os3alarm.server.relay.models.AlarmSensorObserver;
 import com.os3alarm.server.relay.models.LiveAlarm;
 import datalogger.SimpleLogger;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -45,13 +43,4 @@ public class RelayService {
     public LiveAlarm getAlarmByToken(){
         return null;
     }
-
-   /*@Async
-    public void subscribeToJsonSensorDataByToken(String token, RelayDataObserver relayObserver){
-        AlarmSensorObserver observer = new AlarmSensorObserver();
-        pool.getAlarmByToken(token).addObserver(observer);
-        observer.addPropertyChangeListener(relayObserver);
-    }
-
-    */
 }

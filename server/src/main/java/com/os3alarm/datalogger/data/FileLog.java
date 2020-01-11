@@ -11,12 +11,8 @@ public class FileLog implements DataLog {
     private String archive;
     private PrintWriter writer;
     private Scanner scanner;
-    private String directory;
-    private String fileName;
 
     public FileLog(String logDirectory, String logfile) {
-        //this.directory = logDirectory;
-        //this.fileName = logfile;
 
         String logFilePath = logDirectory + "\\" + logfile;
 
@@ -26,18 +22,23 @@ public class FileLog implements DataLog {
             System.out.println("Directory '" + logDirectory + "' has been created");
         }
 
-
-        File logFile = null;
+        File logFile = new File(logFilePath);
 
         try {
-            logFile = new File(logFilePath);
-            writer = new PrintWriter(logFilePath);
             scanner = new Scanner(logFile);
+            setArchive();
         } catch (FileNotFoundException fnfe){
             System.out.println("Logfile " + logfile + " not found, one wil be created");
+
             Date date = new Date();
             String dateString = new SimpleDateFormat("HH:mm dd-MM-yyyy").format(date);
-            saveLog(dateString + " :: Logfile created");
+            archive = dateString.concat(" :: Logfile created").concat("\n");
+        }
+
+        try {
+            writer = new PrintWriter(logFilePath);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
@@ -51,15 +52,15 @@ public class FileLog implements DataLog {
     }
 
     public synchronized void saveLog(String message){
-        //setArchive();
+        if(archive != null){
+            writer.print(archive);
+            archive = null;
+        }
 
         writer.println(message);
         writer.flush();
 
-       /* if(archive != null){
-            writer.print(archive);
-            archive =
-        }
+       /*
 
         */
     }

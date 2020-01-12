@@ -3,6 +3,12 @@ package com.os3alarm.server.services;
 import com.os3alarm.server.models.Alarm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
+import org.springframework.messaging.simp.SimpMessageType;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
@@ -22,17 +28,30 @@ public class MessagingService {
     private SessionRegistry _sessionRegistry;
 
     @Autowired
+    public SimpMessageSendingOperations messagingTemplate;
+
+    @Autowired
     public MessagingService(AlarmService alarmService, SessionRegistry sessionRegistry) {
         _alarmService = alarmService;
         _sessionRegistry = sessionRegistry;
     }
 
-    @Async
-    public void sendToSpecificUser(Alarm alarm) {
+    @MessageMapping("/alarm/sensordata")
+    public void sendAlarmDataToSpecificUser(@Payload Alarm alarm) {
         alarm = UpdateAlarmWithUsername(alarm);
         String sessionId = getSessionId(alarm.getUser());
-        System.out.println(sessionId);
 
+        System.out.println("Session id is: " + sessionId);
+
+        messagingTemplate.convertAndSendToUser(sessionId,"/secured/user/queue/specific-user", "test",
+                createHeaders(sessionId));
+    }
+
+    private MessageHeaders createHeaders(String sessionId) {
+        SimpMessageHeaderAccessor headerAccessor = SimpMessageHeaderAccessor.create(SimpMessageType.MESSAGE);
+        headerAccessor.setSessionId(sessionId);
+        headerAccessor.setLeaveMutable(true);
+        return headerAccessor.getMessageHeaders();
     }
 
     @Async
@@ -53,7 +72,6 @@ public class MessagingService {
                 sessionId = item.getSessionId();
             }
         }
-        System.out.println("Session id is: " + sessionId);
         return sessionId;
     }
 
@@ -80,8 +98,5 @@ public class MessagingService {
         }
         return null;
     }
-
-
-
 
 }

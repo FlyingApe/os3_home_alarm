@@ -49,10 +49,11 @@ public class MessagingService {
         List<SessionInformation> activeSessions = getActiveSessions();
         for (SessionInformation item : activeSessions) {
             User user = getUser(item);
-            if (user.getUsername() == username) {
+            if (user.getUsername().equals(username)) {
                 sessionId = item.getSessionId();
             }
         }
+        System.out.println("Session id is: " + sessionId);
         return sessionId;
     }
 
@@ -64,11 +65,13 @@ public class MessagingService {
         {
             activeSessions.addAll( _sessionRegistry.getAllSessions( principal, false ) );
         }
+        System.out.println(activeSessions);
         return activeSessions;
     }
 
     public User getUser( SessionInformation session )
     {
+
         Object principalObj = session.getPrincipal();
         if ( principalObj instanceof User )
         {

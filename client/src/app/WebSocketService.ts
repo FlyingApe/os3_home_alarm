@@ -4,7 +4,8 @@ import { AppComponent } from './app.component';
 
 export class WebSocketService {
     webSocketEndPoint = 'http://localhost:8080/ws';
-    sensorData = '/user/queue/sensordata';
+    
+    sensorData = 'user/topic/sensordata';
     stompClient: Stomp.Client;
     parentComponent: AppComponent;
     constructor(parentComponent: AppComponent) {
@@ -16,7 +17,7 @@ export class WebSocketService {
         const ws = new SockJS(this.webSocketEndPoint);
         this.stompClient = Stomp.over(ws);
         this.stompClient.connect({}, (frame) => {
-            this.stompClient.subscribe(this.sensorData, (sdkEvent) => {
+            this.stompClient.subscribe('/user/' + frame.headers['user-name'] + '/sensordata', (sdkEvent) => {
                 this.onMessageReceived(sdkEvent);
             });
             // _this.stompClient.reconnect_delay = 2000;

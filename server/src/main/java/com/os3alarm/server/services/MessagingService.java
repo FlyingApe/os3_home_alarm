@@ -4,17 +4,14 @@ import com.os3alarm.server.models.Alarm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.messaging.MessageHeaders;
-import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.simp.SimpMessageType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,7 +26,7 @@ public class MessagingService {
     private SessionRegistry _sessionRegistry;
 
     @Autowired
-    public SimpMessagingTemplate messagingTemplate;
+    public SimpMessagingTemplate _messagingTemplate;
 
     @Autowired
     public MessagingService(AlarmService alarmService, SessionRegistry sessionRegistry) {
@@ -43,8 +40,9 @@ public class MessagingService {
 
         System.out.println("Session id is: " + sessionId);
 
-        messagingTemplate.convertAndSendToUser(sessionId,"queue/sensordata", alarm,
+        _messagingTemplate.convertAndSendToUser(alarm.getUser(),"/sensordata", alarm,
                 createHeaders(sessionId));
+
     }
 
     private MessageHeaders createHeaders(String sessionId) {

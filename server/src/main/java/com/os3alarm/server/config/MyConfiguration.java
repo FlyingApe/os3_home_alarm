@@ -24,9 +24,4 @@ public class MyConfiguration {
         };
     }
 
-    @Bean
-    SessionRegistry sessionRegistry() {
-        return new SessionRegistryImpl();
-    }
-
 }

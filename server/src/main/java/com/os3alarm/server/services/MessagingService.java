@@ -9,6 +9,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.simp.SimpMessageType;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
@@ -28,7 +29,7 @@ public class MessagingService {
     private SessionRegistry _sessionRegistry;
 
     @Autowired
-    public SimpMessageSendingOperations messagingTemplate;
+    public SimpMessagingTemplate messagingTemplate;
 
     @Autowired
     public MessagingService(AlarmService alarmService, SessionRegistry sessionRegistry) {
@@ -36,14 +37,13 @@ public class MessagingService {
         _sessionRegistry = sessionRegistry;
     }
 
-    @MessageMapping("/alarm/sensordata")
     public void sendAlarmDataToSpecificUser(@Payload Alarm alarm) {
         alarm = UpdateAlarmWithUsername(alarm);
         String sessionId = getSessionId(alarm.getUser());
 
         System.out.println("Session id is: " + sessionId);
 
-        messagingTemplate.convertAndSendToUser(sessionId,"/secured/user/queue/specific-user", "test",
+        messagingTemplate.convertAndSendToUser(sessionId,"queue/sensordata", alarm,
                 createHeaders(sessionId));
     }
 

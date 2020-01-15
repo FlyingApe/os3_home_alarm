@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AlarmComponent } from './alarm/alarm.component';
-import { UserComponent } from './user/user.component';
-import { AlarmAddComponent } from './alarm/alarm-add/alarm-add.component';
 import { AlarmDetailComponent } from './alarm/alarm-detail/alarm-detail.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatCardModule, MatFormFieldModule, MatListModule, MatSelectModule, MatTableModule, MatTabsModule} from '@angular/material';
@@ -16,8 +14,6 @@ import {HttpClientModule} from '@angular/common/http';
   declarations: [
     AppComponent,
     AlarmComponent,
-    UserComponent,
-    AlarmAddComponent,
     AlarmDetailComponent,
   ],
     imports: [

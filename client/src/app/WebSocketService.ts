@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 
 export class WebSocketService {
     webSocketEndPoint = 'http://localhost:8080/ws';
-    
+
     sensorData = 'user/topic/sensordata';
     stompClient: Stomp.Client;
     parentComponent: AppComponent;

@@ -58,6 +58,7 @@ public class RelayInputStreamParser implements Runnable {
             System.out.println("Read failed, connection set to disconnected");
 
             pool.getAlarmByToken(token).setWriter(null);
+            pool.getAlarmByToken(token).setStatus(AlarmStatus.Disconnected);
             stream.clearReader();
         }
 
@@ -76,7 +77,6 @@ public class RelayInputStreamParser implements Runnable {
     }
 
     private void createAlarm(String token){
-        /// TODO: create factory, replace with interface
         LiveAlarm alarm = new LiveAlarm(token);
         pool.addAlarm(alarm);
 
@@ -115,9 +115,6 @@ public class RelayInputStreamParser implements Runnable {
             } catch (Exception e){
                 //System.out.println(e.getMessage());
             }
-
-            System.out.println("tryed to create alarm");
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -132,29 +129,27 @@ public class RelayInputStreamParser implements Runnable {
 
         }
 
-        /// TODO: depricated, only the writer is used
+        /// TODO: see if alarmPool and liveAlarm can be deleted
         LiveAlarm liveAlarm = pool.getAlarmByToken(token);
-        JsonObject sensors = new JsonObject();
 
-        sensors.put("microphone", json.getString(Jsoner.mintJsonKey("microphone", new String())));
-        sensors.put("distance", json.getString(Jsoner.mintJsonKey("distance", new String())));
-        sensors.put("movement", json.getString(Jsoner.mintJsonKey("movement", new String())));
-
-
-        liveAlarm.setJsonSensors(sensors.toJson());
         liveAlarm.setStatus(AlarmStatus.valueOf(json.getString(Jsoner.mintJsonKey("status", new String()))));
-        liveAlarm.setAudioOn(json.getBoolean(Jsoner.mintJsonKey("alarmAudioOn", new String())));
-
         if(liveAlarm.getWriter() == null && token != null){
             liveAlarm.setWriter(stream.getWriter());
         }
 
-/*
-        System.out.println("token:  " + token);
-        System.out.println("JsonSensors: " +liveAlarm.getJsonSensors());
-        System.out.println("status: " + liveAlarm.getStatus().toString());
-        System.out.println("audioOn: " + liveAlarm.isAudioOn() + "\n");
-*/
 
+
+        /*
+        The rest is only used to print incoming data to console:
+         */
+        JsonObject sensors = new JsonObject();
+        sensors.put("microphone", json.getString(Jsoner.mintJsonKey("microphone", new String())));
+        sensors.put("distance", json.getString(Jsoner.mintJsonKey("distance", new String())));
+        sensors.put("movement", json.getString(Jsoner.mintJsonKey("movement", new String())));
+
+        System.out.println("token:  " + token);
+        System.out.println("JsonSensors: " + sensors.toJson());
+        System.out.println("status: " + liveAlarm.getStatus().toString());
+        System.out.println("audioOn: " + json.getString(Jsoner.mintJsonKey("alarmAudioOn", new String())) + "\n");
     }
 }

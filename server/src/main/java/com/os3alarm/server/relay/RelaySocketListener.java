@@ -3,7 +3,6 @@ package com.os3alarm.server.relay;
 import com.os3alarm.server.relay.models.AlarmPool;
 import com.os3alarm.server.relay.models.RelayStream;
 import com.os3alarm.server.services.MessagingService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.net.ServerSocket;

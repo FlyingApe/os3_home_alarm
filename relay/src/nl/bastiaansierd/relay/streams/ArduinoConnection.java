@@ -1,9 +1,9 @@
-package nl.bastiaansierd.streams;
+package nl.bastiaansierd.relay.streams;
 
 import gnu.io.CommPort;
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
-import nl.bastiaansierd.interfaces.BufferedReadWriter;
+import nl.bastiaansierd.relay.interfaces.BufferedReadWriter;
 
 import java.io.*;
 import java.util.concurrent.TimeUnit;

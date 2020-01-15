@@ -1,32 +1,34 @@
-package nl.bastiaansierd.streams;
+package nl.bastiaansierd.relay.streams;
 
-import nl.bastiaansierd.interfaces.BufferedReadWriter;
+import nl.bastiaansierd.relay.interfaces.BufferedReadWriter;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class ServerConnection implements BufferedReadWriter {
     private final String HOST = "localhost";
     private final int PORT = 3000;
 
-    private static ServerConnection instance = null;
+//    private static ServerConnection instance = null;
 
     private Socket socket = null;
     private BufferedWriter destination = null;
     private BufferedReader source = null;
 
+    /*
+
     public static ServerConnection getInstance() {
-        /* singelton initialisatie*/
+        // singelton initialisatie
         if(instance == null){
             instance = new ServerConnection();
         }
         return instance;
     }
+     */
 
 
-    private ServerConnection(){
+    public ServerConnection(){
         connect();
     }
 
@@ -64,12 +66,12 @@ public class ServerConnection implements BufferedReadWriter {
     }
 
     @Override
-    public BufferedReader getReader() {
+    public synchronized BufferedReader getReader() {
         return source;
     }
 
     @Override
-    public BufferedWriter getWriter() {
+    public synchronized BufferedWriter getWriter() {
         return destination;
     }
 

@@ -1,7 +1,7 @@
-package datalogger;
+package com.os3alarm.datalogger;
 
-import datalogger.data.DataLog;
-import datalogger.data.FileLog;
+import com.os3alarm.datalogger.data.FileLog;
+import com.os3alarm.datalogger.data.DataLog;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,7 +9,7 @@ import java.util.Date;
 public class SimpleLogger {
     private static SimpleLogger instance = null;
     private String logDirectory;
-    DataLog log;
+    private DataLog log;
 
 
     private SimpleLogger(String logFile){
@@ -41,30 +41,26 @@ public class SimpleLogger {
         return (dotIndex == -1) ? "" : fileName.substring(dotIndex + 1);
     }
 
-    private void setLogDir(String path){
-        logDirectory = path;
-    }
 
-    private synchronized void writer(String whoDunnit, String logText){
+    private void writer(String whoDunnit, String logText){
         Date date = new Date();
         String dateString = new SimpleDateFormat("HH:mm dd-MM-yyyy").format(date);
         String message = dateString + " :: " + whoDunnit + " :: " + logText;
 
         try{
             log.saveLog(message);
-            System.out.println("Message written to " + logDirectory + "\\" + log + ": " + message);
+            //System.out.println("Message written to " + logDirectory + "\\" + log + ": " + message);
         }
         catch (Exception e){
-            System.out.println("Could not write to " + logDirectory + "\\" + log + ".");
+            //System.out.println("Could not write to " + logDirectory + "\\" + log + ".");
         }
-    }
-
-    public static void setLogDirectory(String path){
-        SimpleLogger.getLog().setLogDir(path);
     }
 
     public static void write(String whoDunnit, String logText){
-        SimpleLogger.getLog().writer(whoDunnit, logText);
+        SimpleLogger thisLogger = SimpleLogger.getLog();
+        if(thisLogger!=null){
+            thisLogger.writer(whoDunnit, logText);
+        }
     }
 
 }

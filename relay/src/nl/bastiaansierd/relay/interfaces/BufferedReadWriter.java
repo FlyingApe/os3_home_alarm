@@ -1,4 +1,4 @@
-package nl.bastiaansierd.interfaces;
+package nl.bastiaansierd.relay.interfaces;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

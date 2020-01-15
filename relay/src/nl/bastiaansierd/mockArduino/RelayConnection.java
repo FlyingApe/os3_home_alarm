@@ -1,12 +1,10 @@
-package nl.bastiaansierd.mockArduino.Streams;
+package nl.bastiaansierd.mockArduino;
 
-import nl.bastiaansierd.interfaces.BufferedReadWriter;
+import nl.bastiaansierd.relay.interfaces.BufferedReadWriter;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class RelayConnection implements BufferedReadWriter {
     private Socket relaySocket;
@@ -28,14 +26,13 @@ public class RelayConnection implements BufferedReadWriter {
                 source = new BufferedReader(new InputStreamReader(relaySocket.getInputStream()));
             } catch (IOException e) {
                 try {
-                    System.out.println("MockArduino could not connect to relay.\n "+e.getMessage()+"\nWill try again in " + timeOut + " seconds.");
+                    System.out.println("ArduinoGenerator could not connect to relay.\n "+e.getMessage()+"\nWill try again in " + timeOut + " seconds.");
                     TimeUnit.SECONDS.sleep(timeOut);
                 } catch (InterruptedException ex) {
                     //ex.printStackTrace();
                 }
             }
         }
-
     }
 
     @Override

@@ -1,6 +1,6 @@
-package nl.bastiaansierd.streams;
+package nl.bastiaansierd.relay.streams;
 
-import nl.bastiaansierd.interfaces.BufferedReadWriter;
+import nl.bastiaansierd.relay.interfaces.BufferedReadWriter;
 
 import java.io.*;
 import java.net.Socket;
@@ -10,22 +10,24 @@ public class MockArduinoConnection implements BufferedReadWriter {
     private final String HOST = "localhost";
     private final int PORT = 5000;
 
-    private static MockArduinoConnection instance = null;
+    //private static MockArduinoConnection instance = null;
 
     private Socket socket = null;
     private BufferedWriter destination = null;
     private BufferedReader source = null;
 
-
+/*
     public static MockArduinoConnection getInstance() {
-        /* singelton initialisatie*/
+        // singelton initialisatie
         if (instance == null) {
             instance = new MockArduinoConnection();
         }
         return instance;
     }
 
-    private MockArduinoConnection(){
+ */
+
+    public MockArduinoConnection(){
         connect();
     }
 
@@ -33,11 +35,11 @@ public class MockArduinoConnection implements BufferedReadWriter {
         int timeOut = 3;
         while(!isConnected()) {
             try {
-                System.out.println("Connecting to MockArduino, HOST: " + HOST + ", PORT: " + PORT + "......");
+                System.out.println("Connecting to ArduinoGenerator, HOST: " + HOST + ", PORT: " + PORT + "......");
                 socket = new Socket(HOST, PORT);
                 source = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 destination = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-                System.out.println("Succes, connected to MockArduino.");
+                System.out.println("Succes, connected to ArduinoGenerator.");
             } catch (IOException e) {
                 try {
                     System.out.println("Could not connect. Will try again in " + timeOut + " seconds");
@@ -61,7 +63,7 @@ public class MockArduinoConnection implements BufferedReadWriter {
 
     @Override
     public String getName() {
-        return "MockArduino";
+        return "ArduinoGenerator";
     }
 
     @Override

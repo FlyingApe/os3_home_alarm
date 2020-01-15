@@ -43,6 +43,8 @@ public class RelayInputStreamParser implements Runnable {
                 jsonBuilder+=line;
 
                 if(json(jsonBuilder)){
+                    System.out.println("Server recieved: "+ json.toJson());
+
                     if(pool.getAlarmByToken(token) == null ) {
                         createAlarm(token);
                     }
@@ -124,7 +126,11 @@ public class RelayInputStreamParser implements Runnable {
 
     private void updateAlarm(){
         Alarm alarm = new Alarm(token, json.getInteger(Jsoner.mintJsonKey("distance", new String())), json.getInteger(Jsoner.mintJsonKey("movement", new String())), json.getInteger(Jsoner.mintJsonKey("microphone", new String())), AlarmStatus.valueOf(json.getString(Jsoner.mintJsonKey("status", new String()))), json.getBoolean(Jsoner.mintJsonKey("alarmAudioOn", new String())));
-        _messagingService.sendAlarmDataToSpecificUser(alarm);
+        try{
+            _messagingService.sendAlarmDataToSpecificUser(alarm);
+        } catch (Exception e){
+
+        }
 
         /// TODO: depricated, only the writer is used
         LiveAlarm liveAlarm = pool.getAlarmByToken(token);
@@ -143,12 +149,12 @@ public class RelayInputStreamParser implements Runnable {
             liveAlarm.setWriter(stream.getWriter());
         }
 
-
+/*
         System.out.println("token:  " + token);
         System.out.println("JsonSensors: " +liveAlarm.getJsonSensors());
         System.out.println("status: " + liveAlarm.getStatus().toString());
         System.out.println("audioOn: " + liveAlarm.isAudioOn() + "\n");
-
+*/
 
     }
 }

@@ -13,7 +13,6 @@ public class MockArduinoRelayGenerator {
     public static void main ( String[] args )
     {
         Integer numberOfAlarms = null;
-        BufferedReadWriter serverComs;
         Scanner in  = new Scanner(System.in);
         boolean validInput = false;
 
@@ -38,14 +37,10 @@ public class MockArduinoRelayGenerator {
         Thread t = new Thread(new ArduinoGenerator());
         t.start();
 
-
-        //setup connection with server
-        serverComs = ServerConnection.getInstance();
-
-
         for (int i=0; i < numberOfAlarms; i++) {
             //setup new connection with ArduinoGenerator
             BufferedReadWriter arduinoComs = new MockArduinoConnection();
+            BufferedReadWriter serverComs = new ServerConnection();
 
             Thread serverToArduinoCom = new Thread(new StreamToStreamPassthroughAgent(serverComs, arduinoComs));
             Thread arduinoToServerCom = new Thread(new StreamToStreamPassthroughAgent(arduinoComs, serverComs));

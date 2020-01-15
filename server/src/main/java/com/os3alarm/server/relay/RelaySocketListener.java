@@ -33,41 +33,29 @@ public class RelaySocketListener {
     }
 
     private static class Connector implements Runnable {
-        final int SBAP_PORT = 3000;
-        ServerSocket server = null;
+        private final int SBAP_PORT = 3000;
+        private boolean isListening = true;
         private MessagingService _messagingService;
 
         Connector(MessagingService messagingService){
             _messagingService = messagingService;
-            try {
-                server = new ServerSocket(SBAP_PORT);
-            } catch (IOException e) {
-                //e.printStackTrace();
-            }
         }
 
         public void run(){
-            //TODO: conditie loop aanpassen. -. Socketlistener
-            //TODO: checken of meerdere alarmen kunnen connecten
+            // let alarms connect
+            try{
+                ServerSocket server = new ServerSocket(SBAP_PORT);
 
-            //System.out.println("Waiting for clients to connect...");
-            Socket s = null;
-            while(true) {
-                try {
-                    if (((s = server.accept()) == null)) break;
-                } catch (IOException e) {
-                    System.out.println("server.accept() -->> throws IOExceptions");
-                    //e.printStackTrace();
+                while(isListening) {
+                    Socket s = server.accept();
+
+                    RelayStream stream = new RelayStream(s);
+                    RelayInputStreamParser inputStreamParser = new RelayInputStreamParser(stream, _messagingService);
+                    Thread inputStreamThread = new Thread(inputStreamParser);
+                    inputStreamThread.start();
                 }
-                System.out.println("Client connected.");
-
-                RelayStream stream = new RelayStream(s);
-
-                /// TODO: create factory, replace with interface
-
-                RelayInputStreamParser inputStreamParser = new RelayInputStreamParser(stream, _messagingService);
-                Thread inputStreamThread = new Thread(inputStreamParser);
-                inputStreamThread.start();
+            } catch (IOException e){
+                //e.printStackTrace();
             }
         }
     }

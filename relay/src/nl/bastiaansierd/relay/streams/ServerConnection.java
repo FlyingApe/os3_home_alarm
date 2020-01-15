@@ -10,22 +10,25 @@ public class ServerConnection implements BufferedReadWriter {
     private final String HOST = "localhost";
     private final int PORT = 3000;
 
-    private static ServerConnection instance = null;
+//    private static ServerConnection instance = null;
 
     private Socket socket = null;
     private BufferedWriter destination = null;
     private BufferedReader source = null;
 
+    /*
+
     public static ServerConnection getInstance() {
-        /* singelton initialisatie*/
+        // singelton initialisatie
         if(instance == null){
             instance = new ServerConnection();
         }
         return instance;
     }
+     */
 
 
-    private ServerConnection(){
+    public ServerConnection(){
         connect();
     }
 

@@ -14,7 +14,7 @@ public class Relay {
         BufferedReadWriter arduinoComs = null;
         boolean validInput = false;
         Scanner in  = new Scanner(System.in);
-        BufferedReadWriter serverComs = ServerConnection.getInstance();
+        BufferedReadWriter serverComs = new ServerConnection();
 
         while (!validInput){
             try {

@@ -4,15 +4,13 @@ import com.os3alarm.server.models.AlarmStatus;
 import datalogger.SimpleLogger;
 
 import java.io.BufferedWriter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 ///TODO: investigate if/when locks and or synchronised methods should be used
 
-//public class LiveAlarm implements IRelayDataObservable {
 public class LiveAlarm{
+//public class LiveAlarm{
     private String token;
     private String JsonSensors;
     private AlarmStatus status;
@@ -24,7 +22,6 @@ public class LiveAlarm{
     private Lock statusLock;
     private Lock audioLock;
 
-    private List<IAlarmSensorObserver> observers = new ArrayList<>();
 
     //constructor
     public LiveAlarm(String token) {
@@ -33,15 +30,6 @@ public class LiveAlarm{
         sensorLock = new ReentrantLock();
         statusLock = new ReentrantLock();
         audioLock = new ReentrantLock();
-    }
-
-    //deal with observers
-    public void addObserver(IAlarmSensorObserver observer){
-        this.observers.add(observer);
-    }
-
-    public void removeObserver(IAlarmSensorObserver observer){
-        this.observers.remove(observer);
     }
 
     //getters and setters
@@ -85,9 +73,6 @@ public class LiveAlarm{
         sensorLock.lock();
         try{
             this.JsonSensors = value;
-            for (IAlarmSensorObserver observer : this.observers){
-                observer.update(value);
-            }
         } finally {
             sensorLock.unlock();
         }

@@ -12,7 +12,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/alarm");
+        config.enableSimpleBroker("/queue/", "/topic/", "/user/");
+        //registry.enableStompBrokerRelay("/queue/", "/topic/", "/exchange/");
         config.setApplicationDestinationPrefixes("/app");
     }
 
@@ -20,5 +21,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         // Register SockJS fallback in case WebSocket is not available for requesting client;
         registry.addEndpoint("/ws").setAllowedOrigins("http://localhost:4200").withSockJS();
+
     }
 }

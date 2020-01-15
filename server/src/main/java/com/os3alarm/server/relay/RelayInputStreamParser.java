@@ -137,11 +137,8 @@ public class RelayInputStreamParser implements Runnable {
             liveAlarm.setWriter(stream.getWriter());
         }
 
-
-
         /*
         The rest is only used to print incoming data to console:
-         */
         JsonObject sensors = new JsonObject();
         sensors.put("microphone", json.getString(Jsoner.mintJsonKey("microphone", new String())));
         sensors.put("distance", json.getString(Jsoner.mintJsonKey("distance", new String())));
@@ -151,5 +148,6 @@ public class RelayInputStreamParser implements Runnable {
         System.out.println("JsonSensors: " + sensors.toJson());
         System.out.println("status: " + liveAlarm.getStatus().toString());
         System.out.println("audioOn: " + json.getString(Jsoner.mintJsonKey("alarmAudioOn", new String())) + "\n");
+         */
     }
 }

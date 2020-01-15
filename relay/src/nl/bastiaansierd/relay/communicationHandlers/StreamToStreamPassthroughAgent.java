@@ -1,8 +1,8 @@
-package nl.bastiaansierd.communicationHandlers;
+package nl.bastiaansierd.relay.communicationHandlers;
 
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
-import nl.bastiaansierd.interfaces.BufferedReadWriter;
+import nl.bastiaansierd.relay.interfaces.BufferedReadWriter;
 
 import java.io.*;
 import java.util.concurrent.TimeUnit;
@@ -79,6 +79,10 @@ public class StreamToStreamPassthroughAgent implements Runnable
             writer.write(writeable);
             writer.write("\n\r");
             writer.flush();
+
+            if (source.getName().equals("ArduinoGenerator")){
+                System.out.println("written to server: "+writeable.trim());
+            }
         } catch (IOException e) {
             //System.out.println(e.getMessage());
 

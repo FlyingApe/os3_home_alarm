@@ -1,76 +1,74 @@
-package nl.bastiaansierd.streams;
+package nl.bastiaansierd.relay.streams;
 
-import nl.bastiaansierd.interfaces.BufferedReadWriter;
+import nl.bastiaansierd.relay.interfaces.BufferedReadWriter;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.concurrent.TimeUnit;
 
-public class MockArduinoConnection implements BufferedReadWriter {
+public class ServerConnection implements BufferedReadWriter {
     private final String HOST = "localhost";
-    private final int PORT = 5000;
+    private final int PORT = 3000;
 
-    private static MockArduinoConnection instance = null;
+    private static ServerConnection instance = null;
 
     private Socket socket = null;
     private BufferedWriter destination = null;
     private BufferedReader source = null;
 
-
-    public static MockArduinoConnection getInstance() {
+    public static ServerConnection getInstance() {
         /* singelton initialisatie*/
-        if (instance == null) {
-            instance = new MockArduinoConnection();
+        if(instance == null){
+            instance = new ServerConnection();
         }
         return instance;
     }
 
-    private MockArduinoConnection(){
+
+    private ServerConnection(){
         connect();
     }
 
-    public synchronized void connect() {
+    public synchronized void connect(){
         int timeOut = 3;
         while(!isConnected()) {
             try {
-                System.out.println("Connecting to MockArduino, HOST: " + HOST + ", PORT: " + PORT + "......");
+                System.out.println("Connecting to Server, HOST: " + HOST + ", PORT: " + PORT + "......");
                 socket = new Socket(HOST, PORT);
-                source = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 destination = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-                System.out.println("Succes, connected to MockArduino.");
+                source = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                System.out.println("Succes, connected to server.");
             } catch (IOException e) {
                 try {
-                    System.out.println("Could not connect. Will try again in " + timeOut + " seconds");
+                    System.out.println("Could not connect to server. Will try again in " + timeOut + " seconds");
                     TimeUnit.SECONDS.sleep(timeOut);
                 } catch (InterruptedException ex) {
                     //ex.printStackTrace();
                 }
-                //e.printStackTrace();
             }
         }
     }
 
-    @Override
-    public synchronized boolean isConnected() {
-        if(source != null && destination != null){// Not the best way to test the connection
+    public synchronized boolean isConnected(){
+        if(source != null && destination != null){// not a great way of testing the connection
             return true;
         } else {
-           return false;
+            return false;
         }
     }
 
     @Override
     public String getName() {
-        return "MockArduino";
+        return "Server";
     }
 
     @Override
-    public synchronized BufferedReader getReader(){
+    public synchronized BufferedReader getReader() {
         return source;
     }
 
     @Override
-    public synchronized BufferedWriter getWriter(){
+    public synchronized BufferedWriter getWriter() {
         return destination;
     }
 

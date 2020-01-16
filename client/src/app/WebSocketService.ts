@@ -40,9 +40,9 @@ export class WebSocketService {
         }, 5000);
     }
 
-    sendCommand(message: string) {
+    sendCommand(message: string, token: string) {
         console.log('Sending command: ' + message);
-        this.stompClient.send('/app/alarm/command', {}, JSON.stringify(message));
+        this.stompClient.send('/app/alarm/command' + '/' + token, {}, JSON.stringify(message));
     }
 
     /// TODO: Validate input model;

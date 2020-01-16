@@ -46,6 +46,13 @@
   <button mat-raised-button (click)="connect()" color="accent" type="submit" [disabled]="isConnected" >Connect</button>
   <button mat-raised-button (click)="disconnect()" color="accent" type="submit" [disabled]="!isConnected">Disconnect</button>
   <br><br>
+
+  
+  <label for="name">Token:</label>
+  <input type="text" [(ngModel)]="token" class="form-control" name="token"> <br>
+  
+
+
   <label for="name">Send command:</label>
   <input type="text" [(ngModel)]="command" class="form-control" name="command"> <br>
   <button (click)="sendCommand()" class="btn btn-default" type="submit">Send</button>

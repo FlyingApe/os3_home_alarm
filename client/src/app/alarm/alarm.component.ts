@@ -63,7 +63,7 @@ export class AlarmComponent implements OnInit {
   }
 
   sendCommand() {
-    this.webSocketService.sendCommand(this.command);
+    this.webSocketService.sendCommand(this.command, this.token);
   }
 
   /// TODO: Validate input model;

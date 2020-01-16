@@ -10,36 +10,6 @@ import { StyleCompiler } from '@angular/compiler';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'Home Alarm 3000';
-
-  webSocketService: WebSocketService;
-  sensorData: string;
-  command: string;
-  isConnected = false;
-
-  ngOnInit() {
-    this.webSocketService = new WebSocketService(new AppComponent());
-  }
-
-  connect(){
-    this.webSocketService.connect();
-    /// TODO: Check WebSocket connection state before returning state;
-    this.isConnected = true;
-  }
-
-  disconnect(){
-    this.webSocketService.disconnect();
-    /// TODO: Check WebSocket connection state before returning state;
-    this.isConnected = false;
-  }
-
-  sendCommand(){
-    this.webSocketService.sendCommand(this.command);
-  }
-
-  /// TODO: Validate input model;
-  handleMessage(message){
-    this.sensorData = message;
-  }
 }

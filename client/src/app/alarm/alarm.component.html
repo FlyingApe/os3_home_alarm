@@ -1,23 +1,52 @@
-<mat-tab-group dynamicHeight>
-  <mat-tab mat-tab-main label="Alarms">
-    <table mat-table [dataSource]="alarms" class="mat-elevation-z8">
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> ID</th>
-        <td mat-cell *matCellDef="let alarm"> <a routerLink="/alarm/{{alarm.id}}"> {{alarm.id}} </a></td>
-      </ng-container>
-
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Naam</th>
-        <td mat-cell *matCellDef="let alarm"> {{alarm.name}} </td>
+<!--TODO: Add spacers-->
+<mat-card color="accent"> 
+  <mat-card-title>
+    <h3>Alarmen</h3>
+  </mat-card-title>
+  <mat-card-content>
+    <p *ngIf="isLoadingFilteredAlarms | async">Log je in om je alarmen in te zien.</p>
+    <table *ngIf="!(isLoadingFilteredAlarms | async)" mat-table [dataSource]="alarms" class="mat-elevation-z8">
+      <ng-container matColumnDef="token">
+        <th mat-header-cell *matHeaderCellDef> Token</th>
+        <td mat-cell *matCellDef="let alarm"><button mat-raised-button (click)="openDialog(alarm)" color="accent">{{alarm.token}}</button></td>
       </ng-container>
 
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef> Status</th>
-        <td mat-cell *matCellDef="let element"> {{alarmStatus[element.status]}} </td>
+        <td mat-cell *matCellDef="let alarm"> {{alarmStatus[alarm.status]}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="audioOn">
+        <th mat-header-cell *matHeaderCellDef> Status</th>
+        <td mat-cell *matCellDef="let alarm"> {{alarm.audioOn}} </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="headElements"></tr>
       <tr mat-row *matRowDef="let row; columns: headElements;"></tr>
     </table>
-  </mat-tab>
-</mat-tab-group>
+  </mat-card-content>
+  <mat-card-actions>
+    <form>
+      <mat-form-field>
+        <input matInput [(ngModel)]="token" placeholder="Token" name="token">
+      </mat-form-field>
+      <button mat-stroked-button (click)="appropriateAlarm()" color="warn">Alarm toeëigenen</button>
+    </form>
+  </mat-card-actions>
+</mat-card> 
+
+<mat-divider></mat-divider>
+
+<mat-card>
+  <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+    enabled. Please enable
+    Javascript and reload this page!</h2>
+  </noscript>
+  <label for="connect">WebSocket connection:</label>
+  <button mat-raised-button (click)="connect()" color="accent" type="submit" [disabled]="isConnected" >Connect</button>
+  <button mat-raised-button (click)="disconnect()" color="accent" type="submit" [disabled]="!isConnected">Disconnect</button>
+  <br><br>
+  <label for="name">Send command:</label>
+  <input type="text" [(ngModel)]="command" class="form-control" name="command"> <br>
+  <button (click)="sendCommand()" class="btn btn-default" type="submit">Send</button>
+</mat-card> 

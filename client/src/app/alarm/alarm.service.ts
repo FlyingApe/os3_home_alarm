@@ -39,4 +39,9 @@ export class AlarmService {
 
     return this.http.delete<Alarm>(url, httpOptions);
   }
+
+  appropriateAlarm(token: string): Observable<Alarm> {
+    const url = `${this.alarmUrl}/registerAlarmByToken/${token}`;
+    return this.http.post<Alarm>(url, token);
+  }
 }

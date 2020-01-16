@@ -29,7 +29,7 @@ public class AlarmController {
     }
 
     @Async
-    @GetMapping(value = "all")
+    @GetMapping
     public List<Alarm> getAll() {return alarmService.findAll();}
 
     @Async
@@ -44,41 +44,38 @@ public class AlarmController {
         }
     }
 
-
     @Async
-    @PostMapping(value="post")
+    @PostMapping
     public void create(@RequestBody Alarm alarm) {
         alarmService.save(alarm);
     }
 
-
     @Async
-    @DeleteMapping(value="/delete/{id}")
+    @DeleteMapping(value="/{id}")
     public void remove(@PathVariable int id) {
         alarmService.deleteById(id);
     }
 
-
-    @Async
-    @PutMapping(value = "/{id}")
-    /// TODO: Implement future-like return type.
-    public String update(@RequestBody Alarm newAlarm, @PathVariable int id) {
-        /*
-        return alarmService.findById(id)
-        .map(oldAlarm -> {
-            oldAlarm.setStatus(newAlarm.getStatus());
-            oldAlarm.setName(newAlarm.getName());
-            alarmService.save(oldAlarm);
-            return "";
-        })
-        .orElseGet(() -> {
-            return "";
-        });
-
-         */
-
-        return "";
-    }
+//    @Async
+//    @PutMapping(value = "/{id}")
+//    /// TODO: Implement future-like return type.
+//    public String update(@RequestBody Alarm newAlarm, @PathVariable int id) {
+//        /*
+//        return alarmService.findById(id)
+//        .map(oldAlarm -> {
+//            oldAlarm.setStatus(newAlarm.getStatus());
+//            oldAlarm.setName(newAlarm.getName());
+//            alarmService.save(oldAlarm);
+//            return "";
+//        })
+//        .orElseGet(() -> {
+//            return "";
+//        });
+//
+//         */
+//
+//        return "";
+//    }
 
     @Async
     @PostMapping(value = "/sendcommand/{token}")
@@ -89,26 +86,27 @@ public class AlarmController {
         relayService.pushCommand(token, Commands.valueOf(command));
     }
 
-    @Async
-    @GetMapping(value = "/status/{token}")
-    public String status(@PathVariable String token){
-        //relayService
-        return "";
-    }
+//    @Async
+//    @GetMapping(value = "/status/{token}")
+//    public String getStatus(@PathVariable String token){
+//        //relayService
+//        return "";
+//    }
 
 
     @Async
-    @GetMapping(value = "/registerAlarmByToken/{token}")
-    public void registerAlarmByToken(@PathVariable String token){
+    @PostMapping(value = "/registerAlarmByToken/{token}")
+    public Alarm registerAlarmByToken(@PathVariable String token){
+        /// TODO: Check nullable; implement Optional.
         Alarm alarm = alarmService.getAlarmByToken(token).get();
 
         /// TODO: user uit eigen service halen
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String user = authentication.getName();
-
         alarm.setUser(user);
-
         alarmService.save(alarm);
+
+        return alarm;
     }
 
 

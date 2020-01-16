@@ -1,14 +1,14 @@
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
-import { AppComponent } from './app.component';
+import { AlarmComponent } from './alarm/alarm.component';
 
 export class WebSocketService {
     webSocketEndPoint = 'http://localhost:8080/ws';
 
     sensorData = 'user/topic/sensordata';
     stompClient: Stomp.Client;
-    parentComponent: AppComponent;
-    constructor(parentComponent: AppComponent) {
+    parentComponent: AlarmComponent;
+    constructor(parentComponent: AlarmComponent) {
         this.parentComponent = parentComponent;
     }
 

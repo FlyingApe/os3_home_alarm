@@ -1,20 +1,24 @@
 package com.os3alarm.server.controllers;
 
+import javassist.NotFoundException;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RequestMapping("/api/security")
 public class SecurityController {
 
-    @RequestMapping(value = "/username", method = RequestMethod.GET)
-    @ResponseBody
+    @GetMapping(value = "/username")
     public String currentUserName() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        //String user = authentication.getName();
-        return authentication.getName();
+        if (authentication != null)
+            return authentication.getName();
+
+        throw new ResourceNotFoundException("Session does not contain authenticated user");
     }
 }

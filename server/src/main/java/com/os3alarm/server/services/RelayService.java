@@ -20,8 +20,8 @@ public class RelayService {
     private RelaySocketListener connector;
 
     @Autowired
-    public RelayService(MessagingService messagingService) {
-        RelaySocketListener.initRelaySocketListener(messagingService);
+    public RelayService(MessagingService messagingService, AlarmService alarmService) {
+        RelaySocketListener.initRelaySocketListener(messagingService, alarmService);
 
         connector = RelaySocketListener.getInstance();
         pool = AlarmPool.getInstance();

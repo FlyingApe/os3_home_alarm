@@ -7,6 +7,7 @@ import com.os3alarm.server.models.AlarmStatus;
 import com.os3alarm.server.relay.models.AlarmPool;
 import com.os3alarm.server.relay.models.LiveAlarm;
 import com.os3alarm.server.relay.models.RelayStream;
+import com.os3alarm.server.services.AlarmService;
 import com.os3alarm.server.services.MessagingService;
 
 import java.io.BufferedReader;
@@ -25,13 +26,15 @@ public class RelayInputStreamParser implements Runnable {
     private String token = null;
 
     private MessagingService _messagingService;
+    private AlarmService _alarmService;
 
 
-    public RelayInputStreamParser(RelayStream stream, MessagingService messagingService){
+    public RelayInputStreamParser(RelayStream stream, MessagingService messagingService, AlarmService alarmService){
         this.stream = stream;
         this.relayReader = stream.getReader();
         this.pool = AlarmPool.getInstance();
         _messagingService = messagingService;
+        _alarmService = alarmService;
     }
 
     public void run(){
@@ -79,6 +82,7 @@ public class RelayInputStreamParser implements Runnable {
     private void createAlarm(String token){
         LiveAlarm alarm = new LiveAlarm(token);
         pool.addAlarm(alarm);
+        _alarmService.save(new Alarm(token));
 
         URL url = null;
         HttpURLConnection con = null;

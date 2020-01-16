@@ -38,6 +38,11 @@ public class Alarm {
         this.audioOn = audioON;
     }
 
+    public Alarm(String token) {
+        this.token = token;
+        this.user = "admin";
+    }
+
     public AlarmStatus getStatus() {
         return status;
     }

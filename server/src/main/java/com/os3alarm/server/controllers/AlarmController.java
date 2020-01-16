@@ -114,6 +114,7 @@ public class AlarmController {
     @PostMapping(value="/registerArduino")
     public void arduinoRegister(@RequestBody Alarm alarm) {
         if(!alarmService.getAlarmByToken(alarm.getToken()).isPresent()){
+            alarm.setUser("admin");
             alarmService.save(alarm);
         }
     }

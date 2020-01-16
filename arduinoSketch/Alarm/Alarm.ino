@@ -137,11 +137,11 @@ void getDistanceSample(){
 
 void checkMovementSensor(){
   if(digitalRead(movementPin) == 1){
-    sendabledoc["movement"] = "true";
+    sendabledoc["movement"] = "1";
     if(alarmStatus != "InActive"){
       alarmStatus = "InAlarm";
     }
   } else if (digitalRead(movementPin) == 0){
-    sendabledoc["movement"] = "false";
+    sendabledoc["movement"] = "0";
   }  
 }

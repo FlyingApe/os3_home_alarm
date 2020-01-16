@@ -80,7 +80,7 @@ public class StreamToStreamPassthroughAgent implements Runnable
             writer.write("\n\r");
             writer.flush();
 
-            if (source.getName().equals("ArduinoGenerator")){
+            if (source.getName().equals("ArduinoGenerator") || source.getName().equals("Arduino")){
                 System.out.println("written to server: "+writeable.trim());
             }
         } catch (IOException e) {

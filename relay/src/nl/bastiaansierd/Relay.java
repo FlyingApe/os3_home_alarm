@@ -14,14 +14,11 @@ public class Relay {
         BufferedReadWriter arduinoComs = null;
         boolean validInput = false;
         Scanner in  = new Scanner(System.in);
-        BufferedReadWriter serverComs = new ServerConnection();
 
         while (!validInput){
             try {
-                String input = in.nextLine();
-
                 System.out.println("To which serial port is the arduino connected? (e.g. COM6)");
-                input = in.nextLine();
+                String input = in.nextLine();
 
                 // instantiate RealArduinoConnection
                 arduinoComs = ArduinoConnection.getInstance(input);
@@ -32,6 +29,8 @@ public class Relay {
                 System.out.println("No valid input has been given.");
             }
         }
+
+        BufferedReadWriter serverComs = new ServerConnection();
 
         Thread serverToArduinoCom = new Thread(new StreamToStreamPassthroughAgent(serverComs, arduinoComs));
         Thread arduinoToServerCom = new Thread(new StreamToStreamPassthroughAgent(arduinoComs, serverComs));

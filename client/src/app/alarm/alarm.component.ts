@@ -68,6 +68,7 @@ export class AlarmComponent implements OnInit {
 
   /// TODO: Validate input model;
   handleMessage(message: string) {
+    console.log(message);
     this.setAlarmData(message);
   }
 

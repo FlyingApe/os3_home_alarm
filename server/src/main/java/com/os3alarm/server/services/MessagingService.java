@@ -36,7 +36,7 @@ public class MessagingService {
 
     public void sendAlarmDataToSpecificUser(@Payload Alarm alarm) {
         alarm = UpdateAlarmWithUsername(alarm);
-        String sessionId = getSessionId(alarm.getUser());
+        String sessionId = getSessionId("admin");
 
         System.out.println("Session id is: " + sessionId);
 
@@ -54,6 +54,7 @@ public class MessagingService {
 
     @Async
     public Alarm UpdateAlarmWithUsername(Alarm alarm) {
+        getActiveSessions();
         Optional<Alarm> OptionalDatabaseAlarm = _alarmService.getAlarmByToken(alarm.getToken());
         if (OptionalDatabaseAlarm.isPresent()) {
             alarm.setUser(OptionalDatabaseAlarm.get().getUser());

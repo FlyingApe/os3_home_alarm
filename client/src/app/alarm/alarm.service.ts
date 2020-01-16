@@ -17,7 +17,13 @@ export class AlarmService {
   constructor(private http: HttpClient) { }
 
   getAlarms(): Observable<Alarm[]> {
-    return this.http.get<Alarm[]>(this.alarmUrl);
+    const httpHeaders: HttpHeaders = new HttpHeaders();
+    httpHeaders.append('Authorization', 'Basic ' + btoa(`admin:123`));
+    const httpOptions = {
+      headers: httpHeaders
+    };
+
+    return this.http.get<Alarm[]>(this.alarmUrl, httpOptions);
   }
 
   getAlarm(id: number): Observable<Alarm> {

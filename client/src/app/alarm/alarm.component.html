@@ -4,8 +4,8 @@
     <h3>Alarmen</h3>
   </mat-card-title>
   <mat-card-content>
-    <p *ngIf="isLoadingFilteredAlarms | async">Log je in om je alarmen in te zien.</p>
-    <table *ngIf="!(isLoadingFilteredAlarms | async)" mat-table [dataSource]="alarms" class="mat-elevation-z8">
+    <p>Log je in om je alarmen in te zien.</p>
+    <table mat-table [dataSource]="alarms" class="mat-elevation-z8">
       <ng-container matColumnDef="token">
         <th mat-header-cell *matHeaderCellDef> Token</th>
         <td mat-cell *matCellDef="let alarm"><button mat-raised-button (click)="openDialog(alarm)" color="accent">{{alarm.token}}</button></td>
@@ -17,7 +17,7 @@
       </ng-container>
 
       <ng-container matColumnDef="audioOn">
-        <th mat-header-cell *matHeaderCellDef> Status</th>
+        <th mat-header-cell *matHeaderCellDef> Audio</th>
         <td mat-cell *matCellDef="let alarm"> {{alarm.audioOn}} </td>
       </ng-container>
 

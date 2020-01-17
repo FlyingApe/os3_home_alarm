@@ -56,27 +56,6 @@ public class AlarmController {
         alarmService.deleteById(id);
     }
 
-//    @Async
-//    @PutMapping(value = "/{id}")
-//    /// TODO: Implement future-like return type.
-//    public String update(@RequestBody Alarm newAlarm, @PathVariable int id) {
-//        /*
-//        return alarmService.findById(id)
-//        .map(oldAlarm -> {
-//            oldAlarm.setStatus(newAlarm.getStatus());
-//            oldAlarm.setName(newAlarm.getName());
-//            alarmService.save(oldAlarm);
-//            return "";
-//        })
-//        .orElseGet(() -> {
-//            return "";
-//        });
-//
-//         */
-//
-//        return "";
-//    }
-
     @Async
     @PostMapping(value = "/sendcommand/{token}")
     public void command(@RequestBody String command, @PathVariable String token){
@@ -127,24 +106,4 @@ public class AlarmController {
         return alarm;
     }
      */
-
-    /*
-    @Async
-    @MessageMapping(value = "/sensorDataTest/{token}")
-    //@SendTo(value = "/sensorDataTest/{token}")
-    public String TestSensorData(@PathVariable String token){
-        RelayDataObserver observer = new RelayDataObserver();
-        relayService.subscribeToJsonSensorDataByToken(token, observer);
-
-        return observer.getSensorData();
-    }
-
-     */
-
-
-  /*
-    @Async
-    @SendTo(value = "/")
-*/
-
 }

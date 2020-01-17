@@ -1,11 +1,9 @@
 package com.os3alarm.server.services;
 
+import com.os3alarm.alarmconnector.models.LiveAlarmPool;
 import com.os3alarm.server.models.Commands;
-import com.os3alarm.server.relay.RelaySocketListener;
-import com.os3alarm.server.relay.models.AlarmPool;
-import com.os3alarm.server.relay.models.LiveAlarm;
-import com.os3alarm.datalogger.SimpleLogger;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.os3alarm.alarmconnector.RelaySocketListener;
+import com.os3alarm.alarmconnector.models.LiveAlarm;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Async;
@@ -16,16 +14,11 @@ import java.io.BufferedWriter;
 @Service
 @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class RelayService {
-    private AlarmPool pool;
-    private RelaySocketListener connector;
+    private LiveAlarmPool pool;
 
-    @Autowired
-    public RelayService(MessagingService messagingService, AlarmService alarmService) {
-        RelaySocketListener.initRelaySocketListener(messagingService, alarmService);
-
-        connector = RelaySocketListener.getInstance();
-        pool = AlarmPool.getInstance();
-        SimpleLogger.createLog("AlarmEventChanges.txt");
+    public RelayService() {
+        RelaySocketListener.initRelaySocketListener();
+        this.pool = LiveAlarmPool.getInstance();
     }
 
     @Async

@@ -1,4 +1,4 @@
-package com.os3alarm.server.models;
+package com.os3alarm.shared.models;
 
 public enum AlarmStatus {
     Active,

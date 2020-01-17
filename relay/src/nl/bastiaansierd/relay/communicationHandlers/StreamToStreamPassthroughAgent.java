@@ -84,14 +84,15 @@ public class StreamToStreamPassthroughAgent implements Runnable
                 System.out.println("written to server: "+writeable.trim());
             }
         } catch (IOException e) {
-            //System.out.println(e.getMessage());
-
-            //Connection broken
-            //System.out.println("Connection with destination " + destination.getName() + " broken.");
-            //Reset connection
-            //destination.clearWriter();
-            //Reconnect
-            //destination.connect();
+            if(destination.getName().equals("Server")){
+                //No working connection with source
+                System.out.println("Connection with Server broken.");
+                //Reset connection
+                destination.clearWriter();
+                //Reconnect
+                destination.connect();
+                writer = destination.getWriter();
+            }
         }
     }
 }

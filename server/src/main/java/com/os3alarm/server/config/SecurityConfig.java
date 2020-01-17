@@ -1,5 +1,6 @@
 package com.os3alarm.server.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,35 +18,41 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser( "admin").password(passwordEncoder().encode("123")).roles("ADMIN")
-                .and().withUser("test").password(passwordEncoder().encode("123")).roles("USER");
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .antMatcher("/**")
-                    .authorizeRequests()
-                    .anyRequest()
-                    .authenticated().and()
-                    .httpBasic().and()
-                    .csrf().disable();
-
-        http.sessionManagement().maximumSessions(1).sessionRegistry(sessionRegistry());
-    }
-
-    @Override
-    public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/api/**");
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .inMemoryAuthentication()
+                .withUser("user").password(passwordEncoder().encode("123")).roles("USER");
     }
 
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .antMatcher("/**")
+                .authorizeRequests()
+                .anyRequest()
+                .authenticated().and()
+                .httpBasic().and()
+                .csrf().disable();
+    }
+/*
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication().withUser( "admin").password(passwordEncoder().encode("123")).roles("ADMIN")
+                .and().withUser("test").password(passwordEncoder().encode("123")).roles("USER");
+    }
+
+
+    @Override
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers("/api/**");
+    }
+
 
     @Bean
     public SessionRegistry sessionRegistry() {
@@ -56,5 +63,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher() {
         return new ServletListenerRegistrationBean<HttpSessionEventPublisher>(new HttpSessionEventPublisher());
     }
-
+*/
 }

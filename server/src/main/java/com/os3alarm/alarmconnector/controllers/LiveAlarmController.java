@@ -1,9 +1,9 @@
 package com.os3alarm.alarmconnector.controllers;
 
-import com.os3alarm.alarmconnector.models.LiveAlarmPool;
+import com.os3alarm.shared.models.LiveAlarmPool;
 import com.os3alarm.alarmconnector.models.LiveAlarm;
 import com.os3alarm.alarmconnector.models.RelayStream;
-import com.os3alarm.server.models.AlarmStatus;
+import com.os3alarm.shared.models.AlarmStatus;
 
 public class LiveAlarmController {
     private LiveAlarmPool pool;
@@ -34,59 +34,18 @@ public class LiveAlarmController {
 
     }
 
-
     private void createAlarm(String token){
         LiveAlarm alarm = new LiveAlarm(token);
-        this.pool.addAlarm(alarm);
-
-        /*
-        URL url = null;
-        HttpURLConnection con = null;
-        try {
-            url = new URL("http://localhost:8080/api/alarm/registerArduino");
-            con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("POST");
-
-            //String userCredentials = "admin:123";
-            String basicAuth = "Basic YWRtaW46MTIz";
-            con.setRequestProperty ("Authorization", basicAuth);
-
-            con.setRequestProperty("Content-Type", "application/json; utf-8");
-            con.setRequestProperty("Accept", "application/json");
-            con.setDoOutput(true);
-
-            String jsonInputString = "{\"token\": \"" + token + "\"}";
-
-            try(OutputStream os = con.getOutputStream()) {
-                byte[] input = jsonInputString.getBytes("utf-8");
-                os.write(input, 0, input.length);
-                os.flush();
-            } catch (Exception e){
-                //System.out.println(e.getMessage());
-            }
-
-            try(BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
-                StringBuilder response = new StringBuilder();
-                String responseLine = null;
-                while ((responseLine = br.readLine()) != null) {
-                    response.append(responseLine.trim());
-                }
-                System.out.println(response.toString());
-            } catch (Exception e){
-                //System.out.println(e.getMessage());
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        */
+        pool.addAlarm(alarm);
     }
 
     private void updateAlarm(){
-        LiveAlarm liveAlarm = pool.getAlarmByToken(jsonController.getToken());
+        LiveAlarm liveAlarm = this.pool.getAlarmByToken(jsonController.getToken());
 
-        liveAlarm.setStatus(jsonController.getStatus());
+        liveAlarm.update(jsonController.getStatus(), jsonController.getAudioOn(), jsonController.getJsonSensors());
         if(liveAlarm.getWriter() == null && jsonController.getToken() != null){
             liveAlarm.setWriter(stream.getWriter());
         }
     }
+
 }

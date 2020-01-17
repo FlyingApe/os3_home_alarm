@@ -51,7 +51,7 @@ public class ArduinoDriver implements Runnable{
                     }
                 }
             } catch (IOException e) {
-                //e.printStackTrace();
+                //System.out.println("server");
             }
 
             // create a jsonObject to be send to the relay

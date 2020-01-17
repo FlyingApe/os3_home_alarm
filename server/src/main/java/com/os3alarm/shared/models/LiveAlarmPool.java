@@ -1,4 +1,7 @@
-package com.os3alarm.alarmconnector.models;
+package com.os3alarm.shared.models;
+
+import com.os3alarm.alarmconnector.models.LiveAlarm;
+import com.os3alarm.shared.interfaces.LiveAlarmCreationListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +13,7 @@ public class LiveAlarmPool {
     private List<LiveAlarm> pool;
     private static LiveAlarmPool instance = null;
     private Lock poolLock;
+    private List<LiveAlarmCreationListener> listeners = new ArrayList<>();
 
     private LiveAlarmPool() {
         //TODO: research if lock is necsesarry here
@@ -29,6 +33,11 @@ public class LiveAlarmPool {
         poolLock.lock();
         try{
             pool.add(alarm);
+
+            //notify Spring listeners that a new alarm has connected
+            for (LiveAlarmCreationListener listener: listeners){
+                listener.newAlarmCreated(alarm.getToken());
+            }
         } finally {
             poolLock.unlock();
         }
@@ -48,5 +57,9 @@ public class LiveAlarmPool {
         }
 
         return null;
+    }
+
+    public void addListener(LiveAlarmCreationListener listener){
+        listeners.add(listener);
     }
 }

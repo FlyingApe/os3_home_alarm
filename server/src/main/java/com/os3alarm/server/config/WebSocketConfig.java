@@ -1,26 +1,23 @@
 package com.os3alarm.server.config;
 
+import com.os3alarm.server.components.LiveAlarmRepresentation;
+import com.os3alarm.server.services.RelayService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.messaging.simp.config.MessageBrokerRegistry;
-import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
-import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
-import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
+import org.springframework.web.socket.config.annotation.*;
 
 @Configuration
-@EnableWebSocketMessageBroker
-public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+@EnableWebSocket
+public class WebSocketConfig implements WebSocketConfigurer {
+    private RelayService relayService;
 
-    @Override
-    public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/queue/", "/topic/", "/user/");
-        //registry.enableStompBrokerRelay("/queue/", "/topic/", "/exchange/");
-        config.setApplicationDestinationPrefixes("/app");
+    @Autowired
+    public WebSocketConfig(RelayService relayService){
+        this.relayService = relayService;
     }
 
     @Override
-    public void registerStompEndpoints(StompEndpointRegistry registry) {
-        // Register SockJS fallback in case WebSocket is not available for requesting client;
-        registry.addEndpoint("/ws").setAllowedOrigins("http://localhost:4200").withSockJS();
-
+    public void registerWebSocketHandlers(WebSocketHandlerRegistry webSocketHandlerRegistry) {
+        webSocketHandlerRegistry.addHandler(new LiveAlarmRepresentation(relayService), "/user");
     }
 }

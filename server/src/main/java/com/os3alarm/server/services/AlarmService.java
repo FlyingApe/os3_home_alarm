@@ -1,14 +1,17 @@
 package com.os3alarm.server.services;
 
 
+import com.os3alarm.server.components.Authorization;
 import com.os3alarm.server.models.Alarm;
 import com.os3alarm.server.repositories.AlarmRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +19,7 @@ import java.util.Optional;
 public class AlarmService {
     private final AlarmRepository alarmRepository;
 
+    @Autowired
     public AlarmService(AlarmRepository alarmRepository) {
         this.alarmRepository = alarmRepository;
     }
@@ -26,19 +30,13 @@ public class AlarmService {
     }
 
     @Async
-    public Optional<Alarm> findById(int id) {
-        Long _id = (long)id;
-        return alarmRepository.findById(_id);
+    public Optional<ArrayList<Alarm>> findAllByUser(String user) {
+        return alarmRepository.getAlarmsByUser(user);
     }
 
     @Async
     public void save(Alarm alarm) {
         alarmRepository.save(alarm);
-    }
-
-    @Async
-    public void deleteById(int id) {
-        alarmRepository.deleteById((long)id);
     }
 
     @Async

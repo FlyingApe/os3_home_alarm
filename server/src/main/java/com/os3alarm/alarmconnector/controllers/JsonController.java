@@ -1,4 +1,4 @@
-package com.os3alarm.relay.controllers;
+package com.os3alarm.alarmconnector.controllers;
 
 import com.github.cliftonlabs.json_simple.JsonException;
 import com.github.cliftonlabs.json_simple.JsonObject;

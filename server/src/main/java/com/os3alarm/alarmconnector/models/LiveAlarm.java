@@ -1,4 +1,4 @@
-package com.os3alarm.relay.models;
+package com.os3alarm.alarmconnector.models;
 
 import com.os3alarm.server.models.AlarmStatus;
 import com.os3alarm.datalogger.SimpleLogger;

@@ -1,4 +1,4 @@
-package com.os3alarm.relay.models;
+package com.os3alarm.alarmconnector.models;
 
 import java.io.*;
 import java.net.Socket;

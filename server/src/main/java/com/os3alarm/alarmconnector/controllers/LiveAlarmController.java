@@ -1,12 +1,9 @@
-package com.os3alarm.relay.controllers;
+package com.os3alarm.alarmconnector.controllers;
 
-import com.os3alarm.relay.models.LiveAlarmPool;
-import com.os3alarm.relay.models.LiveAlarm;
-import com.os3alarm.relay.models.RelayStream;
+import com.os3alarm.alarmconnector.models.LiveAlarmPool;
+import com.os3alarm.alarmconnector.models.LiveAlarm;
+import com.os3alarm.alarmconnector.models.RelayStream;
 import com.os3alarm.server.models.AlarmStatus;
-
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class LiveAlarmController {
     private LiveAlarmPool pool;

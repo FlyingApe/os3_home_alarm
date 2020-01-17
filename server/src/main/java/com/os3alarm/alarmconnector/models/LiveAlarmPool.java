@@ -1,11 +1,11 @@
-package com.os3alarm.relay.models;
+package com.os3alarm.alarmconnector.models;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-//shared resource voor alle relay's om data in te pushen
+//shared resource voor alle alarmconnector's om data in te pushen
 public class LiveAlarmPool {
     private List<LiveAlarm> pool;
     private static LiveAlarmPool instance = null;

@@ -1,11 +1,7 @@
-package com.os3alarm.relay.controllers;
+package com.os3alarm.alarmconnector.controllers;
 
 import com.github.cliftonlabs.json_simple.JsonException;
-import com.os3alarm.relay.controllers.JsonController;
-import com.os3alarm.relay.controllers.LiveAlarmController;
-import com.os3alarm.relay.models.LiveAlarm;
-import com.os3alarm.server.models.AlarmStatus;
-import com.os3alarm.relay.models.RelayStream;
+import com.os3alarm.alarmconnector.models.RelayStream;
 
 import java.io.BufferedReader;
 import java.io.IOException;

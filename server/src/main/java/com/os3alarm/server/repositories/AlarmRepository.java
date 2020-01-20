@@ -13,6 +13,6 @@ public interface AlarmRepository extends JpaRepository<Alarm, Long> {
     @Query(value = "SELECT * FROM alarm as a WHERE a.token = ?1", nativeQuery = true)
     Optional<Alarm> getAlarmByToken(String token);
 
-    @Query(value = "SELECT * FROM alarm as a WHERE a.user = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM alarm as a WHERE a.authtoken = ?1", nativeQuery = true)
     Optional<ArrayList<Alarm>> getAlarmsByUser(String user);
 }

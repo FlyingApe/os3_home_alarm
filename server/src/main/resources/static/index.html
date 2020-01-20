@@ -1,15 +1,86 @@
 <!DOCTYPE html>
-<html>
 <head>
     <meta charset="UTF-8">
     <title>WebSocket Chat Application </title>
-<!--    <link href="/bootstrap.min.css" rel="stylesheet">
+
     <link href="/style.css" rel="stylesheet">
-    <script src="/jquery-1.10.2.min.js"></script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/jquery-3.4.1.min.js"></script>
     <script src="app.js" charset="UTF-8"></script>
+    <script charset="UTF-8">
+
+    </script>
 </head>
-<body>
+<body onload="loadpage()">
+<!--
+<a href="" id="Logout">Logout</a>
+<form><button id="logout-button" type="button">logout</button></form>
+-->
+<div id="add-alarm-container">
+    <table>
+        <tr>
+            <td class="headercell">
+                Add Alarm
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <form>
+                    <input id="add-alarm-token" type="text" width="16" />
+                    <button id="add-alarm-button" type="button">add alarm</button>
+                </form>
+            </td>
+        </tr>
+
+</div>
+
+<div id="alarm-table-container">
+    <table id="alarm-table">
+        <thead>
+        <tr>
+            <td class="headercell">Token</td>
+            <td class="headercell">Admin tasks</td>
+        </tr>
+        </thead>
+        <tbody id="alarm-table-body">
+
+        </tbody>
+    </table>
+</div>
+
+<div id="hidden-alarmview-container">
+    <table>
+        <thead>
+        <tr>
+            <td class="headercell">Token</td>
+            <td class="headercell">Status</td>
+            <td class="headercell">Audio</td>
+            <td class="headercell">Sensordata</td>
+            <td class="headercell">admin</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td id="live-token"></td>
+            <td id="live-status"></td>
+            <td id="live-audio"></td>
+            <td id="live-sensor-data"></td>
+            <td>
+                <form>
+                    <select id="command-selection">
+                        <option value="setStatusInactive">Set alarm status to inactive</option>
+                        <option value="setStatusActive">Set alarm status to active</option>
+                        <option value="setAudioOff">Turn alarm audio off (silent mode)</option>
+                        <option value="setAudioOn">Turn alarm audio on</option>
+                    </select>
+                    <button id="command-send" type="button">send command</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!--
 <div id="main-content" class="container">
     <div class="row">
         <div class="col-md-8">
@@ -23,6 +94,7 @@
             </form>
         </div>
     </div>
+</div>
     <div class="row">
         <div class="col-md-12">
             <table id="chat">
@@ -47,7 +119,7 @@
             </div>
         </div>
     </div>
-
 </div>
+-->
 </body>
 </html>

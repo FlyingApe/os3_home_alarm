@@ -34,11 +34,11 @@ public class RelayStream {
         }
     }
 
-    public BufferedReader getReader() {
+    public synchronized BufferedReader getReader() {
         return source;
     }
 
-    public BufferedWriter getWriter() {
+    public synchronized BufferedWriter getWriter() {
         return destination;
     }
 

@@ -38,7 +38,7 @@ void setup() {
   pinMode(micAnalogPin, INPUT);
   pinMode(micDigitalPin, INPUT);
 
-  alarmAudioOn = true ;
+  alarmAudioOn = false ;
   alarmStatus = "Active";
 }
 
@@ -71,7 +71,7 @@ void loop() {
   buzz();
   
   String out;
-  serializeJsonPretty(sendabledoc, out); 
+  serializeJson(sendabledoc, out); 
   Serial.print(out);
   Serial.print("\n\r");
 }
@@ -92,11 +92,9 @@ void processCommand(String command){
 //methode to buzz the buzzer
 void buzz(){
   if(alarmStatus == "InAlarm" && alarmAudioOn){
-    /*
     digitalWrite(buzzerPin, HIGH);
     delay(500);
     digitalWrite(buzzerPin, LOW);
-    */
   }
 }
 

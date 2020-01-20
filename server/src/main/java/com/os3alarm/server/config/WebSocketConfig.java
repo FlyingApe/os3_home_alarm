@@ -1,6 +1,6 @@
 package com.os3alarm.server.config;
 
-import com.os3alarm.server.components.LiveAlarmRepresentation;
+import com.os3alarm.server.components.LiveAlarmToSocketAgent;
 import com.os3alarm.server.services.RelayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +18,6 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry webSocketHandlerRegistry) {
-        webSocketHandlerRegistry.addHandler(new LiveAlarmRepresentation(relayService), "/user");
+        webSocketHandlerRegistry.addHandler(new LiveAlarmToSocketAgent(relayService), "/api/socket");
     }
 }

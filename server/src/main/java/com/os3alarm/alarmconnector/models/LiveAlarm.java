@@ -15,8 +15,7 @@ public class LiveAlarm{
 
     private String token;
     private AlarmStatus status;
-    private boolean alarmAudioOn;
-    private String jsonSensorData;
+    private String allJsonData;
 
     private BufferedWriter writer = null;
 
@@ -28,19 +27,14 @@ public class LiveAlarm{
     //getters
     public synchronized String getToken(){return this.token;}
 
-    public synchronized AlarmStatus getStatus() {return this.status;}
-
-    public synchronized boolean isAlarmAudioOn() {return this.alarmAudioOn;}
-
-    public synchronized String getJsonSensorData() {return this.jsonSensorData;}
+    public synchronized String getAllJsonData(){return allJsonData;}
 
     public synchronized BufferedWriter getWriter() {return this.writer;}
 
     //setters
-    public synchronized void update(AlarmStatus status, boolean alarmAudioOn, String jsonSensorData){
+    public synchronized void update(AlarmStatus status, String jsonData){
         this.setStatus(status);
-        this.alarmAudioOn = alarmAudioOn;
-        this.jsonSensorData = jsonSensorData;
+        this.allJsonData = jsonData;
 
         notifyListeners();
     }
@@ -60,6 +54,16 @@ public class LiveAlarm{
     //deal with listeners
     public synchronized void addListener(LiveAlarmListener listener){
         listeners.add(listener);
+        String json = "{\"alarmAudioOn\":\"unknown\",\"distance\":\"unknown\",\"microphone\":\"unknown\",\"movement\":\"unknown\",\"token\":\""+token+"\",\"status\":\""+status.toString()+"\"}";
+        update(status, json);
+        System.out.println("listener added" + listener.toString());
+    }
+
+    public synchronized void removeListener(LiveAlarmListener listener){
+        if(listeners.contains(listener)){
+            listeners.remove(listener);
+            System.out.println("listener removed " + listener.toString());
+        }
     }
 
     private synchronized void notifyListeners(){
@@ -75,7 +79,8 @@ public class LiveAlarm{
                 }
             } catch (Exception e){
                 removableListeners.add(listener);
-                System.out.println("removed listener through Exception " + listener.toString());
+                System.out.println("removed " + listener.toString() + " through Exception ");
+                //e.printStackTrace();
             }
         }
 

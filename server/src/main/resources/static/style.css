@@ -1,0 +1,25 @@
+#hidden-alarmview-container {
+    visibility: hidden;
+}
+
+body{
+    font-family: "Verdana", sans-serif;
+}
+
+table{
+    border: #001122;
+    border-width: 1px;
+    border-style: solid;
+    margin: 5px;
+}
+
+td{
+    font-size: medium;
+    padding: 5px;
+
+}
+
+td.headercell{
+    background-color: #b1ff52;
+    font-size: large;
+}

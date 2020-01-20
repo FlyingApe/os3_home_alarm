@@ -29,6 +29,8 @@ public class ArduinoDriver implements Runnable{
 
     public void run() {
         BufferedReader relayReader = relayConnection.getReader();
+        BufferedWriter relayWriter = relayConnection.getWriter();
+        System.out.println(relayReader.toString() + " :: " + relayWriter.toString());
         String receivedString = new String();
         int x = 1;
         while (true) {
@@ -38,6 +40,7 @@ public class ArduinoDriver implements Runnable{
                 if(relayReader.ready()){
                     if (!(line = relayReader.readLine()).equals("")) {
                         receivedString = receivedString.concat(line);
+                        System.out.println(receivedString);
                         if (json(receivedString)) {
                             ProcessCommand();
 
@@ -65,7 +68,6 @@ public class ArduinoDriver implements Runnable{
             sendableJsonObject.put("status", status.toString());
 
 
-            BufferedWriter relayWriter = relayConnection.getWriter();
 
             try {
                 String json = Jsoner.serialize(sendableJsonObject).concat("\n");
@@ -91,7 +93,7 @@ public class ArduinoDriver implements Runnable{
     private boolean json(String checkable){
         try{
             JsonObject jsonTestObject = (JsonObject) Jsoner.deserialize(checkable);
-            //System.out.println("JSON test passed: " + checkable);
+            System.out.println("received from server: " + checkable);
             receivedJsonObject = jsonTestObject;
             return true;
         } catch (Exception e){

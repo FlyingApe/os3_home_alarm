@@ -30,36 +30,30 @@ public class LiveAlarmPool {
     }
 
     public void addAlarm(LiveAlarm alarm) {
-        poolLock.lock();
-        try{
             pool.add(alarm);
 
             //notify Spring listeners that a new alarm has connected
             for (LiveAlarmCreationListener listener: listeners){
                 listener.newAlarmCreated(alarm.getToken());
             }
-        } finally {
-            poolLock.unlock();
-        }
     }
     
     public LiveAlarm getAlarmByToken(String token){
-        poolLock.lock();
-        try{
             //TODO: probably quite slow for a large LiveAlarmPool, something to think about
             for (LiveAlarm alarm: pool) {
                 if(alarm.getToken().equals(token)){
                     return alarm;
                 }
             }
-        } finally {
-            poolLock.unlock();
-        }
 
         return null;
     }
 
-    public void addListener(LiveAlarmCreationListener listener){
+    public synchronized void addListener(LiveAlarmCreationListener listener){
         listeners.add(listener);
+    }
+
+    public synchronized void removeListener(LiveAlarmCreationListener listener){
+        listeners.remove(listener);
     }
 }

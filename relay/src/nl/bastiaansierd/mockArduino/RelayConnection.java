@@ -50,22 +50,22 @@ public class RelayConnection implements BufferedReadWriter {
     }
 
     @Override
-    public BufferedReader getReader() {
+    public synchronized BufferedReader getReader() {
         return source;
     }
 
     @Override
-    public BufferedWriter getWriter() {
+    public synchronized BufferedWriter getWriter() {
         return destination;
     }
 
     @Override
-    public void clearReader() {
+    public synchronized void clearReader() {
         source = null;
     }
 
     @Override
-    public void clearWriter() {
+    public synchronized void clearWriter() {
         destination = null;
     }
 }

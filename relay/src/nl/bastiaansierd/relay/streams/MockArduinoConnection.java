@@ -13,19 +13,8 @@ public class MockArduinoConnection implements BufferedReadWriter {
     //private static MockArduinoConnection instance = null;
 
     private Socket socket = null;
-    private BufferedWriter destination = null;
-    private BufferedReader source = null;
-
-/*
-    public static MockArduinoConnection getInstance() {
-        // singelton initialisatie
-        if (instance == null) {
-            instance = new MockArduinoConnection();
-        }
-        return instance;
-    }
-
- */
+    private BufferedWriter outputWriter = null;
+    private BufferedReader inputReader = null;
 
     public MockArduinoConnection(){
         connect();
@@ -37,8 +26,8 @@ public class MockArduinoConnection implements BufferedReadWriter {
             try {
                 System.out.println("Connecting to ArduinoGenerator, HOST: " + HOST + ", PORT: " + PORT + "......");
                 socket = new Socket(HOST, PORT);
-                source = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                destination = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+                inputReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                outputWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
                 System.out.println("Succes, connected to ArduinoGenerator.");
             } catch (IOException e) {
                 try {
@@ -54,7 +43,7 @@ public class MockArduinoConnection implements BufferedReadWriter {
 
     @Override
     public synchronized boolean isConnected() {
-        if(source != null && destination != null){// Not the best way to test the connection
+        if(inputReader != null && outputWriter != null){// Not the best way to test the connection
             return true;
         } else {
            return false;
@@ -68,21 +57,21 @@ public class MockArduinoConnection implements BufferedReadWriter {
 
     @Override
     public synchronized BufferedReader getReader(){
-        return source;
+        return inputReader;
     }
 
     @Override
     public synchronized BufferedWriter getWriter(){
-        return destination;
+        return outputWriter;
     }
 
     @Override
     public synchronized void clearReader() {
-        source = null;
+        inputReader = null;
     }
 
     @Override
     public synchronized void clearWriter() {
-        destination = null;
+        outputWriter = null;
     }
 }

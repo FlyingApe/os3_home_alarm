@@ -7,6 +7,7 @@ import nl.bastiaansierd.relay.streams.MockArduinoConnection;
 import nl.bastiaansierd.relay.streams.ServerConnection;
 
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class MockArduinoRelayGenerator {
 
@@ -47,6 +48,12 @@ public class MockArduinoRelayGenerator {
 
             serverToArduinoCom.start();
             arduinoToServerCom.start();
+
+            try {
+                TimeUnit.SECONDS.sleep(2);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

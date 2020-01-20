@@ -1,8 +1,10 @@
 package com.os3alarm.server.services;
 
 import com.os3alarm.alarmconnector.models.LiveAlarm;
-import com.os3alarm.server.components.Authorization;
+import com.os3alarm.server.components.AlarmAuthorization;
+import com.os3alarm.server.models.Alarm;
 import com.os3alarm.shared.interfaces.LiveAlarmCreationListener;
+import com.os3alarm.shared.models.AlarmStatus;
 import com.os3alarm.shared.models.LiveAlarmPool;
 import com.os3alarm.shared.interfaces.LiveAlarmListener;
 import com.os3alarm.shared.models.Commands;
@@ -14,23 +16,33 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class RelayService{
     private LiveAlarmPool pool;
-    private Authorization authorization;
+    private AlarmAuthorization alarmAuthorization;
 
     @Autowired
-    public RelayService(Authorization authorization) {
-        this.authorization = authorization;
+    public RelayService(AlarmAuthorization alarmAuthorization, AlarmService alarmService) {
+        this.alarmAuthorization = alarmAuthorization;
         RelaySocketListener.initRelaySocketListener();
         this.pool = LiveAlarmPool.getInstance();
+
+        //populate pool with all database stored alarms
+        List<Alarm> allAlarms = alarmService.findAll();
+        for (Alarm alarm: allAlarms){
+            LiveAlarm newLiveAlarm = new LiveAlarm(alarm.getToken());
+            newLiveAlarm.setStatus(AlarmStatus.Disconnected);
+            pool.addAlarm(newLiveAlarm);
+        }
     }
 
     @Async
-    public LiveAlarm getLiveAlarmByToken(String token){
-        if(authorization.isAuthorized(token)){
+    public LiveAlarm getLiveAlarmByToken(String token, String authToken){
+        if(alarmAuthorization.isAuthorized(token, authToken)){
             return this.pool.getAlarmByToken(token);
         } else {
             return null;
@@ -39,29 +51,33 @@ public class RelayService{
 
     @Async
     public void pushCommand(String token, Commands command){
-        if(authorization.isAuthorized(token)) {
-            String jsonCommand = "{\"command\":\"" + command + "\"}\n";
+        if(alarmAuthorization.isAuthorized(token)) {
+            String jsonCommand = "{\"command\" : \"" + command.toString() + "\"}\n";
 
             BufferedWriter writer = this.pool.getAlarmByToken(token).getWriter();
             try {
                 writer.write(jsonCommand);
                 writer.flush();
+                System.out.println("Command " + jsonCommand + " send to " + token + " with writer " + writer.toString());
             } catch (Exception e) {
                 //write failed
                 System.out.println("Write to alarm with token " + token + " failed.");
+
                 System.out.println(e.getMessage());
             }
         }
     }
 
-    @Async
-    public void subscribeToAlarmData(String token, LiveAlarmListener listener){
-        if(authorization.isAuthorized(token)) {
+    public void subscribeToAlarmData(String token, String authToken, LiveAlarmListener listener){
+        if(alarmAuthorization.isAuthorized(token, authToken)) {
             pool.getAlarmByToken(token).addListener(listener);
         }
     }
 
-    @Async
+    public void unscribeToAlarmData(String token, LiveAlarmListener listener){
+        pool.getAlarmByToken(token).removeListener(listener);
+    }
+
     public void subscribeToAlarmCreation(LiveAlarmCreationListener listener){
         pool.addListener(listener);
     }

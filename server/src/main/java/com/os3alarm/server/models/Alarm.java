@@ -1,11 +1,6 @@
 package com.os3alarm.server.models;
 
 
-import com.os3alarm.server.services.RelayService;
-import com.os3alarm.shared.interfaces.LiveAlarmListener;
-import com.os3alarm.shared.models.AlarmStatus;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.*;
 
 @Entity
@@ -17,7 +12,7 @@ public class Alarm{
     private long id;
 
     private String token;
-    private String user;
+    private String authtoken;
 
 
     public long getId() {
@@ -28,15 +23,15 @@ public class Alarm{
         return token;
     }
 
-    public String getUser() {
-        return user;
+    public String getAuthenticationToken() {
+        return authtoken;
     }
 
     public void setToken(String token){
         this.token = token;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setAuthtoken(String authtoken) {
+        this.authtoken = authtoken;
     }
 }

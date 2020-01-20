@@ -31,18 +31,4 @@ public class JsonController {
     AlarmStatus getStatus(){
         return AlarmStatus.valueOf(json.getString(Jsoner.mintJsonKey("status", new String())));
     }
-
-    boolean getAudioOn(){
-        return json.getBoolean(Jsoner.mintJsonKey("alarmAudioOn", new String()));
-    }
-
-    String getJsonSensors(){
-        JsonObject sensorData = new JsonObject();
-
-        sensorData.put("distance", json.getString(Jsoner.mintJsonKey("distance", new String())));
-        sensorData.put("movement", json.getString(Jsoner.mintJsonKey("movement", new String())));
-        sensorData.put("microphone", json.getString(Jsoner.mintJsonKey("microphone", new String())));
-
-        return sensorData.toJson();
-    }
 }

@@ -10,23 +10,9 @@ public class ServerConnection implements BufferedReadWriter {
     private final String HOST = "localhost";
     private final int PORT = 3000;
 
-//    private static ServerConnection instance = null;
-
     private Socket socket = null;
-    private BufferedWriter destination = null;
-    private BufferedReader source = null;
-
-    /*
-
-    public static ServerConnection getInstance() {
-        // singelton initialisatie
-        if(instance == null){
-            instance = new ServerConnection();
-        }
-        return instance;
-    }
-     */
-
+    private BufferedWriter outputWriter = null;
+    private BufferedReader inputReader = null;
 
     public ServerConnection(){
         connect();
@@ -38,8 +24,8 @@ public class ServerConnection implements BufferedReadWriter {
             try {
                 System.out.println("Connecting to Server, HOST: " + HOST + ", PORT: " + PORT + "......");
                 socket = new Socket(HOST, PORT);
-                destination = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-                source = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                outputWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+                inputReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 System.out.println("Succes, connected to server.");
             } catch (IOException e) {
                 try {
@@ -52,8 +38,8 @@ public class ServerConnection implements BufferedReadWriter {
         }
     }
 
-    public synchronized boolean isConnected(){
-        if(source != null && destination != null){// not a great way of testing the connection
+    public boolean isConnected(){
+        if(inputReader != null && outputWriter != null){// not a great way of testing the connection
             return true;
         } else {
             return false;
@@ -66,22 +52,22 @@ public class ServerConnection implements BufferedReadWriter {
     }
 
     @Override
-    public synchronized BufferedReader getReader() {
-        return source;
+    public BufferedReader getReader() {
+        return inputReader;
     }
 
     @Override
-    public synchronized BufferedWriter getWriter() {
-        return destination;
+    public BufferedWriter getWriter() {
+        return outputWriter;
     }
 
     @Override
-    public synchronized void clearReader() {
-        source = null;
+    public void clearReader() {
+        inputReader = null;
     }
 
     @Override
-    public synchronized void clearWriter() {
-        destination = null;
+    public void clearWriter() {
+        outputWriter = null;
     }
 }

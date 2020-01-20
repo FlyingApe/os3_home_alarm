@@ -5,18 +5,18 @@ import com.os3alarm.alarmconnector.models.LiveAlarm;
 import com.os3alarm.alarmconnector.models.RelayStream;
 import com.os3alarm.shared.models.AlarmStatus;
 
-public class LiveAlarmController {
+class LiveAlarmController {
     private LiveAlarmPool pool;
     private JsonController jsonController;
     private RelayStream stream;
 
-    public LiveAlarmController(JsonController jsonController, RelayStream stream){
+    LiveAlarmController(JsonController jsonController, RelayStream stream){
         this.pool = LiveAlarmPool.getInstance();
         this.stream = stream;
         this.jsonController = jsonController;
     }
 
-    public void update(){
+    void update(){
         if(this.pool.getAlarmByToken(this.jsonController.getToken()) == null ) {
             createAlarm(this.jsonController.getToken());
         }
@@ -24,7 +24,7 @@ public class LiveAlarmController {
         updateAlarm();
     }
 
-    public void setToDisconnected(){
+    void setToDisconnected(){
         //Read failed, set connection to disconnected
         System.out.println("Read failed, connection set to disconnected");
 
@@ -39,12 +39,13 @@ public class LiveAlarmController {
         pool.addAlarm(alarm);
     }
 
-    private void updateAlarm(){
+    private synchronized void updateAlarm(){
         LiveAlarm liveAlarm = this.pool.getAlarmByToken(jsonController.getToken());
 
-        liveAlarm.update(jsonController.getStatus(), jsonController.getAudioOn(), jsonController.getJsonSensors());
+        liveAlarm.update(jsonController.getStatus(), jsonController.getJsonString());
         if(liveAlarm.getWriter() == null && jsonController.getToken() != null){
             liveAlarm.setWriter(stream.getWriter());
+            System.out.println("liveAlarm writer set to " + stream.getWriter().toString());
         }
     }
 

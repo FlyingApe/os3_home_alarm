@@ -37,11 +37,9 @@ public class StreamToStreamPassthroughAgent implements Runnable
             }
 
             try {
-                if(reader.ready()){
-                    //System.out.println("reading from " + reader.toString());
+                if(reader.ready()){//System.out.println("reading from " + reader.toString());
                     if (!(line = reader.readLine()).equals("")) {
                         jsonBuilder+=line;
-                        System.out.println(line);
                         if(isJson(jsonBuilder)){
                             writeToDestination(jsonBuilder);
                             jsonBuilder="";

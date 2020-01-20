@@ -59,9 +59,5 @@ public class FileLog implements DataLog {
 
         writer.println(message);
         writer.flush();
-
-       /*
-
-        */
     }
 }
